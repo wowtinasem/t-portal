@@ -4,6 +4,8 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>2026 AI디지털교육 역량강화 직무연수</title>
+<link rel="icon" type="image/png" href="t-logo.png" />
+<link rel="apple-touch-icon" href="t-logo.png" />
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
 <style>
@@ -72,9 +74,7 @@
     backdrop-filter:saturate(160%) blur(10px);border-bottom:1px solid var(--line-soft)}
   .bar .row{display:flex;align-items:center;height:62px;gap:22px}
   .brand{display:flex;align-items:center;gap:10px;color:var(--navy)}
-  .brand .seal{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;color:#fff;
-    background:var(--brand-grad);box-shadow:0 6px 14px -7px rgba(43,87,196,.7)}
-  .brand .seal svg{width:22px;height:22px}
+  .brand .logo-img{height:34px;width:auto;display:block}
   .brand b{font-weight:800;font-size:16px;letter-spacing:-.02em}
   .brand .div{width:1px;height:15px;background:var(--line);margin:0 2px}
   .brand span.sub{font-size:13.5px;color:var(--muted);font-weight:600}
@@ -270,11 +270,9 @@
 <!-- ============ HEADER ============ -->
 <header class="bar">
   <div class="wrap row">
-    <a class="brand" href="#top">
-      <span class="seal" aria-hidden="true">
-        <svg viewBox="0 0 32 32" fill="none"><path d="M9 21a5 5 0 0 1-.6-9.96A6.5 6.5 0 0 1 21 11.5a4.5 4.5 0 0 1 1 8.9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="11" cy="13" r="1.4" fill="currentColor"/><circle cx="17" cy="11" r="1.4" fill="currentColor"/></svg>
-      </span>
-      <b>충청남도교육청교육과정평가정보원</b><span class="div"></span><span class="sub">2026 AI디지털교육 역량강화 직무연수</span>
+    <a class="brand" href="#top" aria-label="충청남도교육청교육과정평가정보원 홈">
+      <img class="logo-img" src="t-mainlogo.png" alt="충청남도교육청교육과정평가정보원" />
+      <span class="div"></span><span class="sub">2026 AI디지털교육 역량강화 직무연수</span>
     </a>
     <nav class="main" aria-label="주요 메뉴">
       <a href="#info">연수 안내</a>
