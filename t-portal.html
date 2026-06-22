@@ -113,7 +113,7 @@
     box-shadow:0 34px 64px -30px rgba(28,46,88,.6),inset 0 0 0 1px rgba(255,255,255,.07)}
   .monitor .screen::after{content:"";position:absolute;top:7px;left:50%;transform:translateX(-50%);width:46px;height:5px;border-radius:3px;background:rgba(255,255,255,.14)}
   .monitor .video-ph,.monitor .hero-video{position:absolute;inset:13px;border-radius:10px;overflow:hidden}
-  .monitor .hero-video{width:auto;height:auto;display:block;object-fit:cover;background:#0d1730}
+  .monitor .hero-video{display:block;object-fit:cover;background:#0d1730}
   .monitor .video-ph{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;text-align:center;color:#fff;
     background:radial-gradient(130% 130% at 50% 22%,#33529e 0%,#1c2b5c 55%,#16224a 100%)}
   .monitor .video-ph .play{width:66px;height:66px;border-radius:50%;display:grid;place-items:center;margin-bottom:4px;
@@ -376,18 +376,10 @@
       <div class="hero-illu">
         <div class="monitor">
           <div class="screen">
-            <!-- 영상 자리(placeholder). 영상 업로드 후 아래 video-ph div를 지우고 video 주석을 해제하세요. -->
-            <div class="video-ph" role="img" aria-label="연수 소개 영상 자리">
-              <span class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
-              <span class="cap">연수 소개 영상</span>
-              <span class="sub">AI디지털교육 역량강화 직무연수 · 4분</span>
-            </div>
-            <!--
-            <video class="hero-video" controls playsinline preload="metadata" poster="intro-poster.jpg">
+            <video class="hero-video" controls playsinline preload="metadata" poster="intro-poster.jpg" aria-label="연수 소개 영상">
               <source src="intro.mp4" type="video/mp4" />
               브라우저가 영상 재생을 지원하지 않습니다.
             </video>
-            -->
           </div>
           <span class="neck"></span>
           <span class="base"></span>
