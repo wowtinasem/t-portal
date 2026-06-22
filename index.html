@@ -262,11 +262,10 @@
   /* ---------- place map ---------- */
   .placemap{position:relative;max-width:940px;margin:0 auto;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#fff;box-shadow:var(--shadow-s)}
   .placemap > img{width:100%;display:block}
-  .placemap .spot{position:absolute;display:block;border-radius:12px;cursor:pointer;
-    transition:background .15s ease,box-shadow .15s ease;-webkit-tap-highlight-color:transparent}
-  .placemap .spot.circle{border-radius:50%}
-  .placemap .spot:hover,.placemap .spot:focus-visible{background:rgba(43,87,196,.14);
-    box-shadow:0 0 0 2px rgba(43,87,196,.6) inset,0 8px 16px -6px rgba(43,87,196,.55);outline:none}
+  .placemap .spot{position:absolute;display:block;border-radius:10px;cursor:pointer;background:transparent;
+    transition:background .15s ease,box-shadow .15s ease,transform .15s ease;-webkit-tap-highlight-color:transparent}
+  .placemap .spot:hover,.placemap .spot:focus-visible{background:rgba(43,87,196,.10);
+    box-shadow:0 0 0 2px rgba(43,87,196,.6),0 12px 24px -10px rgba(43,87,196,.55);transform:translateY(-1px);outline:none;z-index:2}
   .venue-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px}
   .venue{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:var(--radius-s);
     padding:16px 18px;box-shadow:var(--shadow-s);transition:transform .18s ease,box-shadow .2s ease,border-color .2s ease}
@@ -676,12 +675,12 @@
     <div class="placemap reveal">
       <img src="localmap.png" alt="충청남도 권역별 연수장소 지도" />
       <!-- 원형 지역 마커 -->
-      <a class="spot circle" style="left:58.0%;top:22.4%;width:7%;height:12.4%" href="https://map.naver.com/p/search/공주대학교%20천안캠퍼스" target="_blank" rel="noopener" title="천안 · 공주대학교 천안캠퍼스" aria-label="천안 연수장소 공주대학교 천안캠퍼스 네이버 지도 열기"></a>
-      <a class="spot circle" style="left:48.5%;top:20.8%;width:7%;height:12.4%" href="https://map.naver.com/p/search/캠코인재개발원" target="_blank" rel="noopener" title="아산 · 캠코인재개발원" aria-label="아산 연수장소 캠코인재개발원 네이버 지도 열기"></a>
-      <a class="spot circle" style="left:30.3%;top:24.6%;width:7%;height:12.4%" href="https://map.naver.com/p/search/한서대학교" target="_blank" rel="noopener" title="서산 · 한서대학교" aria-label="서산 연수장소 한서대학교 네이버 지도 열기"></a>
-      <a class="spot circle" style="left:28.7%;top:37.2%;width:7%;height:12.4%" href="https://map.naver.com/p/search/혜전대학교" target="_blank" rel="noopener" title="홍성 · 혜전대학교" aria-label="홍성 연수장소 혜전대학교 네이버 지도 열기"></a>
-      <a class="spot circle" style="left:46.3%;top:46.4%;width:7%;height:12.4%" href="https://map.naver.com/p/search/LX국토정보교육원" target="_blank" rel="noopener" title="공주 · LX국토정보교육원" aria-label="공주 연수장소 LX국토정보교육원 네이버 지도 열기"></a>
-      <a class="spot circle" style="left:60.3%;top:64.4%;width:7%;height:12.4%" href="https://map.naver.com/p/search/금성하이버전센터" target="_blank" rel="noopener" title="금산 · 금성하이버전센터" aria-label="논산·계룡·금산 연수장소 금성하이버전센터 네이버 지도 열기"></a>
+      <a class="spot" style="left:56.1%;top:23.1%;width:6.9%;height:11.6%" href="https://map.naver.com/p/search/공주대학교%20천안캠퍼스" target="_blank" rel="noopener" title="천안 · 공주대학교 천안캠퍼스" aria-label="천안 연수장소 공주대학교 천안캠퍼스 네이버 지도 열기"></a>
+      <a class="spot" style="left:48.6%;top:23.1%;width:7.2%;height:11.6%" href="https://map.naver.com/p/search/캠코인재개발원" target="_blank" rel="noopener" title="아산 · 캠코인재개발원" aria-label="아산 연수장소 캠코인재개발원 네이버 지도 열기"></a>
+      <a class="spot" style="left:35.1%;top:25.3%;width:6.9%;height:11.1%" href="https://map.naver.com/p/search/한서대학교" target="_blank" rel="noopener" title="서산 · 한서대학교" aria-label="서산 연수장소 한서대학교 네이버 지도 열기"></a>
+      <a class="spot" style="left:38.0%;top:38.1%;width:7.5%;height:11.0%" href="https://map.naver.com/p/search/혜전대학교" target="_blank" rel="noopener" title="홍성 · 혜전대학교" aria-label="홍성 연수장소 혜전대학교 네이버 지도 열기"></a>
+      <a class="spot" style="left:51.1%;top:44.8%;width:6.9%;height:10.4%" href="https://map.naver.com/p/search/LX국토정보교육원" target="_blank" rel="noopener" title="공주 · LX국토정보교육원" aria-label="공주 연수장소 LX국토정보교육원 네이버 지도 열기"></a>
+      <a class="spot" style="left:61.7%;top:70.9%;width:7.2%;height:11.0%" href="https://map.naver.com/p/search/금성하이버전센터" target="_blank" rel="noopener" title="금산 · 금성하이버전센터" aria-label="논산·계룡·금산 연수장소 금성하이버전센터 네이버 지도 열기"></a>
       <!-- 권역 정보 박스 -->
       <a class="spot" style="left:0.8%;top:5%;width:21.5%;height:22%" href="https://map.naver.com/p/search/한서대학교" target="_blank" rel="noopener" title="서산·태안·당진 · 한서대학교" aria-label="서산·태안·당진 연수장소 한서대학교 네이버 지도 열기"></a>
       <a class="spot" style="left:0.8%;top:33.5%;width:21.5%;height:20.5%" href="https://map.naver.com/p/search/혜전대학교" target="_blank" rel="noopener" title="홍성·예산·보령·서천 · 혜전대학교" aria-label="홍성·예산·보령·서천 연수장소 혜전대학교 네이버 지도 열기"></a>
