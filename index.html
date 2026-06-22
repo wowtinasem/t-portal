@@ -74,7 +74,14 @@
     backdrop-filter:saturate(160%) blur(10px);border-bottom:1px solid var(--line-soft)}
   .bar .row{display:flex;align-items:center;height:62px;gap:22px}
   .brand{display:flex;align-items:center;gap:10px;color:var(--navy)}
-  .brand .logo-img{height:34px;width:auto;display:block}
+  .brand .logo-img{height:34px;width:auto;display:block;transform-origin:left center;
+    animation:logoFloat 3.4s ease-in-out infinite;will-change:transform,filter}
+  .brand:hover .logo-img{animation-duration:1.6s}
+  @keyframes logoFloat{
+    0%,100%{transform:translateY(0) scale(1);filter:drop-shadow(0 2px 3px rgba(28,46,88,.10))}
+    50%{transform:translateY(-2.5px) scale(1.012);filter:drop-shadow(0 7px 8px rgba(28,46,88,.18))}
+  }
+  @media (prefers-reduced-motion:reduce){.brand .logo-img{animation:none;filter:none}}
   .brand b{font-weight:800;font-size:16px;letter-spacing:-.02em}
   .brand .div{width:1px;height:15px;background:var(--line);margin:0 2px}
   .brand span.sub{font-size:13.5px;color:var(--muted);font-weight:600}
