@@ -1056,6 +1056,21 @@
     .at-card:hover .at-ext{color:var(--at-blue)}
     .at-ext svg{width:15px;height:15px;display:block}
 
+    /* 프로모 이미지 버튼 (충남 그룹 빈 칸) */
+    .at-grid-feat{align-items:center}
+    .at-promo{grid-column:span 3;position:relative;display:flex;align-items:center;justify-content:center;padding:8px;
+      background:linear-gradient(135deg,#e9f4fb,#f4f9fd);border:1px solid #cfe4f6;border-radius:12px;text-decoration:none;overflow:hidden;
+      transition:transform .15s ease,box-shadow .2s ease,border-color .2s ease}
+    .at-promo:hover{transform:translateY(-2px);box-shadow:0 12px 26px -14px rgba(28,46,88,.38);border-color:#a9cdee}
+    .at-promo:focus{outline:none}
+    .at-promo:focus-visible{outline:3px solid #8fb0ee;outline-offset:2px}
+    .at-promo img{max-height:128px;width:auto;max-width:100%;object-fit:contain;display:block;border-radius:8px}
+    .at-promo .at-promo-go{position:absolute;top:9px;right:9px;width:26px;height:26px;border-radius:8px;background:rgba(255,255,255,.85);
+      display:grid;place-items:center;color:#2b57c4;box-shadow:0 2px 6px rgba(28,46,88,.18)}
+    .at-promo .at-promo-go svg{width:14px;height:14px;display:block}
+    @media(max-width:900px){.at-promo{grid-column:span 2}}
+    @media(max-width:520px){.at-promo{grid-column:span 1}}
+
     @media (prefers-reduced-motion:reduce){.at-bar:hover,.at-card:hover{transform:none}}
   </style>
 
@@ -1077,8 +1092,9 @@
 
         <div class="at-group">
           <div class="at-glabel"><i style="background:#1c2e58"></i>충남 교육 플랫폼</div>
-          <div class="at-grid">
+          <div class="at-grid at-grid-feat">
             <a class="at-card" href="https://ai.cne.go.kr" target="_blank" rel="noopener"><span class="at-badge" style="--c:#1c2e58">마</span><span class="at-tt"><strong>마주온 · 충남온배움터</strong><small>충남 미래교육 통합플랫폼(아이글·코드온 포함)</small></span><span class="at-ext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+            <a class="at-promo" href="https://www.robotis.com/shop/item.php?it_id=901-0217-000" target="_blank" rel="noopener" aria-label="로봇아이(AI) Basic Kit 구매처(로보티즈) 바로가기"><img src="robot-ai-kit.jpg" alt="로봇아이(AI) Basic Kit — 실과 로봇 키트" loading="lazy" /><span class="at-promo-go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
           </div>
         </div>
 
@@ -1132,7 +1148,7 @@
           <div class="at-grid">
             <a class="at-card" href="https://forms.google.com" target="_blank" rel="noopener"><span class="at-badge" style="--c:#41699e">Fo</span><span class="at-tt"><strong>구글 폼 Forms</strong><small>설문·평가 수집</small></span><span class="at-ext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
             <a class="at-card" href="https://script.google.com" target="_blank" rel="noopener"><span class="at-badge" style="--c:#41699e">GS</span><span class="at-tt"><strong>앱스 스크립트</strong><small>업무·평가 자동화</small></span><span class="at-ext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
-            <a class="at-card" href="https://www.hancomforms.com" target="_blank" rel="noopener"><span class="at-badge" style="--c:#41699e">한</span><span class="at-tt"><strong>한컴폼즈</strong><small>설문·평가</small></span><span class="at-ext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+            <a class="at-card" href="https://hform.hancom.com/" target="_blank" rel="noopener"><span class="at-badge" style="--c:#41699e">한</span><span class="at-tt"><strong>한컴폼즈</strong><small>설문·평가</small></span><span class="at-ext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
             <a class="at-card" href="https://datalab.naver.com" target="_blank" rel="noopener"><span class="at-badge" style="--c:#41699e">DL</span><span class="at-tt"><strong>네이버 데이터랩</strong><small>검색 트렌드 분석</small></span><span class="at-ext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
             <a class="at-card" href="https://trends.google.com" target="_blank" rel="noopener"><span class="at-badge" style="--c:#41699e">Tr</span><span class="at-tt"><strong>구글 트렌드</strong><small>검색 트렌드 분석</small></span><span class="at-ext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
             <a class="at-card" href="https://kosis.kr" target="_blank" rel="noopener"><span class="at-badge" style="--c:#41699e">통</span><span class="at-tt"><strong>통계놀이터 KOSIS</strong><small>통계 자료·교육</small></span><span class="at-ext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
