@@ -1,0 +1,189 @@
+<!-- =========================================================
+  AI 학습 도구 바로 가기 (커리큘럼 바로 아래 배치)  ※ 복붙용
+  - 바를 클릭하면 카드 대시보드가 펼쳐지고, 각 카드는 도구 공식 사이트로 이동(새 탭)
+  - 단독 동작(토글 JS 포함), aitools- 접두사로 스코프 → 기존 스타일과 충돌 없음
+  - 포커스는 :focus-visible (마우스 클릭 시 사각 테두리 없음, 키보드만 표시)
+  ※ 마주온 내부 서비스(아이글·코드온 등)와 일부 국내 도구는 공식/모(母)도메인으로 연결.
+     배포 전 URL은 한 번씩 확인 권장.
+========================================================= -->
+<section id="ai-tools" class="aitools">
+  <style>
+    .aitools{
+      --at-navy:#1c2e58;--at-blue:#2b57c4;--at-ink:#1f2a44;
+      --at-muted:#5d6679;--at-muted2:#8b93a6;--at-line:#e5eaf3;--at-line-soft:#eef2f8;
+      font-family:"Pretendard","Pretendard Variable",-apple-system,BlinkMacSystemFont,system-ui,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+      color:var(--at-ink);letter-spacing:-.01em;
+    }
+    .aitools *{box-sizing:border-box}
+    .aitools-inner{max-width:1120px;margin:0 auto;padding:0 24px}
+
+    /* ----- 바 ----- */
+    .at-bar{width:100%;display:flex;align-items:center;gap:16px;text-align:left;cursor:pointer;
+      border:1px solid var(--at-line);border-radius:14px;padding:18px 22px;
+      background:linear-gradient(135deg,#22417e,#16224a);color:#fff;
+      box-shadow:0 10px 26px -16px rgba(28,46,88,.5);transition:box-shadow .2s ease,transform .15s ease;font-family:inherit}
+    .at-bar:hover{transform:translateY(-1px);box-shadow:0 16px 32px -18px rgba(28,46,88,.6)}
+    .at-bar:focus{outline:none}
+    .at-bar:focus-visible{outline:3px solid #8fb0ee;outline-offset:3px}
+    .at-bar-ic{width:46px;height:46px;border-radius:12px;background:rgba(255,255,255,.14);
+      display:grid;place-items:center;flex:none}
+    .at-bar-ic svg{width:26px;height:26px;color:#fff}
+    .at-bar-t{flex:1;min-width:0}
+    .at-bar-t strong{display:block;font-size:18px;font-weight:800;letter-spacing:-.02em}
+    .at-bar-t small{display:block;font-size:13px;color:#bcd0f7;font-weight:500;margin-top:2px}
+    .at-count{font-size:12px;font-weight:700;background:rgba(255,255,255,.16);border-radius:999px;padding:5px 12px;flex:none}
+    .at-chev{flex:none;transition:transform .25s ease;color:#cdd9f4}
+    .at-chev svg{width:22px;height:22px;display:block}
+    .aitools.is-open .at-chev{transform:rotate(180deg)}
+
+    /* ----- 대시보드 (펼침) ----- */
+    .at-dash{max-height:0;overflow:hidden;transition:max-height .35s ease}
+    .aitools.is-open .at-dash{max-height:4000px}
+    @media (prefers-reduced-motion:reduce){.at-dash{transition:none}.at-chev{transition:none}}
+    .at-dash-in{padding:22px 0 4px}
+
+    .at-group{margin-bottom:22px}
+    .at-glabel{display:flex;align-items:center;gap:9px;font-size:13.5px;font-weight:800;color:var(--at-navy);margin-bottom:12px}
+    .at-glabel i{width:10px;height:10px;border-radius:3px;flex:none}
+
+    .at-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+    @media(max-width:900px){.at-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:520px){.at-grid{grid-template-columns:1fr}}
+
+    .at-card{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--at-line);
+      border-radius:12px;padding:13px 14px;text-decoration:none;color:inherit;
+      transition:transform .15s ease,box-shadow .2s ease,border-color .2s ease}
+    .at-card:hover{transform:translateY(-2px);box-shadow:0 10px 22px -14px rgba(28,46,88,.3);border-color:#cdd8ee}
+    .at-card:focus{outline:none}
+    .at-card:focus-visible{outline:3px solid #8fb0ee;outline-offset:2px}
+    .at-badge{width:38px;height:38px;border-radius:10px;flex:none;display:grid;place-items:center;
+      color:#fff;font-size:13px;font-weight:800;background:var(--c,#2b57c4);letter-spacing:-.02em}
+    .at-tt{flex:1;min-width:0}
+    .at-tt strong{display:block;font-size:14px;font-weight:700;color:var(--at-navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .at-tt small{display:block;font-size:11.5px;color:var(--at-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .at-ext{flex:none;color:var(--at-muted2);transition:color .15s ease}
+    .at-card:hover .at-ext{color:var(--at-blue)}
+    .at-ext svg{width:15px;height:15px;display:block}
+
+    @media (prefers-reduced-motion:reduce){.at-bar:hover,.at-card:hover{transform:none}}
+  </style>
+
+  <div class="aitools-inner">
+    <button class="at-bar" type="button" aria-expanded="false" aria-controls="at-dash">
+      <span class="at-bar-ic" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M5.6 5.6l2.1 2.1M3 12h3M18 12h3M16.3 7.7l2.1-2.1"/><circle cx="12" cy="14" r="5"/><path d="M10 14h4M12 12v4"/></svg>
+      </span>
+      <span class="at-bar-t">
+        <strong>AI 학습 도구 바로 가기</strong>
+        <small>이번 연수에서 사용하는 AI·디지털 도구 모음 · 클릭하면 펼쳐집니다</small>
+      </span>
+      <span class="at-count">39개 도구</span>
+      <span class="at-chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+    </button>
+
+    <div class="at-dash" id="at-dash">
+      <div class="at-dash-in">
+
+        <div class="at-group">
+          <div class="at-glabel"><i style="background:#1c2e58"></i>충남 교육 플랫폼</div>
+          <div class="at-grid">
+            <a class="at-card" href="https://ai.cne.go.kr" target="_blank" rel="noopener"><span class="at-badge" style="--c:#1c2e58">마</span><span class="at-tt"><strong>마주온 · 충남온배움터</strong><small>충남 미래교육 통합플랫폼(아이글·코드온 포함)</small></span><span class="at-ext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+          </div>
+        </div>
+
+        <div class="at-group">
+          <div class="at-glabel"><i style="background:#2b57c4"></i>생성형 AI (대화형)</div>
+          <div class="at-grid">
+            <a class="at-card" href="https://chatgpt.com" target="_blank" rel="noopener"><span class="at-badge" style="--c:#2b57c4">GP</span><span class="at-tt"><strong>ChatGPT</strong><small>OpenAI 생성형 AI</small></span><span class="at-ext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+            <a class="at-card" href="https://gemini.google.com" target="_blank" rel="noopener"><span class="at-badge" style="--c:#2b57c4">G</span><span class="at-tt"><strong>제미나이 Gemini</strong><small>Google 생성형 AI</small></span><span class="at-ext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+            <a class="at-card" href="https://claude.ai" target="_blank" rel="noopener"><span class="at-badge" style="--c:#2b57c4">C</span><span class="at-tt"><strong>클로드 Claude</strong><small>Anthropic 생성형 AI</small></span><span class="at-ext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+            <a class="at-card" href="https://wrtn.ai" target="_blank" rel="noopener"><span class="at-badge" style="--c:#2b57c4">뤼</span><span class="at-tt"><strong>뤼튼 Wrtn</strong><small>국내 생성형 AI</small></span><span class="at-ext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+          </div>
+        </div>
+
+        <div class="at-group">
+          <div class="at-glabel"><i style="background:#2f80c9"></i>AI 수업·평가 지원</div>
+          <div class="at-grid">
+            <a class="at-card" href="https://notebooklm.google.com" target="_blank" rel="noopener"><span class="at-badge" style="--c:#2f80c9">NL</span><span class="at-tt"><strong>노트북LM</strong><small>자료 기반 AI 분석</small></span><span class="at-ext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+            <a class="at-card" href="https://www.magicschool.ai" target="_blank" rel="noopener"><span class="at-badge" style="--c:#2f80c9">MS</span><span class="at-tt"><strong>매직스쿨 AI</strong><small>교사용 수업·평가 AI</small></span><span class="at-ext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+            <a class="at-card" href="https://www.briskteaching.com" target="_blank" rel="noopener"><span class="at-badge" style="--c:#2f80c9">BR</span><span class="at-tt"><strong>브리스크 티칭</strong><small>수업 설계·피드백</small></span><span class="at-ext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+            <a class="at-card" href="https://aistudio.google.com" target="_blank" rel="noopener"><span class="at-badge" style="--c:#2f80c9">AS</span><span class="at-tt"><strong>구글 AI 스튜디오</strong><small>제미나이 API·실습</small></span><span class="at-ext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+            <a class="at-card" href="https://gamma.app" target="_blank" rel="noopener"><span class="at-badge" style="--c:#2f80c9">Ga</span><span class="at-tt"><strong>감마 Gamma</strong><small>AI 프레젠테이션</small></span><span class="at-ext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+          </div>
+        </div>
+
+        <div class="at-group">
+          <div class="at-glabel"><i style="background:#3a8fa8"></i>콘텐츠·디자인 제작</div>
+          <div class="at-grid">
+            <a class="at-card" href="https://www.canva.com" target="_blank" rel="noopener"><span class="at-badge" style="--c:#3a8fa8">Cv</span><span class="at-tt"><strong>캔바 Canva</strong><small>디자인·콘텐츠 제작</small></span><span class="at-ext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+            <a class="at-card" href="https://www.miricanvas.com" target="_blank" rel="noopener"><span class="at-badge" style="--c:#3a8fa8">미</span><span class="at-tt"><strong>미리캔버스</strong><small>디자인·자료 제작</small></span><span class="at-ext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+            <a class="at-card" href="https://tooning.io" target="_blank" rel="noopener"><span class="at-badge" style="--c:#3a8fa8">투</span><span class="at-tt"><strong>투닝 Tooning</strong><small>AI 웹툰·스토리</small></span><span class="at-ext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+            <a class="at-card" href="https://clovadubbing.naver.com" target="_blank" rel="noopener"><span class="at-badge" style="--c:#3a8fa8">클</span><span class="at-tt"><strong>클로바더빙</strong><small>AI 음성 더빙</small></span><span class="at-ext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+            <a class="at-card" href="https://vrew.ai" target="_blank" rel="noopener"><span class="at-badge" style="--c:#3a8fa8">Vr</span><span class="at-tt"><strong>브루 Vrew</strong><small>AI 영상 편집</small></span><span class="at-ext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+            <a class="at-card" href="https://suno.com" target="_blank" rel="noopener"><span class="at-badge" style="--c:#3a8fa8">Su</span><span class="at-tt"><strong>수노 Suno</strong><small>AI 음악 생성</small></span><span class="at-ext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+          </div>
+        </div>
+
+        <div class="at-group">
+          <div class="at-glabel"><i style="background:#4257b8"></i>참여형 수업·퀴즈</div>
+          <div class="at-grid">
+            <a class="at-card" href="https://quizn.show" target="_blank" rel="noopener"><span class="at-badge" style="--c:#4257b8">Q</span><span class="at-tt"><strong>퀴즈앤 QuizN</strong><small>퀴즈·협업 보드</small></span><span class="at-ext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+            <a class="at-card" href="https://padlet.com" target="_blank" rel="noopener"><span class="at-badge" style="--c:#4257b8">Pd</span><span class="at-tt"><strong>패들릿 Padlet</strong><small>협업 보드</small></span><span class="at-ext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+            <a class="at-card" href="https://www.mentimeter.com" target="_blank" rel="noopener"><span class="at-badge" style="--c:#4257b8">Me</span><span class="at-tt"><strong>멘티미터 Mentimeter</strong><small>실시간 설문·참여</small></span><span class="at-ext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+            <a class="at-card" href="https://www.slido.com" target="_blank" rel="noopener"><span class="at-badge" style="--c:#4257b8">Sl</span><span class="at-tt"><strong>슬라이도 Slido</strong><small>실시간 Q&amp;A·투표</small></span><span class="at-ext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+            <a class="at-card" href="https://www.blooket.com" target="_blank" rel="noopener"><span class="at-badge" style="--c:#4257b8">Bl</span><span class="at-tt"><strong>블루킷 Blooket</strong><small>게임형 퀴즈</small></span><span class="at-ext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+            <a class="at-card" href="https://get.plickers.com" target="_blank" rel="noopener"><span class="at-badge" style="--c:#4257b8">Pl</span><span class="at-tt"><strong>플리커스 Plickers</strong><small>참여형 평가</small></span><span class="at-ext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+          </div>
+        </div>
+
+        <div class="at-group">
+          <div class="at-glabel"><i style="background:#41699e"></i>데이터·평가 자동화</div>
+          <div class="at-grid">
+            <a class="at-card" href="https://forms.google.com" target="_blank" rel="noopener"><span class="at-badge" style="--c:#41699e">Fo</span><span class="at-tt"><strong>구글 폼 Forms</strong><small>설문·평가 수집</small></span><span class="at-ext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+            <a class="at-card" href="https://script.google.com" target="_blank" rel="noopener"><span class="at-badge" style="--c:#41699e">GS</span><span class="at-tt"><strong>앱스 스크립트</strong><small>업무·평가 자동화</small></span><span class="at-ext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+            <a class="at-card" href="https://www.hancomforms.com" target="_blank" rel="noopener"><span class="at-badge" style="--c:#41699e">한</span><span class="at-tt"><strong>한컴폼즈</strong><small>설문·평가</small></span><span class="at-ext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+            <a class="at-card" href="https://datalab.naver.com" target="_blank" rel="noopener"><span class="at-badge" style="--c:#41699e">DL</span><span class="at-tt"><strong>네이버 데이터랩</strong><small>검색 트렌드 분석</small></span><span class="at-ext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+            <a class="at-card" href="https://trends.google.com" target="_blank" rel="noopener"><span class="at-badge" style="--c:#41699e">Tr</span><span class="at-tt"><strong>구글 트렌드</strong><small>검색 트렌드 분석</small></span><span class="at-ext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+            <a class="at-card" href="https://kosis.kr" target="_blank" rel="noopener"><span class="at-badge" style="--c:#41699e">통</span><span class="at-tt"><strong>통계놀이터 KOSIS</strong><small>통계 자료·교육</small></span><span class="at-ext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+          </div>
+        </div>
+
+        <div class="at-group">
+          <div class="at-glabel"><i style="background:#2b6fb0"></i>수학·시각화</div>
+          <div class="at-grid">
+            <a class="at-card" href="https://www.desmos.com" target="_blank" rel="noopener"><span class="at-badge" style="--c:#2b6fb0">De</span><span class="at-tt"><strong>데스모스 Desmos</strong><small>수학 그래프</small></span><span class="at-ext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+            <a class="at-card" href="https://www.geogebra.org" target="_blank" rel="noopener"><span class="at-badge" style="--c:#2b6fb0">GG</span><span class="at-tt"><strong>지오지브라 GeoGebra</strong><small>수학 시각화</small></span><span class="at-ext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+            <a class="at-card" href="https://www.algeomath.kr" target="_blank" rel="noopener"><span class="at-badge" style="--c:#2b6fb0">알</span><span class="at-tt"><strong>알지오매스</strong><small>수학 SW·시각화</small></span><span class="at-ext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+            <a class="at-card" href="https://ko.khanacademy.org" target="_blank" rel="noopener"><span class="at-badge" style="--c:#2b6fb0">KA</span><span class="at-tt"><strong>칸아카데미</strong><small>학습·진단</small></span><span class="at-ext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+          </div>
+        </div>
+
+        <div class="at-group">
+          <div class="at-glabel"><i style="background:#34507e"></i>코딩·AI 실습</div>
+          <div class="at-grid">
+            <a class="at-card" href="https://playentry.org" target="_blank" rel="noopener"><span class="at-badge" style="--c:#34507e">엔</span><span class="at-tt"><strong>엔트리 Entry</strong><small>블록 코딩</small></span><span class="at-ext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+            <a class="at-card" href="https://thonny.org" target="_blank" rel="noopener"><span class="at-badge" style="--c:#34507e">Th</span><span class="at-tt"><strong>쏘니 Thonny</strong><small>파이썬 IDE</small></span><span class="at-ext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+            <a class="at-card" href="https://teachablemachine.withgoogle.com" target="_blank" rel="noopener"><span class="at-badge" style="--c:#34507e">TM</span><span class="at-tt"><strong>티처블 머신</strong><small>머신러닝 체험</small></span><span class="at-ext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+            <a class="at-card" href="https://machinelearningforkids.co.uk" target="_blank" rel="noopener"><span class="at-badge" style="--c:#34507e">ML</span><span class="at-tt"><strong>머신러닝 포 키즈</strong><small>ML 교육</small></span><span class="at-ext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+            <a class="at-card" href="https://appinventor.mit.edu" target="_blank" rel="noopener"><span class="at-badge" style="--c:#34507e">AP</span><span class="at-tt"><strong>앱 인벤터</strong><small>앱 제작</small></span><span class="at-ext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+            <a class="at-card" href="https://www.tinkercad.com" target="_blank" rel="noopener"><span class="at-badge" style="--c:#34507e">TC</span><span class="at-tt"><strong>틴커캐드 TinkerCAD</strong><small>3D 모델링</small></span><span class="at-ext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+            <a class="at-card" href="https://ai.google.dev/edge/mediapipe" target="_blank" rel="noopener"><span class="at-badge" style="--c:#34507e">MP</span><span class="at-tt"><strong>미디어파이프</strong><small>AI 비전(얼굴·손 인식)</small></span><span class="at-ext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      var root=document.getElementById('ai-tools');
+      if(!root) return;
+      var bar=root.querySelector('.at-bar');
+      bar.addEventListener('click',function(){
+        var open=root.classList.toggle('is-open');
+        bar.setAttribute('aria-expanded', open?'true':'false');
+      });
+    })();
+  </script>
+</section>
