@@ -263,6 +263,9 @@
   .scard .scard-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
   .scard .reg{font-size:16px;font-weight:800;color:var(--navy);letter-spacing:-.02em;line-height:1.3}
   .scard .num{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;font-size:13px;font-weight:800;color:#fff;background:var(--brand-grad);flex:none}
+  /* 권역 고정 강조색 6종 (파랑·네이비 팔레트) */
+  :root{--r1:#1746a6;--r2:#2f80c9;--r3:#5a6ee0;--r4:#1f8aa6;--r5:#3f51a8;--r6:#1c2e58}
+  .scard[data-region] .num{background:var(--rc)}
   .scard .pills{display:flex;gap:7px;flex-wrap:wrap}
   .scard .pill{font-size:11.5px;font-weight:700;padding:4px 11px;border-radius:999px;white-space:nowrap}
   .scard .pill.set{background:var(--tint);color:var(--blue)}
@@ -318,13 +321,18 @@
   .placemap > img{width:100%;display:block}
   .placemap .spot{position:absolute;display:block;border-radius:10px;cursor:pointer;background:transparent;
     transition:background .15s ease,box-shadow .15s ease,transform .15s ease;-webkit-tap-highlight-color:transparent}
-  .placemap .spot:hover,.placemap .spot:focus-visible{background:rgba(43,87,196,.10);
-    box-shadow:0 0 0 2px rgba(43,87,196,.6),0 12px 24px -10px rgba(43,87,196,.55);transform:translateY(-1px);outline:none;z-index:2}
+  .placemap .spot:hover,.placemap .spot:focus-visible,.placemap .spot.is-hi{background:rgba(43,87,196,.10);
+    box-shadow:0 0 0 3px var(--rc,#2b57c4),0 12px 24px -10px rgba(43,87,196,.5);transform:scale(1.07);outline:none;z-index:3}
   .venue-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px}
   .venue{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:var(--radius-s);
     padding:16px 18px;box-shadow:var(--shadow-s);transition:transform .18s ease,box-shadow .2s ease,border-color .2s ease}
   .venue:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:#cdd8ee}
-  .venue .vr{font-size:12px;font-weight:700;color:var(--blue)}
+  .venue .vr{display:flex;align-items:center;gap:7px;font-size:12.5px;font-weight:700;color:var(--navy)}
+  .venue .vnum{display:inline-grid;place-items:center;min-width:22px;height:22px;padding:0 5px;border-radius:7px;
+    background:var(--rc,#2b57c4);color:#fff;font-size:12.5px;font-weight:800;flex:none}
+  .venue .v-rmt{display:block;margin-top:7px;padding:7px 10px;border-radius:8px;background:#eef4fc;border:1px solid #d3e3f6;color:#2c6cb0;font-weight:600}
+  .venue .v-rmt b{color:#1f5fa8;font-weight:800}
+  .venue.is-hi{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:var(--rc,#cdd8ee)}
   .venue .vn{font-size:15.5px;font-weight:800;color:var(--navy);margin:5px 0 7px;letter-spacing:-.02em}
   .venue .vmeta{font-size:12.5px;color:var(--muted);line-height:1.55;flex:1}
   .venue .vgo{margin-top:12px;display:inline-flex;align-items:center;gap:5px;font-size:12.5px;font-weight:700;color:#03c75a}
@@ -486,32 +494,32 @@
     <h2 class="sec-title reveal">연수 일정</h2>
     <p class="sched-lead reveal">소속 <b>권역 카드</b>를 클릭하면 집합·원격 연수 상세 일정을 확인할 수 있습니다. 모든 과정의 대상은 <b>초·중등 교원</b>입니다.</p>
     <div class="sched-grid reveal">
-      <button class="scard" data-dlg="d-cheonan">
+      <button class="scard" data-dlg="d-cheonan" data-region="cheonan" style="--rc:var(--r1)">
         <span class="scard-top"><span class="reg">천안</span><span class="num">①</span></span>
         <span class="pills"><span class="pill set">집합 3회</span><span class="pill remote">원격 3회</span></span>
         <span class="more">상세 일정 보기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></span>
       </button>
-      <button class="scard" data-dlg="d-asan">
+      <button class="scard" data-dlg="d-asan" data-region="asan" style="--rc:var(--r2)">
         <span class="scard-top"><span class="reg">아산</span><span class="num">②</span></span>
         <span class="pills"><span class="pill set">집합 2회</span><span class="pill remote">원격 2회</span></span>
         <span class="more">상세 일정 보기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></span>
       </button>
-      <button class="scard" data-dlg="d-gongju">
+      <button class="scard" data-dlg="d-gongju" data-region="gongju" style="--rc:var(--r3)">
         <span class="scard-top"><span class="reg">공주·부여·청양</span><span class="num">③</span></span>
         <span class="pills"><span class="pill set">집합 2회</span><span class="pill remote">원격 2회</span></span>
         <span class="more">상세 일정 보기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></span>
       </button>
-      <button class="scard" data-dlg="d-seosan">
+      <button class="scard" data-dlg="d-seosan" data-region="seosan" style="--rc:var(--r4)">
         <span class="scard-top"><span class="reg">서산·태안·당진</span><span class="num">④</span></span>
         <span class="pills"><span class="pill set">집합 2회</span><span class="pill remote">원격 2회</span></span>
         <span class="more">상세 일정 보기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></span>
       </button>
-      <button class="scard" data-dlg="d-nonsan">
+      <button class="scard" data-dlg="d-nonsan" data-region="nonsan" style="--rc:var(--r5)">
         <span class="scard-top"><span class="reg">논산·계룡·금산</span><span class="num">⑤</span></span>
         <span class="pills"><span class="pill set">집합 2회</span><span class="pill remote">원격 2회</span></span>
         <span class="more">상세 일정 보기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></span>
       </button>
-      <button class="scard" data-dlg="d-hongseong">
+      <button class="scard" data-dlg="d-hongseong" data-region="hongseong" style="--rc:var(--r6)">
         <span class="scard-top"><span class="reg">홍성·예산·보령·서천</span><span class="num">⑥</span></span>
         <span class="pills"><span class="pill set">집합 2회</span><span class="pill remote">원격 2회</span></span>
         <span class="more">상세 일정 보기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></span>
@@ -943,64 +951,77 @@
 <section class="section" id="place" style="padding-top:0">
   <div class="wrap">
     <h2 class="sec-title reveal">연수 장소</h2>
-    <p class="sched-lead reveal">지도의 <b>지역 마커</b> 또는 <b>권역 박스</b>를 클릭하면 해당 연수장소의 <b>네이버 지도</b>로 이동합니다.</p>
+    <p class="sched-lead reveal">지도의 <b>지역 마커</b> 또는 <b>권역 박스</b>를 클릭하면 해당 연수장소의 <b>네이버 지도</b>로 이동합니다. 카드와 마커는 같은 권역끼리 마우스를 올리면 함께 강조됩니다.</p>
     <div class="placemap reveal">
       <img src="localmap.png" alt="충청남도 권역별 연수장소 지도" />
       <!-- 원형 지역 마커 -->
-      <a class="spot" style="left:56.1%;top:23.1%;width:6.9%;height:11.6%" href="https://map.naver.com/p/search/공주대학교%20천안캠퍼스" target="_blank" rel="noopener" title="천안 · 공주대학교 천안캠퍼스" aria-label="천안 연수장소 공주대학교 천안캠퍼스 네이버 지도 열기"></a>
-      <a class="spot" style="left:48.6%;top:23.1%;width:7.2%;height:11.6%" href="https://map.naver.com/p/search/캠코인재개발원" target="_blank" rel="noopener" title="아산 · 캠코인재개발원" aria-label="아산 연수장소 캠코인재개발원 네이버 지도 열기"></a>
-      <a class="spot" style="left:35.1%;top:25.3%;width:6.9%;height:11.1%" href="https://map.naver.com/p/search/한서대학교" target="_blank" rel="noopener" title="서산 · 한서대학교" aria-label="서산 연수장소 한서대학교 네이버 지도 열기"></a>
-      <a class="spot" style="left:38.0%;top:38.1%;width:7.5%;height:11.0%" href="https://map.naver.com/p/search/혜전대학교" target="_blank" rel="noopener" title="홍성 · 혜전대학교" aria-label="홍성 연수장소 혜전대학교 네이버 지도 열기"></a>
-      <a class="spot" style="left:51.1%;top:44.8%;width:6.9%;height:10.4%" href="https://map.naver.com/p/search/LX국토정보교육원" target="_blank" rel="noopener" title="공주 · LX국토정보교육원" aria-label="공주 연수장소 LX국토정보교육원 네이버 지도 열기"></a>
-      <a class="spot" style="left:61.7%;top:70.9%;width:7.2%;height:11.0%" href="https://map.naver.com/p/search/충남%20금산군%20남일면%20무금로%202117%20현대해상금산하이비전센터" target="_blank" rel="noopener" title="금산 · 현대해상금산하이비전센터" aria-label="논산·계룡·금산 연수장소 현대해상금산하이비전센터 네이버 지도 열기"></a>
+      <a class="spot" data-region="cheonan" style="left:56.1%;top:23.1%;width:6.9%;height:11.6%;--rc:var(--r1)" href="https://map.naver.com/p/search/공주대학교%20천안캠퍼스" target="_blank" rel="noopener" title="천안 · 공주대학교 천안캠퍼스" aria-label="천안 연수장소 공주대학교 천안캠퍼스 네이버 지도 열기"></a>
+      <a class="spot" data-region="asan" style="left:48.6%;top:23.1%;width:7.2%;height:11.6%;--rc:var(--r2)" href="https://map.naver.com/p/search/캠코인재개발원" target="_blank" rel="noopener" title="아산 · 캠코인재개발원" aria-label="아산 연수장소 캠코인재개발원 네이버 지도 열기"></a>
+      <a class="spot" data-region="seosan" style="left:35.1%;top:25.3%;width:6.9%;height:11.1%;--rc:var(--r4)" href="https://map.naver.com/p/search/한서대학교" target="_blank" rel="noopener" title="서산 · 한서대학교" aria-label="서산 연수장소 한서대학교 네이버 지도 열기"></a>
+      <a class="spot" data-region="hongseong" style="left:38.0%;top:38.1%;width:7.5%;height:11.0%;--rc:var(--r6)" href="https://map.naver.com/p/search/혜전대학교" target="_blank" rel="noopener" title="홍성 · 혜전대학교" aria-label="홍성 연수장소 혜전대학교 네이버 지도 열기"></a>
+      <a class="spot" data-region="gongju" style="left:51.1%;top:44.8%;width:6.9%;height:10.4%;--rc:var(--r3)" href="https://map.naver.com/p/search/LX국토정보교육원" target="_blank" rel="noopener" title="공주 · LX국토정보교육원" aria-label="공주 연수장소 LX국토정보교육원 네이버 지도 열기"></a>
+      <a class="spot" data-region="nonsan" style="left:61.7%;top:70.9%;width:7.2%;height:11.0%;--rc:var(--r5)" href="https://map.naver.com/p/search/충남%20금산군%20남일면%20무금로%202117%20현대해상금산하이비전센터" target="_blank" rel="noopener" title="금산 · 현대해상금산하이비전센터" aria-label="논산·계룡·금산 연수장소 현대해상금산하이비전센터 네이버 지도 열기"></a>
       <!-- 권역 정보 박스 -->
-      <a class="spot" style="left:0.8%;top:5%;width:21.5%;height:22%" href="https://map.naver.com/p/search/한서대학교" target="_blank" rel="noopener" title="서산·태안·당진 · 한서대학교" aria-label="서산·태안·당진 연수장소 한서대학교 네이버 지도 열기"></a>
-      <a class="spot" style="left:0.8%;top:33.5%;width:21.5%;height:20.5%" href="https://map.naver.com/p/search/혜전대학교" target="_blank" rel="noopener" title="홍성·예산·보령·서천 · 혜전대학교" aria-label="홍성·예산·보령·서천 연수장소 혜전대학교 네이버 지도 열기"></a>
-      <a class="spot" style="left:0.8%;top:58%;width:21.5%;height:21%" href="https://map.naver.com/p/search/충남%20금산군%20남일면%20무금로%202117%20현대해상금산하이비전센터" target="_blank" rel="noopener" title="논산·계룡·금산 · 현대해상금산하이비전센터" aria-label="논산·계룡·금산 연수장소 현대해상금산하이비전센터 네이버 지도 열기"></a>
-      <a class="spot" style="left:76%;top:5%;width:23%;height:22%" href="https://map.naver.com/p/search/공주대학교%20천안캠퍼스" target="_blank" rel="noopener" title="천안권역 · 공주대학교 천안캠퍼스" aria-label="천안권역 연수장소 공주대학교 천안캠퍼스 네이버 지도 열기"></a>
-      <a class="spot" style="left:76%;top:33.5%;width:23%;height:20.5%" href="https://map.naver.com/p/search/캠코인재개발원" target="_blank" rel="noopener" title="아산권역 · 캠코인재개발원" aria-label="아산권역 연수장소 캠코인재개발원 네이버 지도 열기"></a>
-      <a class="spot" style="left:76%;top:58%;width:23%;height:21%" href="https://map.naver.com/p/search/LX국토정보교육원" target="_blank" rel="noopener" title="공주·부여·청양 · LX국토정보교육원" aria-label="공주·부여·청양 연수장소 LX국토정보교육원 네이버 지도 열기"></a>
+      <a class="spot" data-region="seosan" style="left:0.8%;top:5%;width:21.5%;height:22%;--rc:var(--r4)" href="https://map.naver.com/p/search/한서대학교" target="_blank" rel="noopener" title="서산·태안·당진 · 한서대학교" aria-label="서산·태안·당진 연수장소 한서대학교 네이버 지도 열기"></a>
+      <a class="spot" data-region="hongseong" style="left:0.8%;top:33.5%;width:21.5%;height:20.5%;--rc:var(--r6)" href="https://map.naver.com/p/search/혜전대학교" target="_blank" rel="noopener" title="홍성·예산·보령·서천 · 혜전대학교" aria-label="홍성·예산·보령·서천 연수장소 혜전대학교 네이버 지도 열기"></a>
+      <a class="spot" data-region="nonsan" style="left:0.8%;top:58%;width:21.5%;height:21%;--rc:var(--r5)" href="https://map.naver.com/p/search/충남%20금산군%20남일면%20무금로%202117%20현대해상금산하이비전센터" target="_blank" rel="noopener" title="논산·계룡·금산 · 현대해상금산하이비전센터" aria-label="논산·계룡·금산 연수장소 현대해상금산하이비전센터 네이버 지도 열기"></a>
+      <a class="spot" data-region="cheonan" style="left:76%;top:5%;width:23%;height:22%;--rc:var(--r1)" href="https://map.naver.com/p/search/공주대학교%20천안캠퍼스" target="_blank" rel="noopener" title="천안권역 · 공주대학교 천안캠퍼스" aria-label="천안권역 연수장소 공주대학교 천안캠퍼스 네이버 지도 열기"></a>
+      <a class="spot" data-region="asan" style="left:76%;top:33.5%;width:23%;height:20.5%;--rc:var(--r2)" href="https://map.naver.com/p/search/캠코인재개발원" target="_blank" rel="noopener" title="아산권역 · 캠코인재개발원" aria-label="아산권역 연수장소 캠코인재개발원 네이버 지도 열기"></a>
+      <a class="spot" data-region="gongju" style="left:76%;top:58%;width:23%;height:21%;--rc:var(--r3)" href="https://map.naver.com/p/search/LX국토정보교육원" target="_blank" rel="noopener" title="공주·부여·청양 · LX국토정보교육원" aria-label="공주·부여·청양 연수장소 LX국토정보교육원 네이버 지도 열기"></a>
     </div>
 
     <div class="venue-grid reveal">
-      <a class="venue" href="https://map.naver.com/p/search/공주대학교%20천안캠퍼스" target="_blank" rel="noopener">
-        <div class="vr">① 천안권역</div>
+      <a class="venue" data-region="cheonan" style="--rc:var(--r1)" href="https://map.naver.com/p/search/공주대학교%20천안캠퍼스" target="_blank" rel="noopener">
+        <div class="vr"><span class="vnum">①</span> 천안권역</div>
         <div class="vn">공주대학교 천안캠퍼스</div>
-        <div class="vmeta">041-521-9112<br>집합 7.27(월) · 8.11(화) · 8.13(목)</div>
+        <div class="vmeta">041-521-9112<br>집합 7.27(월) · 8.11(화) · 8.13(목)<span class="v-rmt"><b>원격(온라인)</b> 7.30(목) 10:00~12:00 · 8.13(목) 14:00~16:00 · 8.14(금) 10:00~12:00</span></div>
         <span class="vgo">네이버 지도에서 보기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
       </a>
-      <a class="venue" href="https://map.naver.com/p/search/캠코인재개발원" target="_blank" rel="noopener">
-        <div class="vr">② 아산권역</div>
+      <a class="venue" data-region="asan" style="--rc:var(--r2)" href="https://map.naver.com/p/search/캠코인재개발원" target="_blank" rel="noopener">
+        <div class="vr"><span class="vnum">②</span> 아산권역</div>
         <div class="vn">캠코인재개발원</div>
-        <div class="vmeta">041-530-9035<br>집합 7.29(수) · 8.10(월)</div>
+        <div class="vmeta">041-530-9035<br>집합 7.29(수) · 8.10(월)<span class="v-rmt"><b>원격(온라인)</b> 7.31(금) 10:00~12:00 · 8.13(목) 10:00~12:00</span></div>
         <span class="vgo">네이버 지도에서 보기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
       </a>
-      <a class="venue" href="https://map.naver.com/p/search/LX국토정보교육원" target="_blank" rel="noopener">
-        <div class="vr">③ 공주·부여·청양</div>
+      <a class="venue" data-region="gongju" style="--rc:var(--r3)" href="https://map.naver.com/p/search/LX국토정보교육원" target="_blank" rel="noopener">
+        <div class="vr"><span class="vnum">③</span> 공주·부여·청양</div>
         <div class="vn">LX국토정보교육원</div>
-        <div class="vmeta">041-401-0200<br>집합 7.29(수) · 8.10(월)</div>
+        <div class="vmeta">041-401-0200<br>집합 7.29(수) · 8.10(월)<span class="v-rmt"><b>원격(온라인)</b> 7.31(금) 10:00~12:00 · 8.13(목) 10:00~12:00</span></div>
         <span class="vgo">네이버 지도에서 보기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
       </a>
-      <a class="venue" href="https://map.naver.com/p/search/한서대학교" target="_blank" rel="noopener">
-        <div class="vr">④ 서산·태안·당진</div>
+      <a class="venue" data-region="seosan" style="--rc:var(--r4)" href="https://map.naver.com/p/search/한서대학교" target="_blank" rel="noopener">
+        <div class="vr"><span class="vnum">④</span> 서산·태안·당진</div>
         <div class="vn">한서대학교</div>
-        <div class="vmeta">041-660-1144<br>집합 7.28(화) · 8.12(수)</div>
+        <div class="vmeta">041-660-1144<br>집합 7.28(화) · 8.12(수)<span class="v-rmt"><b>원격(온라인)</b> 7.30(목) 14:00~16:00 · 8.14(금) 10:00~12:00</span></div>
         <span class="vgo">네이버 지도에서 보기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
       </a>
-      <a class="venue" href="https://map.naver.com/p/search/충남%20금산군%20남일면%20무금로%202117%20현대해상금산하이비전센터" target="_blank" rel="noopener">
-        <div class="vr">⑤ 논산·계룡·금산</div>
+      <a class="venue" data-region="nonsan" style="--rc:var(--r5)" href="https://map.naver.com/p/search/충남%20금산군%20남일면%20무금로%202117%20현대해상금산하이비전센터" target="_blank" rel="noopener">
+        <div class="vr"><span class="vnum">⑤</span> 논산·계룡·금산</div>
         <div class="vn">현대해상금산하이비전센터</div>
-        <div class="vmeta">충남 금산군 남일면 무금로 2117<br>041-750-7011 · 집합 7.27(월) · 8.11(화)</div>
+        <div class="vmeta">충남 금산군 남일면 무금로 2117<br>041-750-7011 · 집합 7.27(월) · 8.11(화)<span class="v-rmt"><b>원격(온라인)</b> 7.30(목) 14:00~16:00 · 8.13(목) 14:00~16:00</span></div>
         <span class="vgo">네이버 지도에서 보기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
       </a>
-      <a class="venue" href="https://map.naver.com/p/search/혜전대학교" target="_blank" rel="noopener">
-        <div class="vr">⑥ 홍성·예산·보령·서천</div>
+      <a class="venue" data-region="hongseong" style="--rc:var(--r6)" href="https://map.naver.com/p/search/혜전대학교" target="_blank" rel="noopener">
+        <div class="vr"><span class="vnum">⑥</span> 홍성·예산·보령·서천</div>
         <div class="vn">혜전대학교</div>
-        <div class="vmeta">041-630-5114<br>집합 7.28(화) · 8.12(수)</div>
+        <div class="vmeta">041-630-5114<br>집합 7.28(화) · 8.12(수)<span class="v-rmt"><b>원격(온라인)</b> 7.30(목) 14:00~16:00 · 8.14(금) 10:00~12:00</span></div>
         <span class="vgo">네이버 지도에서 보기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
       </a>
     </div>
   </div>
+
+  <script>
+    (function(){
+      function hi(region,on){
+        document.querySelectorAll('#place [data-region="'+region+'"]').forEach(function(el){ el.classList.toggle('is-hi',on); });
+      }
+      document.querySelectorAll('#place .venue, #place .spot').forEach(function(el){
+        var r=el.getAttribute('data-region'); if(!r) return;
+        el.addEventListener('mouseenter',function(){ hi(r,true); });
+        el.addEventListener('mouseleave',function(){ hi(r,false); });
+      });
+    })();
+  </script>
 </section>
 
 <!-- ============ 자료실 ============ -->
