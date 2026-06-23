@@ -255,10 +255,11 @@
 
   /* ---------- schedule cards + dialog ---------- */
   .sched-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-  .scard{font-family:inherit;text-align:left;cursor:pointer;background:#fff;border:1px solid var(--line);border-radius:var(--radius);
-    box-shadow:var(--shadow-s);padding:18px;display:flex;flex-direction:column;gap:12px;min-height:130px;
-    transition:transform .18s cubic-bezier(.2,.7,.3,1),box-shadow .22s ease,border-color .2s ease}
-  .scard:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:#cdd8ee}
+  .scard{--rc:#2b57c4;font-family:inherit;text-align:left;cursor:pointer;border:1px solid var(--line);border-radius:var(--radius);
+    background:#f4f7fc;background:color-mix(in srgb,var(--rc) 7%,#fff);
+    box-shadow:inset 3px 0 0 var(--rc),var(--shadow-s);padding:18px;display:flex;flex-direction:column;gap:12px;min-height:130px;
+    transition:transform .18s cubic-bezier(.2,.7,.3,1),box-shadow .22s ease,border-color .2s ease,background .2s ease}
+  .scard:hover{transform:translateY(-4px);box-shadow:inset 3px 0 0 var(--rc),var(--shadow-lg);border-color:#cdd8ee}
   .scard:focus-visible{outline:3px solid #8fb0ee;outline-offset:2px}
   .scard .scard-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
   .scard .reg{font-size:16px;font-weight:800;color:var(--navy);letter-spacing:-.02em;line-height:1.3}
