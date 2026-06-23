@@ -106,7 +106,7 @@
   .hero h1 .l1{display:block;font-size:clamp(34px,5vw,52px);background:var(--brand-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
   .hero h1 .l2{display:block;font-size:clamp(30px,4.4vw,44px);color:var(--navy)}
   .hero .lead{font-size:17px;color:#54607d;font-weight:500;margin:0;max-width:30em}
-  .hero-illu{justify-self:end;width:100%;max-width:560px;animation:floatY 6s ease-in-out infinite}
+  .hero-illu{justify-self:end;width:100%;max-width:560px}
   .monitor{position:relative}
   .monitor .screen{position:relative;aspect-ratio:16/10;border-radius:18px;padding:13px;
     background:linear-gradient(155deg,#26396f,#16224a);
@@ -114,7 +114,7 @@
   .monitor .screen::after{content:"";position:absolute;top:7px;left:50%;transform:translateX(-50%);width:46px;height:5px;border-radius:3px;background:rgba(255,255,255,.14)}
   .monitor .video-ph{position:absolute;inset:13px;border-radius:10px;overflow:hidden}
   .monitor .hero-video{position:absolute;top:13px;left:13px;width:calc(100% - 26px);height:calc(100% - 26px);
-    display:block;object-fit:cover;border-radius:10px;overflow:hidden;background:#0d1730}
+    display:block;object-fit:contain;border-radius:10px;overflow:hidden;background:#0d1730}
   .monitor .video-ph{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;text-align:center;color:#fff;
     background:radial-gradient(130% 130% at 50% 22%,#33529e 0%,#1c2b5c 55%,#16224a 100%)}
   .monitor .video-ph .play{width:66px;height:66px;border-radius:50%;display:grid;place-items:center;margin-bottom:4px;
