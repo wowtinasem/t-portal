@@ -1182,23 +1182,24 @@
     <defs>
       <linearGradient id="cbotg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffa24a"/><stop offset="1" stop-color="#f4641c"/></linearGradient>
     </defs>
-    <!-- 동그란 본체 -->
-    <circle cx="36" cy="36" r="30" fill="url(#cbotg)"/>
+    <!-- 동그란 말풍선 본체 + 꼬리 -->
+    <path d="M30 59 L18 71 L42 61 Z" fill="url(#cbotg)"/>
+    <circle cx="36" cy="35" r="30" fill="url(#cbotg)"/>
     <!-- 큰 눈 (흰자 + 동공) — 깜빡임 -->
-    <g class="eye"><ellipse cx="27" cy="33" rx="8.5" ry="9.5" fill="#fff"/><circle cx="28.5" cy="34.5" r="3.8" fill="#3b2a1c"/><circle cx="30.2" cy="31.5" r="1.4" fill="#fff"/></g>
-    <g class="eye"><ellipse cx="46" cy="33" rx="8.5" ry="9.5" fill="#fff"/><circle cx="47.5" cy="34.5" r="3.8" fill="#3b2a1c"/><circle cx="49.2" cy="31.5" r="1.4" fill="#fff"/></g>
+    <g class="eye"><ellipse cx="27" cy="32" rx="8.5" ry="9.5" fill="#fff"/><circle cx="28.5" cy="33.5" r="3.8" fill="#3b2a1c"/><circle cx="30.2" cy="30.5" r="1.4" fill="#fff"/></g>
+    <g class="eye"><ellipse cx="46" cy="32" rx="8.5" ry="9.5" fill="#fff"/><circle cx="47.5" cy="33.5" r="3.8" fill="#3b2a1c"/><circle cx="49.2" cy="30.5" r="1.4" fill="#fff"/></g>
     <!-- 볼터치 -->
-    <circle cx="19.5" cy="42.5" r="3.2" fill="#fff" opacity=".30"/>
-    <circle cx="52.5" cy="42.5" r="3.2" fill="#fff" opacity=".30"/>
+    <circle cx="19.5" cy="41.5" r="3.2" fill="#fff" opacity=".30"/>
+    <circle cx="52.5" cy="41.5" r="3.2" fill="#fff" opacity=".30"/>
     <!-- 미소 -->
-    <path d="M29 45c3.2 3 10.8 3 14 0" stroke="#fff" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+    <path d="M29 44c3.2 3 10.8 3 14 0" stroke="#fff" stroke-width="2.8" fill="none" stroke-linecap="round"/>
   </svg>
 </button>
 
 <div class="chatbot-panel" id="chatbot-panel" role="dialog" aria-label="연수 문의 챗봇">
   <div class="cbp-head">
     <span class="cbp-ava" aria-hidden="true">
-      <svg viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg"><rect x="5" y="6" width="62" height="48" rx="16" fill="#fff" opacity=".22"/><g fill="#fff"><ellipse cx="27" cy="29" rx="7" ry="8"/><ellipse cx="46" cy="29" rx="7" ry="8"/></g><g fill="#1c2e58"><circle cx="28" cy="30" r="3"/><circle cx="47" cy="30" r="3"/></g></svg>
+      <svg viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg"><path d="M30 56 L20 68 L42 58 Z" fill="#fff" opacity=".22"/><circle cx="36" cy="33" r="28" fill="#fff" opacity=".22"/><g fill="#fff"><ellipse cx="27" cy="31" rx="7" ry="8"/><ellipse cx="46" cy="31" rx="7" ry="8"/></g><g fill="#fff"><circle cx="28" cy="32" r="3"/><circle cx="47" cy="32" r="3"/></g></svg>
     </span>
     <div class="cbp-ttl"><strong>연수 도우미</strong><small>무엇이든 물어보세요</small></div>
     <button class="cbp-x" id="chatbot-close" aria-label="챗봇 닫기">✕</button>
