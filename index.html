@@ -395,25 +395,25 @@
   }
 
   /* ---------- chatbot (floating) ---------- */
-  .chatbot-launcher{position:fixed;right:22px;bottom:22px;z-index:200;width:66px;height:66px;padding:0;border:none;cursor:pointer;
-    background:transparent;filter:drop-shadow(0 12px 22px rgba(28,46,88,.32));
+  .chatbot-launcher{position:fixed;right:24px;bottom:24px;z-index:200;width:78px;height:78px;padding:0;border:none;cursor:pointer;
+    background:transparent;filter:drop-shadow(0 12px 24px rgba(244,100,28,.42));
     transition:transform .18s ease;animation:cbotBob 3.4s ease-in-out infinite}
   .chatbot-launcher:hover{transform:translateY(-3px) scale(1.05)}
   .chatbot-launcher:active{transform:scale(.96)}
-  .chatbot-launcher .cbot{display:block;width:66px;height:66px}
+  .chatbot-launcher .cbot{display:block;width:78px;height:78px}
   .chatbot-launcher .cbot .eye{transform-box:fill-box;transform-origin:center;animation:cbotBlink 4.2s infinite}
-  .chatbot-launcher .nudge{position:absolute;top:-7px;right:-3px;width:18px;height:18px;border-radius:50%;
-    background:#ff5a7a;color:#fff;font-size:11px;font-weight:800;display:grid;place-items:center;box-shadow:0 2px 6px rgba(0,0,0,.25)}
+  .chatbot-launcher .nudge{position:absolute;top:-4px;right:-2px;width:20px;height:20px;border-radius:50%;
+    background:#1c2e58;color:#fff;font-size:12px;font-weight:800;display:grid;place-items:center;box-shadow:0 2px 6px rgba(0,0,0,.3);border:2px solid #fff}
   @keyframes cbotBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
   @keyframes cbotBlink{0%,90%,100%{transform:scaleY(1)}95%{transform:scaleY(.12)}}
 
-  .chatbot-panel{position:fixed;right:22px;bottom:98px;z-index:200;width:330px;max-width:calc(100vw - 32px);
+  .chatbot-panel{position:fixed;right:24px;bottom:112px;z-index:200;width:330px;max-width:calc(100vw - 32px);
     background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;
     box-shadow:0 26px 64px -20px rgba(16,24,48,.48);transform-origin:bottom right;
     visibility:hidden;opacity:0;transform:translateY(10px) scale(.96);
     transition:opacity .2s ease,transform .2s ease,visibility .2s}
   .chatbot-panel.open{visibility:visible;opacity:1;transform:none}
-  .cbp-head{display:flex;align-items:center;gap:11px;padding:15px 16px;background:linear-gradient(135deg,#2b57c4,#5b86e8);color:#fff}
+  .cbp-head{display:flex;align-items:center;gap:11px;padding:15px 16px;background:linear-gradient(135deg,#f4641c,#ffa24a);color:#fff}
   .cbp-head .cbp-ava{width:38px;height:38px;flex:none;background:rgba(255,255,255,.18);border-radius:11px;display:grid;place-items:center}
   .cbp-head .cbp-ava svg{width:30px;height:30px}
   .cbp-ttl{flex:1;line-height:1.3}
@@ -432,7 +432,7 @@
   .cbp-foot{padding:11px 16px;font-size:11.5px;color:var(--muted);background:#fff;border-top:1px solid var(--line-soft);line-height:1.5}
   @media(max-width:520px){
     .chatbot-launcher{right:16px;bottom:16px}
-    .chatbot-panel{right:16px;bottom:90px}
+    .chatbot-panel{right:16px;bottom:104px}
   }
   @media (prefers-reduced-motion:reduce){.chatbot-launcher{animation:none}.chatbot-launcher .cbot .eye{animation:none}}
 </style>
@@ -1180,16 +1180,18 @@
   <span class="nudge" aria-hidden="true">?</span>
   <svg class="cbot" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <defs>
-      <linearGradient id="cbotg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5b86e8"/><stop offset="1" stop-color="#2b57c4"/></linearGradient>
+      <linearGradient id="cbotg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffa24a"/><stop offset="1" stop-color="#f4641c"/></linearGradient>
     </defs>
-    <!-- 말풍선 본체 + 꼬리 -->
-    <path d="M21 51 L21 65 L35 51 Z" fill="url(#cbotg)"/>
-    <rect x="5" y="6" width="62" height="48" rx="16" fill="url(#cbotg)"/>
+    <!-- 동그란 본체 -->
+    <circle cx="36" cy="36" r="30" fill="url(#cbotg)"/>
     <!-- 큰 눈 (흰자 + 동공) — 깜빡임 -->
-    <g class="eye"><ellipse cx="27" cy="29" rx="8" ry="9" fill="#fff"/><circle cx="28.5" cy="30.5" r="3.6" fill="#1c2e58"/><circle cx="30" cy="27.5" r="1.3" fill="#fff"/></g>
-    <g class="eye"><ellipse cx="46" cy="29" rx="8" ry="9" fill="#fff"/><circle cx="47.5" cy="30.5" r="3.6" fill="#1c2e58"/><circle cx="49" cy="27.5" r="1.3" fill="#fff"/></g>
+    <g class="eye"><ellipse cx="27" cy="33" rx="8.5" ry="9.5" fill="#fff"/><circle cx="28.5" cy="34.5" r="3.8" fill="#3b2a1c"/><circle cx="30.2" cy="31.5" r="1.4" fill="#fff"/></g>
+    <g class="eye"><ellipse cx="46" cy="33" rx="8.5" ry="9.5" fill="#fff"/><circle cx="47.5" cy="34.5" r="3.8" fill="#3b2a1c"/><circle cx="49.2" cy="31.5" r="1.4" fill="#fff"/></g>
+    <!-- 볼터치 -->
+    <circle cx="19.5" cy="42.5" r="3.2" fill="#fff" opacity=".30"/>
+    <circle cx="52.5" cy="42.5" r="3.2" fill="#fff" opacity=".30"/>
     <!-- 미소 -->
-    <path d="M29 41c3.2 3 10.8 3 14 0" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+    <path d="M29 45c3.2 3 10.8 3 14 0" stroke="#fff" stroke-width="2.8" fill="none" stroke-linecap="round"/>
   </svg>
 </button>
 
