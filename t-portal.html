@@ -393,6 +393,48 @@
   @media(max-width:520px){
     .g4,.g5{grid-template-columns:1fr}
   }
+
+  /* ---------- chatbot (floating) ---------- */
+  .chatbot-launcher{position:fixed;right:22px;bottom:22px;z-index:200;width:66px;height:66px;padding:0;border:none;cursor:pointer;
+    background:transparent;filter:drop-shadow(0 12px 22px rgba(28,46,88,.32));
+    transition:transform .18s ease;animation:cbotBob 3.4s ease-in-out infinite}
+  .chatbot-launcher:hover{transform:translateY(-3px) scale(1.05)}
+  .chatbot-launcher:active{transform:scale(.96)}
+  .chatbot-launcher .cbot{display:block;width:66px;height:66px}
+  .chatbot-launcher .cbot .eye{transform-box:fill-box;transform-origin:center;animation:cbotBlink 4.2s infinite}
+  .chatbot-launcher .nudge{position:absolute;top:-7px;right:-3px;width:18px;height:18px;border-radius:50%;
+    background:#ff5a7a;color:#fff;font-size:11px;font-weight:800;display:grid;place-items:center;box-shadow:0 2px 6px rgba(0,0,0,.25)}
+  @keyframes cbotBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+  @keyframes cbotBlink{0%,90%,100%{transform:scaleY(1)}95%{transform:scaleY(.12)}}
+
+  .chatbot-panel{position:fixed;right:22px;bottom:98px;z-index:200;width:330px;max-width:calc(100vw - 32px);
+    background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;
+    box-shadow:0 26px 64px -20px rgba(16,24,48,.48);transform-origin:bottom right;
+    visibility:hidden;opacity:0;transform:translateY(10px) scale(.96);
+    transition:opacity .2s ease,transform .2s ease,visibility .2s}
+  .chatbot-panel.open{visibility:visible;opacity:1;transform:none}
+  .cbp-head{display:flex;align-items:center;gap:11px;padding:15px 16px;background:linear-gradient(135deg,#2b57c4,#5b86e8);color:#fff}
+  .cbp-head .cbp-ava{width:38px;height:38px;flex:none;background:rgba(255,255,255,.18);border-radius:11px;display:grid;place-items:center}
+  .cbp-head .cbp-ava svg{width:30px;height:30px}
+  .cbp-ttl{flex:1;line-height:1.3}
+  .cbp-ttl strong{display:block;font-size:15px;font-weight:800;letter-spacing:-.02em}
+  .cbp-ttl small{font-size:12px;color:#dbe5fb}
+  .cbp-x{border:none;background:rgba(255,255,255,.16);color:#fff;width:30px;height:30px;border-radius:9px;cursor:pointer;font-size:14px;display:grid;place-items:center}
+  .cbp-x:hover{background:rgba(255,255,255,.28)}
+  .cbp-body{padding:16px;background:var(--surface)}
+  .cbp-msg{background:#fff;border:1px solid var(--line);border-radius:12px;border-top-left-radius:3px;
+    padding:12px 14px;font-size:13.5px;color:var(--ink);line-height:1.6;box-shadow:var(--shadow-s)}
+  .cbp-quick{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+  .cbp-quick a{display:flex;align-items:center;gap:9px;background:#fff;border:1px solid var(--line);border-radius:11px;
+    padding:11px 13px;font-size:13.5px;font-weight:700;color:var(--navy);transition:background .15s ease,border-color .15s ease,transform .15s ease}
+  .cbp-quick a:hover{background:var(--brand-grad-soft);border-color:#cdd8ee;transform:translateX(2px)}
+  .cbp-quick a .em{font-size:15px;flex:none}
+  .cbp-foot{padding:11px 16px;font-size:11.5px;color:var(--muted);background:#fff;border-top:1px solid var(--line-soft);line-height:1.5}
+  @media(max-width:520px){
+    .chatbot-launcher{right:16px;bottom:16px}
+    .chatbot-panel{right:16px;bottom:90px}
+  }
+  @media (prefers-reduced-motion:reduce){.chatbot-launcher{animation:none}.chatbot-launcher .cbot .eye{animation:none}}
 </style>
 </head>
 <body id="top">
@@ -1132,6 +1174,64 @@
     <div class="copy">© 2026 충청남도교육청교육과정평가정보원. All rights reserved.</div>
   </div>
 </footer>
+
+<!-- ============ 챗봇 (플로팅 문의) ============ -->
+<button class="chatbot-launcher" id="chatbot-btn" aria-label="연수 문의 챗봇 열기" aria-expanded="false" aria-controls="chatbot-panel">
+  <span class="nudge" aria-hidden="true">?</span>
+  <svg class="cbot" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <linearGradient id="cbotg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5b86e8"/><stop offset="1" stop-color="#2b57c4"/></linearGradient>
+    </defs>
+    <!-- 말풍선 본체 + 꼬리 -->
+    <path d="M21 51 L21 65 L35 51 Z" fill="url(#cbotg)"/>
+    <rect x="5" y="6" width="62" height="48" rx="16" fill="url(#cbotg)"/>
+    <!-- 큰 눈 (흰자 + 동공) — 깜빡임 -->
+    <g class="eye"><ellipse cx="27" cy="29" rx="8" ry="9" fill="#fff"/><circle cx="28.5" cy="30.5" r="3.6" fill="#1c2e58"/><circle cx="30" cy="27.5" r="1.3" fill="#fff"/></g>
+    <g class="eye"><ellipse cx="46" cy="29" rx="8" ry="9" fill="#fff"/><circle cx="47.5" cy="30.5" r="3.6" fill="#1c2e58"/><circle cx="49" cy="27.5" r="1.3" fill="#fff"/></g>
+    <!-- 미소 -->
+    <path d="M29 41c3.2 3 10.8 3 14 0" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+  </svg>
+</button>
+
+<div class="chatbot-panel" id="chatbot-panel" role="dialog" aria-label="연수 문의 챗봇">
+  <div class="cbp-head">
+    <span class="cbp-ava" aria-hidden="true">
+      <svg viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg"><rect x="5" y="6" width="62" height="48" rx="16" fill="#fff" opacity=".22"/><g fill="#fff"><ellipse cx="27" cy="29" rx="7" ry="8"/><ellipse cx="46" cy="29" rx="7" ry="8"/></g><g fill="#1c2e58"><circle cx="28" cy="30" r="3"/><circle cx="47" cy="30" r="3"/></g></svg>
+    </span>
+    <div class="cbp-ttl"><strong>연수 도우미</strong><small>무엇이든 물어보세요</small></div>
+    <button class="cbp-x" id="chatbot-close" aria-label="챗봇 닫기">✕</button>
+  </div>
+  <div class="cbp-body">
+    <div class="cbp-msg">안녕하세요! 😊 2026 AI디지털교육 직무연수 <b>안내 도우미</b>예요.<br>궁금하신 항목을 선택해 주세요.</div>
+    <div class="cbp-quick">
+      <a href="#schedule" data-close><span class="em">📅</span> 연수 일정 안내</a>
+      <a href="#place" data-close><span class="em">📍</span> 연수 장소 안내</a>
+      <a href="#curriculum" data-close><span class="em">📘</span> 커리큘럼(차시) 안내</a>
+      <a href="#info" data-close><span class="em">📝</span> 참가·자료 안내</a>
+      <a href="tel:07000000000"><span class="em">📞</span> 콜센터 070-0000-0000</a>
+    </div>
+  </div>
+  <div class="cbp-foot">운영시간 평일 09:00~18:00 · 더 자세한 문의는 콜센터로 연락주세요.</div>
+</div>
+
+<script>
+  (function(){
+    var btn=document.getElementById('chatbot-btn');
+    var panel=document.getElementById('chatbot-panel');
+    var closeBtn=document.getElementById('chatbot-close');
+    if(!btn||!panel) return;
+    var nudge=btn.querySelector('.nudge');
+    function open(){panel.classList.add('open');btn.setAttribute('aria-expanded','true');if(nudge)nudge.style.display='none';}
+    function close(){panel.classList.remove('open');btn.setAttribute('aria-expanded','false');}
+    btn.addEventListener('click',function(){panel.classList.contains('open')?close():open();});
+    if(closeBtn)closeBtn.addEventListener('click',close);
+    panel.querySelectorAll('[data-close]').forEach(function(a){a.addEventListener('click',close);});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape'&&panel.classList.contains('open'))close();});
+    document.addEventListener('click',function(e){
+      if(panel.classList.contains('open')&&!panel.contains(e.target)&&!btn.contains(e.target))close();
+    });
+  })();
+</script>
 
 <script>
   (function(){
