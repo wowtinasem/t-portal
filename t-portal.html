@@ -149,6 +149,10 @@
   .g5{grid-template-columns:repeat(5,1fr)}
   .g2c{grid-template-columns:repeat(2,1fr);max-width:620px;margin-left:auto;margin-right:auto}
   @media(max-width:560px){.g2c{grid-template-columns:1fr}}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  .info-dl{display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:start}
+  @media(max-width:860px){.info-dl{grid-template-columns:1fr;gap:36px}}
+  @media(max-width:520px){.info-dl .g2{grid-template-columns:1fr}}
   .ccard{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:30px 20px 26px;text-align:center;
     box-shadow:var(--shadow-s);display:flex;flex-direction:column;align-items:center;position:relative;overflow:hidden;
     transition:transform .2s cubic-bezier(.2,.7,.3,1),box-shadow .25s ease,border-color .2s ease}
@@ -466,23 +470,44 @@
   </div>
 </section>
 
-<!-- ============ 연수 안내 ============ -->
+<!-- ============ 연수 안내 + 자료 다운로드 ============ -->
 <section class="section" id="info">
   <div class="wrap">
-    <h2 class="sec-title reveal">연수 안내</h2>
-    <div class="grid g2c reveal">
-      <article class="ccard">
-        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
-        <h3>장소 안내</h3>
-        <p>권역별 연수장소 위치를<br>지도에서 확인하세요.</p>
-        <a class="btn line" href="#place">지도 보기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></a>
-      </article>
-      <article class="ccard">
-        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l16-6v14L3 13z"/><path d="M11.5 17.5a3 3 0 0 1-5-2.2"/></svg></span>
-        <h3>공지사항</h3>
-        <p>연수 관련 최신 공지사항을<br>확인할 수 있습니다.</p>
-        <a class="btn line" href="#notice">확인하기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></a>
-      </article>
+    <div class="info-dl">
+      <div class="reveal">
+        <h2 class="sec-title">연수 안내</h2>
+        <div class="grid g2">
+          <article class="ccard">
+            <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
+            <h3>장소 안내</h3>
+            <p>권역별 연수장소 위치를<br>지도에서 확인하세요.</p>
+            <a class="btn line" href="#place">지도 보기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></a>
+          </article>
+          <article class="ccard">
+            <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l16-6v14L3 13z"/><path d="M11.5 17.5a3 3 0 0 1-5-2.2"/></svg></span>
+            <h3>공지사항</h3>
+            <p>연수 관련 최신 공지사항을<br>확인할 수 있습니다.</p>
+            <a class="btn line" href="#notice">확인하기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></a>
+          </article>
+        </div>
+      </div>
+      <div class="reveal" id="download">
+        <h2 class="sec-title">자료 다운로드</h2>
+        <div class="grid g2">
+          <article class="ccard">
+            <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><circle cx="12" cy="13" r="2"/><path d="M9 18a3 3 0 0 1 6 0"/></svg></span>
+            <h3>참가자 안내문</h3>
+            <p>연수 참여 안내 및 유의사항</p>
+            <a class="btn line" href="#download">다운로드 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14"/></svg></a>
+          </article>
+          <article class="ccard">
+            <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="12" height="16" rx="2"/><path d="M9 4V3h6v1"/><path d="m9.5 11 1.5 1.5 3-3"/><path d="M9 16h6"/></svg></span>
+            <h3>출결 및 설문 안내</h3>
+            <p>출결 방법 및 설문 안내</p>
+            <a class="btn line" href="#download">다운로드 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14"/></svg></a>
+          </article>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -714,27 +739,6 @@
       });
     })();
   </script>
-</section>
-
-<!-- ============ 자료 다운로드 ============ -->
-<section class="section" id="download" style="padding-top:0">
-  <div class="wrap">
-    <h2 class="sec-title reveal">자료 다운로드</h2>
-    <div class="grid g2c reveal">
-      <article class="ccard">
-        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><circle cx="12" cy="13" r="2"/><path d="M9 18a3 3 0 0 1 6 0"/></svg></span>
-        <h3>참가자 안내문</h3>
-        <p>연수 참여 안내 및 유의사항</p>
-        <a class="btn line" href="#download">다운로드 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14"/></svg></a>
-      </article>
-      <article class="ccard">
-        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="12" height="16" rx="2"/><path d="M9 4V3h6v1"/><path d="m9.5 11 1.5 1.5 3-3"/><path d="M9 16h6"/></svg></span>
-        <h3>출결 및 설문 안내</h3>
-        <p>출결 방법 및 설문 안내</p>
-        <a class="btn line" href="#download">다운로드 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14"/></svg></a>
-      </article>
-    </div>
-  </div>
 </section>
 
 <!-- ============ 커리큘럼 ============ -->
