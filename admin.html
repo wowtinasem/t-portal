@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>관리자 페이지 · 2026 AI디지털교육 역량강화 직무연수</title>
+<link rel="icon" type="image/png" href="t-logo.png" />
+<meta name="robots" content="noindex" />
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<style>
+  :root{--blue:#2b57c4;--blue-d:#1f47a8;--navy:#1c2e58;--ink:#1f2a44;--muted:#5d6679;--muted2:#8b93a6;
+    --line:#e5eaf3;--line-soft:#eef2f8;--surface:#f6f8fc;--ok:#2b9b6e;--danger:#d64545;
+    --ff:"Pretendard","Pretendard Variable",-apple-system,BlinkMacSystemFont,system-ui,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:var(--ff);background:var(--surface);color:var(--ink);line-height:1.6;letter-spacing:-.01em;-webkit-font-smoothing:antialiased}
+  a{color:var(--blue);text-decoration:none}
+  .wrap{max-width:860px;margin:0 auto;padding:0 20px}
+  header.bar{background:linear-gradient(120deg,#22417e,#16224a);color:#fff;padding:18px 0}
+  header .row{display:flex;align-items:center;gap:12px}
+  header .seal{width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,.14);display:grid;place-items:center;flex:none}
+  header .seal img{width:26px;height:26px}
+  header b{font-size:17px;font-weight:800}
+  header small{display:block;font-size:12px;color:#bcd0f7}
+  header .row a.back{margin-left:auto;color:#cdd9f4;font-size:13px;font-weight:700}
+  main{padding:26px 0 60px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 1px 2px rgba(28,46,88,.05),0 12px 30px -20px rgba(28,46,88,.2);padding:22px;margin-bottom:20px}
+  .card h2{margin:0 0 4px;font-size:17px;font-weight:800;color:var(--navy);display:flex;align-items:center;gap:8px}
+  .card h2::before{content:"";width:5px;height:18px;border-radius:999px;background:linear-gradient(#2b57c4,#5b86e8)}
+  .card p.desc{margin:0 0 16px;font-size:13px;color:var(--muted)}
+  label.fl{display:block;font-size:12.5px;font-weight:700;color:var(--navy);margin:12px 0 5px}
+  input[type=text],input[type=password],input[type=date],textarea{width:100%;font-family:inherit;font-size:14px;color:var(--ink);
+    border:1px solid var(--line);border-radius:10px;padding:11px 13px;outline:none;transition:border-color .15s ease,box-shadow .15s ease;background:#fff}
+  input:focus,textarea:focus{border-color:#8fb0ee;box-shadow:0 0 0 3px rgba(43,87,196,.12)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;font-family:inherit;font-weight:700;font-size:14px;cursor:pointer;
+    border-radius:10px;padding:11px 18px;border:1px solid transparent;transition:background .15s ease,transform .12s ease,border-color .15s ease}
+  .btn:active{transform:scale(.98)}
+  .btn.primary{background:var(--blue);color:#fff}.btn.primary:hover{background:var(--blue-d)}
+  .btn.line{background:#fff;color:var(--blue);border-color:#cdd8ee}.btn.line:hover{background:var(--surface)}
+  .btn.danger{background:#fff;color:var(--danger);border-color:#f0c9c9}.btn.danger:hover{background:#fdf2f2}
+  .btn.sm{padding:7px 12px;font-size:12.5px;border-radius:8px}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:600px){.row2{grid-template-columns:1fr}}
+  .actions{margin-top:16px;display:flex;gap:10px;flex-wrap:wrap}
+  .msg{font-size:12.5px;font-weight:700;margin-top:8px;min-height:16px}
+  .msg.ok{color:var(--ok)}.msg.err{color:var(--danger)}
+  .list{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-direction:column;gap:8px}
+  .list li{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 13px}
+  .list li .t{flex:1;min-width:0}
+  .list li .t strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .list li .t small{font-size:11.5px;color:var(--muted2)}
+  .list li img{width:64px;height:44px;object-fit:cover;border-radius:7px;border:1px solid var(--line);flex:none}
+  .empty{font-size:13px;color:var(--muted2);text-align:center;padding:16px}
+  /* 로그인 게이트 */
+  #gate{max-width:400px;margin:60px auto;padding:28px 26px;background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 20px 50px -24px rgba(28,46,88,.35);text-align:center}
+  #gate .lock{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,#2b57c4,#5b86e8);display:grid;place-items:center;margin:0 auto 14px}
+  #gate .lock svg{width:26px;height:26px;color:#fff}
+  #gate h1{margin:0 0 6px;font-size:19px;font-weight:800;color:var(--navy)}
+  #gate p{margin:0 0 18px;font-size:13px;color:var(--muted)}
+  #admin-body{display:none}
+</style>
+</head>
+<body>
+
+<!-- 로그인 게이트 -->
+<div id="gate">
+  <div class="lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div>
+  <h1>관리자 로그인</h1>
+  <p>관리자 비밀번호를 입력하세요. (초기 비밀번호 0000)</p>
+  <form id="gate-form" autocomplete="off">
+    <input type="password" id="gate-pw" placeholder="비밀번호" aria-label="관리자 비밀번호" />
+    <div class="msg err" id="gate-msg"></div>
+    <button class="btn primary" type="submit" style="width:100%;margin-top:10px">로그인</button>
+  </form>
+  <p style="margin-top:16px"><a href="index.html">← 사이트로 돌아가기</a></p>
+</div>
+
+<div id="admin-body">
+  <header class="bar">
+    <div class="wrap row">
+      <span class="seal"><img src="t-logo.png" alt="" /></span>
+      <span><b>관리자 페이지</b><small>2026 AI디지털교육 역량강화 직무연수</small></span>
+      <a class="back" href="index.html">사이트 보기 →</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+
+      <!-- 비밀번호 변경 -->
+      <div class="card">
+        <h2>비밀번호 변경</h2>
+        <p class="desc">관리자 페이지 접속 비밀번호와, 연수 산출물 업로드·삭제 비밀번호를 변경합니다.</p>
+        <div class="row2">
+          <div>
+            <label class="fl">관리자 비밀번호</label>
+            <input type="password" id="pw-admin" placeholder="새 관리자 비밀번호" autocomplete="new-password" />
+          </div>
+          <div>
+            <label class="fl">산출물 업로드·삭제 비밀번호</label>
+            <input type="password" id="pw-upload" placeholder="새 산출물 비밀번호" autocomplete="new-password" />
+          </div>
+        </div>
+        <div class="actions"><button class="btn primary" id="pw-save">비밀번호 저장</button><button class="btn line" type="button" id="logout">로그아웃</button></div>
+        <div class="msg" id="pw-msg"></div>
+      </div>
+
+      <!-- 공지사항 관리 -->
+      <div class="card">
+        <h2>공지사항 관리</h2>
+        <p class="desc">사이트 하단 공지사항 목록에 표시됩니다. (최신순)</p>
+        <div class="row2">
+          <div><label class="fl">제목</label><input type="text" id="nt-title" placeholder="공지 제목" /></div>
+          <div><label class="fl">날짜</label><input type="date" id="nt-date" /></div>
+        </div>
+        <label class="fl">내용(선택)</label>
+        <textarea id="nt-body" rows="2" placeholder="상세 내용(선택)"></textarea>
+        <div class="actions"><button class="btn primary" id="nt-add">공지 추가</button></div>
+        <div class="msg" id="nt-msg"></div>
+        <ul class="list" id="nt-list"></ul>
+      </div>
+
+      <!-- 운영 사진 관리 -->
+      <div class="card">
+        <h2>운영 사진 업로드</h2>
+        <p class="desc">사이트 "운영 사진" 갤러리에 표시됩니다. (이미지 파일, 한 장당 2MB 이하 권장)</p>
+        <label class="fl">사진 파일</label>
+        <input type="file" id="ph-file" accept="image/*" />
+        <label class="fl">설명(선택)</label>
+        <input type="text" id="ph-cap" placeholder="사진 설명(선택)" />
+        <div class="actions"><button class="btn primary" id="ph-add">사진 추가</button></div>
+        <div class="msg" id="ph-msg"></div>
+        <ul class="list" id="ph-list"></ul>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<script src="tp-store.js"></script>
+<script>
+  (function () {
+    var gate = document.getElementById('gate'), body = document.getElementById('admin-body');
+    var SESSION = 'tp_admin_ok';
+
+    function showAdmin() {
+      gate.style.display = 'none'; body.style.display = 'block';
+      renderNotices(); renderPhotos();
+      document.getElementById('pw-admin').value = '';
+      document.getElementById('pw-upload').value = '';
+    }
+    // 로그인
+    document.getElementById('gate-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var pw = document.getElementById('gate-pw').value;
+      var msg = document.getElementById('gate-msg');
+      if (pw === TP.settings().adminPw) { sessionStorage.setItem(SESSION, '1'); msg.textContent = ''; showAdmin(); }
+      else { msg.textContent = '비밀번호가 올바르지 않습니다.'; }
+    });
+    if (sessionStorage.getItem(SESSION) === '1') showAdmin();
+
+    document.getElementById('logout').addEventListener('click', function () { sessionStorage.removeItem(SESSION); location.reload(); });
+
+    // 비밀번호 저장
+    document.getElementById('pw-save').addEventListener('click', function () {
+      var a = document.getElementById('pw-admin').value.trim();
+      var u = document.getElementById('pw-upload').value.trim();
+      var s = TP.settings(); var changed = [];
+      if (a) { s.adminPw = a; changed.push('관리자'); }
+      if (u) { s.uploadPw = u; changed.push('산출물'); }
+      var msg = document.getElementById('pw-msg');
+      if (!changed.length) { msg.className = 'msg err'; msg.textContent = '변경할 비밀번호를 입력하세요.'; return; }
+      TP.saveSettings(s);
+      document.getElementById('pw-admin').value = ''; document.getElementById('pw-upload').value = '';
+      msg.className = 'msg ok'; msg.textContent = changed.join('·') + ' 비밀번호가 변경되었습니다.';
+    });
+
+    // 공지 추가/삭제
+    document.getElementById('nt-add').addEventListener('click', function () {
+      var t = document.getElementById('nt-title').value.trim();
+      var d = document.getElementById('nt-date').value;
+      var b = document.getElementById('nt-body').value.trim();
+      var msg = document.getElementById('nt-msg');
+      if (!t) { msg.className = 'msg err'; msg.textContent = '제목을 입력하세요.'; return; }
+      var date = d ? d.replace(/-/g, '.') : TP.today();
+      var list = TP.notices() || [];
+      list.unshift({ id: TP.uid(), title: t, date: date, body: b });
+      TP.saveNotices(list);
+      document.getElementById('nt-title').value = ''; document.getElementById('nt-date').value = ''; document.getElementById('nt-body').value = '';
+      msg.className = 'msg ok'; msg.textContent = '공지가 추가되었습니다.';
+      renderNotices();
+    });
+    function renderNotices() {
+      var list = TP.notices() || [], el = document.getElementById('nt-list');
+      if (!list.length) { el.innerHTML = '<div class="empty">등록된 공지가 없습니다. (사이트에는 기본 공지가 표시됩니다)</div>'; return; }
+      el.innerHTML = list.map(function (n) {
+        return '<li><span class="t"><strong>' + TP.esc(n.title) + '</strong><small>' + TP.esc(n.date) + '</small></span>' +
+          '<button class="btn danger sm" data-del="' + n.id + '">삭제</button></li>';
+      }).join('');
+      el.querySelectorAll('[data-del]').forEach(function (b) {
+        b.addEventListener('click', function () {
+          if (!confirm('이 공지를 삭제할까요?')) return;
+          TP.saveNotices((TP.notices() || []).filter(function (x) { return x.id !== b.getAttribute('data-del'); }));
+          renderNotices();
+        });
+      });
+    }
+
+    // 사진 추가/삭제
+    document.getElementById('ph-add').addEventListener('click', async function () {
+      var f = document.getElementById('ph-file').files[0];
+      var cap = document.getElementById('ph-cap').value.trim();
+      var msg = document.getElementById('ph-msg');
+      if (!f) { msg.className = 'msg err'; msg.textContent = '사진 파일을 선택하세요.'; return; }
+      if (!/^image\//.test(f.type)) { msg.className = 'msg err'; msg.textContent = '이미지 파일만 업로드할 수 있습니다.'; return; }
+      if (f.size > 3 * 1048576) { msg.className = 'msg err'; msg.textContent = '3MB 이하 이미지를 권장합니다. (로컬 저장 용량 제한)'; return; }
+      try {
+        var url = await TP.fileToDataURL(f);
+        var list = TP.gallery();
+        list.unshift({ id: TP.uid(), url: url, cap: cap, date: TP.today() });
+        TP.saveGallery(list);
+        document.getElementById('ph-file').value = ''; document.getElementById('ph-cap').value = '';
+        msg.className = 'msg ok'; msg.textContent = '사진이 추가되었습니다.';
+        renderPhotos();
+      } catch (e) { msg.className = 'msg err'; msg.textContent = '저장 실패(용량 초과일 수 있습니다).'; }
+    });
+    function renderPhotos() {
+      var list = TP.gallery(), el = document.getElementById('ph-list');
+      if (!list.length) { el.innerHTML = '<div class="empty">등록된 사진이 없습니다. (사이트에는 기본 이미지가 표시됩니다)</div>'; return; }
+      el.innerHTML = list.map(function (g) {
+        return '<li><img src="' + g.url + '" alt="" /><span class="t"><strong>' + (g.cap ? TP.esc(g.cap) : '운영 사진') + '</strong><small>' + TP.esc(g.date) + '</small></span>' +
+          '<button class="btn danger sm" data-del="' + g.id + '">삭제</button></li>';
+      }).join('');
+      el.querySelectorAll('[data-del]').forEach(function (b) {
+        b.addEventListener('click', function () {
+          if (!confirm('이 사진을 삭제할까요?')) return;
+          TP.saveGallery(TP.gallery().filter(function (x) { return x.id !== b.getAttribute('data-del'); }));
+          renderPhotos();
+        });
+      });
+    }
+  })();
+</script>
+</body>
+</html>

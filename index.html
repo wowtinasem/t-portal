@@ -270,6 +270,31 @@
   /* ---------- survey + notice ---------- */
   .sn{display:grid;grid-template-columns:1fr 1.25fr;gap:22px;align-items:start}
   .panel{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-s)}
+  /* 연수 산출물 업로드 패널 */
+  .prod{padding:24px;display:flex;flex-direction:column;height:100%}
+  .prod .ico{width:52px;height:52px;border-radius:13px;background:var(--tint);color:var(--blue);display:grid;place-items:center;margin-bottom:14px}
+  .prod .ico svg{width:28px;height:28px}
+  .prod h3{margin:0 0 6px;font-size:18px;font-weight:800;color:var(--navy)}
+  .prod p{margin:0 0 14px;font-size:13.5px;color:var(--muted);line-height:1.55}
+  .prod-form{display:flex;flex-direction:column;gap:8px}
+  .prod-form input[type=text]{font-family:inherit;font-size:13.5px;color:var(--ink);border:1px solid var(--line);border-radius:9px;padding:10px 12px;outline:none;transition:border-color .15s,box-shadow .15s}
+  .prod-form input[type=text]:focus{border-color:#8fb0ee;box-shadow:0 0 0 3px rgba(43,87,196,.12)}
+  .prod-file-row{display:flex;align-items:center;gap:9px}
+  .prod-file{flex:none;font-size:12.5px;font-weight:700;color:var(--blue);background:var(--tint);border:1px solid #cdd8ee;border-radius:9px;padding:9px 14px;cursor:pointer}
+  .prod-file:hover{background:#dfe8fa}
+  .prod-fname{font-size:12px;color:var(--muted-2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .prod .btn.primary{font-size:13.5px}
+  .prod-msg{font-size:12px;font-weight:700;min-height:15px}
+  .prod-msg.ok{color:var(--ok)} .prod-msg.err{color:#d64545}
+  .prod-list{list-style:none;margin:12px 0 0;padding:0;display:flex;flex-direction:column;gap:7px;max-height:240px;overflow:auto}
+  .prod-list li{display:flex;align-items:center;gap:9px;background:var(--surface);border:1px solid var(--line);border-radius:9px;padding:9px 11px}
+  .prod-list li .pt{flex:1;min-width:0}
+  .prod-list li .pt strong{display:block;font-size:13px;font-weight:700;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .prod-list li .pt small{font-size:11px;color:var(--muted-2)}
+  .prod-list li a.dl{flex:none;color:var(--blue);font-size:11.5px;font-weight:700}
+  .prod-list li button.del{flex:none;border:1px solid #f0c9c9;background:#fff;color:#d64545;border-radius:7px;font-size:11.5px;font-weight:700;padding:5px 9px;cursor:pointer;font-family:inherit}
+  .prod-list li button.del:hover{background:#fdf2f2}
+  .prod-empty{font-size:12.5px;color:var(--muted-2);text-align:center;padding:14px 0}
   .survey{padding:26px;display:flex;flex-direction:column;align-items:flex-start;height:100%}
   .survey .ico{width:52px;height:52px;border-radius:13px;background:var(--tint);color:var(--blue);display:grid;place-items:center;margin-bottom:16px}
   .survey .ico svg{width:28px;height:28px}
@@ -1403,15 +1428,25 @@
 <!-- ============ 만족도 + 공지사항 ============ -->
 <section class="section band">
   <div class="wrap sn" id="notice">
-    <div class="panel survey reveal">
-      <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="12" height="16" rx="2"/><path d="M9 4V3h6v1"/><path d="m9.5 11 1.5 1.5 3-3"/><path d="M9 16h6"/></svg></span>
-      <h3>만족도 설문</h3>
-      <p>연수 운영 개선을 위한 소중한 의견을<br>들려주세요.</p>
-      <a class="btn line" href="#notice">설문 참여하기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></a>
+    <div class="panel prod reveal">
+      <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M12 3v13m0-13-4 4m4-4 4 4"/></svg></span>
+      <h3>연수 산출물</h3>
+      <p>연수 결과물을 직접 업로드하고 공유하세요.</p>
+      <div class="prod-form">
+        <input type="text" id="pd-name" placeholder="산출물 제목 (예: 3반 수업자료)" />
+        <div class="prod-file-row">
+          <label class="prod-file" for="pd-file">파일 선택</label>
+          <input type="file" id="pd-file" hidden />
+          <span class="prod-fname" id="pd-fname">선택된 파일 없음</span>
+        </div>
+        <button class="btn primary" id="pd-up" type="button">업로드</button>
+        <div class="prod-msg" id="pd-msg"></div>
+      </div>
+      <ul class="prod-list" id="pd-list"></ul>
     </div>
     <div class="panel notice reveal">
       <div class="nh"><strong>공지사항</strong><a class="more" href="#notice">더보기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></a></div>
-      <ul>
+      <ul id="notice-list">
         <li><a href="#notice">연수 운영 안내</a><span class="date">2026.01.02</span></li>
         <li><a href="#notice">연수 장소 및 주차 안내</a><span class="date">2026.01.02</span></li>
         <li><a href="#notice">연수 자료 업데이트 안내</a><span class="date">2026.01.01</span></li>
@@ -1425,7 +1460,7 @@
 <section class="section" id="gallery">
   <div class="wrap">
     <h2 class="sec-title reveal">운영 사진 <a class="more" href="#gallery">더보기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></a></h2>
-    <div class="gallery reveal">
+    <div class="gallery reveal" id="gallery-grid">
       <figure class="ph" style="margin:0"><svg viewBox="0 0 200 150" preserveAspectRatio="xMidYMid slice"><rect width="200" height="150" fill="#e8edf6"/><rect width="200" height="150" fill="url(#sceneA)"/><defs><linearGradient id="sceneA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eef2fa"/><stop offset="1" stop-color="#dde5f2"/></linearGradient></defs><rect x="60" y="18" width="80" height="42" rx="3" fill="#2b3a63"/><rect x="66" y="24" width="68" height="30" fill="#3f5894"/><g fill="#9aa6c4"><circle cx="40" cy="100" r="11"/><circle cx="80" cy="104" r="11"/><circle cx="120" cy="104" r="11"/><circle cx="160" cy="100" r="11"/></g><g fill="#b8c2da"><rect x="26" y="112" width="28" height="30" rx="3"/><rect x="66" y="116" width="28" height="26" rx="3"/><rect x="106" y="116" width="28" height="26" rx="3"/><rect x="146" y="112" width="28" height="30" rx="3"/></g></svg></figure>
       <figure class="ph" style="margin:0"><svg viewBox="0 0 200 150" preserveAspectRatio="xMidYMid slice"><rect width="200" height="150" fill="#e3e9f4"/><g fill="#aeb9d4"><circle cx="55" cy="60" r="13"/><circle cx="100" cy="56" r="13"/><circle cx="145" cy="60" r="13"/></g><g fill="#c4cde2"><rect x="30" y="76" width="46" height="20" rx="3"/><rect x="78" y="74" width="46" height="20" rx="3"/><rect x="126" y="76" width="46" height="20" rx="3"/></g><rect x="20" y="104" width="160" height="34" rx="4" fill="#8c99bd"/><rect x="20" y="104" width="160" height="8" fill="#7886ad"/></svg></figure>
       <figure class="ph" style="margin:0"><svg viewBox="0 0 200 150" preserveAspectRatio="xMidYMid slice"><rect width="200" height="150" fill="#e8edf6"/><rect x="116" y="26" width="64" height="44" rx="3" fill="#2b3a63"/><rect x="121" y="31" width="54" height="34" fill="#42619e"/><g fill="#9aa6c4"><circle cx="46" cy="58" r="14"/><rect x="32" y="74" width="28" height="34" rx="4"/></g><g fill="#aeb9d4"><circle cx="70" cy="108" r="10"/><circle cx="105" cy="112" r="10"/><circle cx="140" cy="110" r="10"/></g><g fill="#bcc6dd"><rect x="58" y="120" width="24" height="22" rx="3"/><rect x="94" y="122" width="24" height="20" rx="3"/><rect x="130" y="120" width="24" height="22" rx="3"/></g></svg></figure>
@@ -1445,7 +1480,7 @@
       충청남도 천안시 쌍용동<br>
       콜센터 070-8676-3276 &nbsp;&nbsp; 문자회신 010-2622-5600
     </div>
-    <div class="copy">© 2026 (주)드림정보. All rights reserved.</div>
+    <div class="copy">© 2026 (주)드림정보. All rights reserved. &nbsp;·&nbsp; <a href="admin.html" style="color:#8ea3cf;font-weight:700">관리자</a></div>
   </div>
 </footer>
 
@@ -1569,6 +1604,70 @@
       en.forEach(function(x){ if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target);} });
     },{threshold:.1,rootMargin:'0px 0px -6% 0px'});
     els.forEach(function(e){io.observe(e)});
+  })();
+</script>
+
+<!-- 로컬 데이터(공지·운영사진·연수 산출물) 렌더링 & 업로드 -->
+<script src="tp-store.js"></script>
+<script>
+  (function(){
+    if(!window.TP) return;
+    // 공지사항 (관리자 등록분이 있으면 대체)
+    var nlist=TP.notices();
+    if(nlist && nlist.length){
+      var ul=document.getElementById('notice-list');
+      if(ul) ul.innerHTML=nlist.slice(0,6).map(function(n){
+        return '<li><a href="#notice">'+TP.esc(n.title)+'</a><span class="date">'+TP.esc(n.date)+'</span></li>';
+      }).join('');
+    }
+    // 운영 사진 (관리자 등록분이 있으면 대체)
+    var glist=TP.gallery();
+    if(glist && glist.length){
+      var grid=document.getElementById('gallery-grid');
+      if(grid) grid.innerHTML=glist.slice(0,8).map(function(g){
+        return '<figure class="ph" style="margin:0"><img src="'+g.url+'" alt="'+TP.esc(g.cap||'운영 사진')+'" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block"></figure>';
+      }).join('');
+    }
+    // 연수 산출물 업로드/목록/삭제
+    var fileInput=document.getElementById('pd-file');
+    if(fileInput){
+      var fname=document.getElementById('pd-fname'), nameInput=document.getElementById('pd-name'),
+          upBtn=document.getElementById('pd-up'), msg=document.getElementById('pd-msg'), listEl=document.getElementById('pd-list');
+      function setMsg(t,ok){ msg.textContent=t; msg.className='prod-msg '+(ok?'ok':'err'); }
+      function render(){
+        var items=TP.products();
+        if(!items.length){ listEl.innerHTML='<li class="prod-empty">아직 등록된 산출물이 없습니다.</li>'; return; }
+        listEl.innerHTML=items.map(function(p){
+          return '<li><span class="pt"><strong>'+TP.esc(p.name)+'</strong><small>'+TP.esc(p.file)+' · '+TP.fsize(p.size)+' · '+TP.esc(p.date)+'</small></span>'
+            +'<a class="dl" href="'+p.url+'" download="'+TP.esc(p.file)+'">받기</a>'
+            +'<button class="del" data-del="'+p.id+'">삭제</button></li>';
+        }).join('');
+        listEl.querySelectorAll('[data-del]').forEach(function(b){
+          b.addEventListener('click',function(){
+            var pw=prompt('삭제 비밀번호를 입력하세요.'); if(pw==null) return;
+            if(pw!==TP.settings().uploadPw){ alert('비밀번호가 올바르지 않습니다.'); return; }
+            TP.saveProducts(TP.products().filter(function(x){return x.id!==b.getAttribute('data-del');}));
+            render();
+          });
+        });
+      }
+      fileInput.addEventListener('change',function(){ fname.textContent=fileInput.files[0]?fileInput.files[0].name:'선택된 파일 없음'; });
+      upBtn.addEventListener('click',function(){
+        var f=fileInput.files[0], nm=nameInput.value.trim();
+        if(!f){ setMsg('업로드할 파일을 선택하세요.'); return; }
+        if(f.size>4*1048576){ setMsg('4MB 이하 파일을 권장합니다. (로컬 저장 용량 제한)'); return; }
+        var pw=prompt('업로드 비밀번호를 입력하세요.'); if(pw==null) return;
+        if(pw!==TP.settings().uploadPw){ setMsg('비밀번호가 올바르지 않습니다.'); return; }
+        TP.fileToDataURL(f).then(function(url){
+          var items=TP.products();
+          items.unshift({id:TP.uid(),name:nm||f.name,file:f.name,size:f.size,url:url,date:TP.today()});
+          TP.saveProducts(items);
+          nameInput.value=''; fileInput.value=''; fname.textContent='선택된 파일 없음';
+          setMsg('업로드되었습니다.',true); render();
+        }).catch(function(){ setMsg('저장 실패(용량 초과일 수 있습니다).'); });
+      });
+      render();
+    }
   })();
 </script>
 </body>
