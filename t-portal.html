@@ -642,6 +642,10 @@
     .day-loc a.l:focus-visible{outline:3px solid #8fb0ee;outline-offset:2px;border-radius:4px}
     .day-loc .l svg{width:13px;height:13px;color:var(--c-blue);flex:none;margin-top:2px}
     .day-loc.rem .l svg{color:var(--c-sky)}
+    /* 원격연수 형광펜 처리 */
+    .hl-rem{background:linear-gradient(180deg,transparent 38%,#ffe25a 38%,#ffe25a 94%,transparent 94%);
+      color:var(--c-navy);font-weight:800;padding:0 3px;border-radius:2px;box-decoration-break:clone;-webkit-box-decoration-break:clone;text-decoration:none}
+    .day:hover .day-loc .hl-rem{color:var(--c-navy)}
     .day-loc a.l .ext{width:11px;height:11px;color:var(--c-muted2);flex:none;margin-top:3px}
 
     .day-more{margin-top:auto;display:flex;align-items:center;gap:6px;padding:10px 13px;border-top:1px solid var(--c-line-soft);
@@ -755,13 +759,13 @@
              +'<span class="day-type '+typeClass+'">'+d.type+'</span></div>';
 
         if(isRemoteOnly){
-          html+='<div class="day-loc rem"><span class="l">'+netSvg+'<span class="lname">원격 연수</span></span></div>';
+          html+='<div class="day-loc rem"><span class="l">'+netSvg+'<span class="lname hl-rem">원격 연수</span></span></div>';
           html+='<div class="day-more"><span class="mtxt-closed">시간 보기</span><span class="mtxt-open">접기</span><span class="chev">'+chevSvg+'</span></div>';
           html+='<div class="day-body"><div class="day-body-in"><span class="chip lv-gicho">10:00~12:00</span><span class="chip lv-gicho">14:00~16:00</span><span class="day-note">실시간 · 마주온플랫폼</span></div></div>';
         } else {
           html+='<div class="day-loc">'
              +d.locs.map(function(l){return '<a class="l" href="'+naverUrl(l)+'" target="_blank" rel="noopener">'+pinSvg+'<span class="lname">'+l+'</span>'+extSvg+'</a>';}).join('')
-             +(d.type==='집합+원격'?'<span class="l">'+netSvg+'<span class="lname">원격 병행(온라인 공통)</span></span>':'')
+             +(d.type==='집합+원격'?'<span class="l">'+netSvg+'<span class="lname hl-rem">원격 연수</span></span>':'')
              +'</div>';
           html+='<div class="day-more"><span class="mtxt-closed">과목 보기</span><span class="mtxt-open">접기</span><span class="mcount">'+d.elem.length+'</span><span class="chev">'+chevSvg+'</span></div>';
           html+='<div class="day-body"><div class="day-body-in">'
