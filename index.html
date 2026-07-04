@@ -591,6 +591,8 @@
   <style>
     .cal{
       --c-navy:#1c2e58;--c-blue:#2b57c4;--c-sky:#2f80c9;--c-teal:#2f9e8f;
+      --day-ac:#1c2e58;
+
       --c-ink:#1f2a44;--c-muted:#5d6679;--c-muted2:#8b93a6;--c-line:#e5eaf3;--c-line-soft:#eef2f8;--c-surface:#f6f8fc;
       font-family:"Pretendard","Pretendard Variable",-apple-system,BlinkMacSystemFont,system-ui,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;
       color:var(--c-ink);letter-spacing:-.01em;
@@ -622,11 +624,13 @@
     @media(max-width:900px){.cal-grid{grid-template-columns:repeat(2,1fr)}}
     @media(max-width:520px){.cal-grid{grid-template-columns:1fr}}
 
-    .day{background:#fff;border:2px solid var(--c-navy);border-radius:13px;overflow:hidden;display:flex;flex-direction:column;cursor:pointer;
+    /* 학교급별 카드 테두리색: 초등=딥블루, 중등=그린 */
+    .cal.mode-mid{--day-ac:#2e9e5b}
+    .day{background:#fff;border:2px solid var(--day-ac);border-radius:13px;overflow:hidden;display:flex;flex-direction:column;cursor:pointer;
       box-shadow:0 1px 2px rgba(28,46,88,.05),0 10px 24px -18px rgba(28,46,88,.22);transition:background .18s ease,color .18s ease,box-shadow .2s ease,border-color .2s ease}
     .day.remote{background:linear-gradient(180deg,#f2f8fd,#fff)}
-    /* 호버: 딥블루 반전(가독성) */
-    .day:hover,.day.remote:hover{background:var(--c-navy);border-color:var(--c-navy);color:#fff;
+    /* 호버: 학교급 강조색 반전(가독성) */
+    .day:hover,.day.remote:hover{background:var(--day-ac);border-color:var(--day-ac);color:#fff;
       box-shadow:0 1px 2px rgba(28,46,88,.05),0 16px 30px -16px rgba(28,46,88,.55)}
     .day:hover .day-h{border-bottom-color:rgba(255,255,255,.18)}
     .day:hover .day-d b,.day:hover .day-d span{color:#fff}
