@@ -120,6 +120,21 @@
   .hero h1 .l1{display:block;font-size:clamp(34px,5vw,52px);background:var(--brand-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
   .hero h1 .l2{display:block;font-size:clamp(30px,4.4vw,44px);color:var(--navy)}
   .hero .lead{font-size:17px;color:#54607d;font-weight:500;margin:0;max-width:30em}
+  /* 히어로 만족도 설문 패널 (챗봇 오렌지 톤, 강조) */
+  .hero-survey{margin-top:22px;display:inline-flex;flex-direction:column;gap:11px;max-width:100%;
+    background:linear-gradient(135deg,#fff4ea,#ffffff);border:1px solid #ffd9b8;border-radius:16px;
+    padding:14px 16px 16px;box-shadow:0 12px 28px -14px rgba(244,100,28,.42)}
+  .hero-survey .hs-label{font-size:13.5px;font-weight:700;color:#8a4b1e;display:flex;align-items:center;gap:8px}
+  .hero-survey .hs-label b{color:#e0530c;font-weight:800}
+  .hero-survey .hs-dot{width:8px;height:8px;border-radius:50%;background:#f4641c;flex:none;box-shadow:0 0 0 4px rgba(244,100,28,.2);animation:pulse 2.2s ease-in-out infinite}
+  .hero-survey .hs-btns{display:flex;gap:10px;flex-wrap:wrap}
+  .hs-btn{display:inline-flex;align-items:center;gap:7px;font-family:inherit;font-weight:800;font-size:14.5px;color:#fff;letter-spacing:-.01em;
+    background:linear-gradient(135deg,#ffa24a,#f4641c);background-size:140% 140%;border-radius:12px;padding:12px 22px;
+    box-shadow:0 12px 24px -10px rgba(244,100,28,.7);transition:transform .15s ease,box-shadow .2s ease,background-position .2s ease}
+  .hs-btn:hover{transform:translateY(-2px);background-position:100% 0;box-shadow:0 16px 30px -10px rgba(244,100,28,.85)}
+  .hs-btn:active{transform:scale(.98)}
+  .hs-btn svg{width:16px;height:16px;flex:none}
+  @media (prefers-reduced-motion:reduce){.hero-survey .hs-dot{animation:none}.hs-btn:hover{transform:none}}
   .hero-illu{justify-self:end;width:100%;max-width:560px}
   .monitor{position:relative}
   .monitor .screen{position:relative;aspect-ratio:16/9;border-radius:18px;padding:13px;
@@ -513,6 +528,13 @@
         <p class="y">2026</p>
         <h1><span class="l1">AI디지털교육</span><span class="l2">역량강화 직무연수</span></h1>
         <p class="lead">교원을 위한 AI·디지털교육 직무연수 운영 포털</p>
+        <div class="hero-survey">
+          <span class="hs-label"><span class="hs-dot"></span>연수 후 <b>만족도 설문</b>에 꼭 참여해 주세요</span>
+          <div class="hs-btns">
+            <a class="hs-btn" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="12" height="16" rx="2"/><path d="M9 4V3h6v1"/><path d="m9.5 11 1.5 1.5 3-3"/><path d="M9 16h6"/></svg>만족도 설문 1</a>
+            <a class="hs-btn" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="12" height="16" rx="2"/><path d="M9 4V3h6v1"/><path d="m9.5 11 1.5 1.5 3-3"/><path d="M9 16h6"/></svg>만족도 설문 2</a>
+          </div>
+        </div>
       </div>
       <div class="hero-illu">
         <div class="monitor">
@@ -559,14 +581,6 @@
       <a class="btn primary lg" href="#room-mid">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14"/></svg>
         중등 강의자료 다운로드
-      </a>
-      <a class="btn line lg" href="#" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="12" height="16" rx="2"/><path d="M9 4V3h6v1"/><path d="m9.5 11 1.5 1.5 3-3"/><path d="M9 16h6"/></svg>
-        만족도 설문 1
-      </a>
-      <a class="btn line lg" href="#" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="12" height="16" rx="2"/><path d="M9 4V3h6v1"/><path d="m9.5 11 1.5 1.5 3-3"/><path d="M9 16h6"/></svg>
-        만족도 설문 2
       </a>
     </div>
   </div>
