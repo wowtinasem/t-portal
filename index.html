@@ -568,162 +568,235 @@
   </div>
 </section>
 
-<!-- ============ 연수 일정 ============ -->
-<section class="section" id="schedule" style="padding-top:0">
-  <div class="wrap">
-    <h2 class="sec-title reveal">연수 일정</h2>
-    <p class="sched-lead reveal">소속 <b>권역 카드</b>를 클릭하면 집합·원격 연수 상세 일정을 확인할 수 있습니다. 모든 과정의 대상은 <b>초·중등 교원</b>입니다.</p>
-    <div class="sched-grid reveal">
-      <button class="scard" data-dlg="d-cheonan" data-region="cheonan" style="--rc:var(--r1)">
-        <span class="scard-top"><span class="reg">천안</span><span class="num">①</span></span>
-        <span class="pills"><span class="pill set">집합 3회</span><span class="pill remote">원격 3회</span></span>
-        <span class="more">상세 일정 보기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></span>
-      </button>
-      <button class="scard" data-dlg="d-asan" data-region="asan" style="--rc:var(--r2)">
-        <span class="scard-top"><span class="reg">아산</span><span class="num">②</span></span>
-        <span class="pills"><span class="pill set">집합 2회</span><span class="pill remote">원격 2회</span></span>
-        <span class="more">상세 일정 보기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></span>
-      </button>
-      <button class="scard" data-dlg="d-gongju" data-region="gongju" style="--rc:var(--r3)">
-        <span class="scard-top"><span class="reg">공주·부여·청양</span><span class="num">③</span></span>
-        <span class="pills"><span class="pill set">집합 2회</span><span class="pill remote">원격 2회</span></span>
-        <span class="more">상세 일정 보기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></span>
-      </button>
-      <button class="scard" data-dlg="d-seosan" data-region="seosan" style="--rc:var(--r4)">
-        <span class="scard-top"><span class="reg">서산·태안·당진</span><span class="num">④</span></span>
-        <span class="pills"><span class="pill set">집합 2회</span><span class="pill remote">원격 2회</span></span>
-        <span class="more">상세 일정 보기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></span>
-      </button>
-      <button class="scard" data-dlg="d-nonsan" data-region="nonsan" style="--rc:var(--r5)">
-        <span class="scard-top"><span class="reg">논산·계룡·금산</span><span class="num">⑤</span></span>
-        <span class="pills"><span class="pill set">집합 2회</span><span class="pill remote">원격 2회</span></span>
-        <span class="more">상세 일정 보기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></span>
-      </button>
-      <button class="scard" data-dlg="d-hongseong" data-region="hongseong" style="--rc:var(--r6)">
-        <span class="scard-top"><span class="reg">홍성·예산·보령·서천</span><span class="num">⑥</span></span>
-        <span class="pills"><span class="pill set">집합 2회</span><span class="pill remote">원격 2회</span></span>
-        <span class="more">상세 일정 보기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></span>
-      </button>
-    </div>
-  </div>
+<!-- ============ 연수 일정 (캘린더) ============ -->
+<section class="section cal mode-elem" id="schedule" style="padding-top:0">
+  <style>
+    .cal{
+      --c-navy:#1c2e58;--c-blue:#2b57c4;--c-sky:#2f80c9;--c-teal:#2f9e8f;
+      --c-ink:#1f2a44;--c-muted:#5d6679;--c-muted2:#8b93a6;--c-line:#e5eaf3;--c-line-soft:#eef2f8;--c-surface:#f6f8fc;
+      font-family:"Pretendard","Pretendard Variable",-apple-system,BlinkMacSystemFont,system-ui,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+      color:var(--c-ink);letter-spacing:-.01em;
+    }
+    .cal *{box-sizing:border-box}
+    .cal-inner{max-width:1120px;margin:0 auto;padding:0 24px}
 
-  <!-- 상세 일정 모달 -->
-    <dialog id="d-cheonan" class="sdlg">
-      <div class="sdlg-head"><h3>천안 <span>연수 일정</span></h3><button class="sdlg-x" data-close aria-label="닫기">✕</button></div>
-      <div class="sch-body">
-        <div class="sch-col">
-          <h4><span class="k set">집합연수</span> <small>09:30~15:30</small></h4>
-          <ul><li>7. 27.(월)</li><li>8. 11.(화)</li><li>8. 13.(목)</li></ul>
-        </div>
-        <div class="sch-col rmt">
-          <h4><span class="k remote">원격연수</span> <small>초·중등 공통</small></h4>
-          <ul><li>7. 30.(목) <span class="t">10:00~12:00</span></li><li>8. 13.(목) <span class="t">14:00~16:00</span></li><li>8. 14.(금) <span class="t">10:00~12:00</span></li></ul>
-        </div>
+    .cal-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+    .cal-head h2{margin:0;font-size:clamp(22px,2.6vw,28px);font-weight:800;color:var(--c-navy);letter-spacing:-.03em}
+    .cal-head p{margin:6px 0 0;font-size:14px;color:var(--c-muted)}
+
+    .cal-toggle{display:inline-flex;background:#eef2f8;border:1px solid var(--c-line);border-radius:11px;padding:4px;gap:4px}
+    .cal-toggle button{font-family:inherit;font-size:14px;font-weight:800;color:var(--c-muted);cursor:pointer;
+      border:0;background:transparent;border-radius:8px;padding:9px 22px;transition:all .15s ease}
+    .cal-toggle button:focus{outline:none}
+    .cal-toggle button:focus-visible{outline:3px solid #8fb0ee;outline-offset:2px}
+    .cal.mode-elem .cal-toggle .t-elem,
+    .cal.mode-mid  .cal-toggle .t-mid{background:var(--c-blue);color:#fff;box-shadow:0 6px 14px -8px rgba(43,87,196,.8)}
+
+    .cal-legend{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:20px;font-size:12px;font-weight:600;color:var(--c-muted)}
+    .cal-legend span{display:inline-flex;align-items:center;gap:6px}
+    .cal-legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
+
+    .cal-wave{margin-bottom:26px}
+    .cal-wave-h{display:flex;align-items:center;gap:9px;font-size:14px;font-weight:800;color:var(--c-navy);margin-bottom:12px}
+    .cal-wave-h .pin{font-size:11px;font-weight:800;background:var(--c-navy);color:#fff;border-radius:6px;padding:3px 10px}
+
+    .cal-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;align-items:start}
+    @media(max-width:900px){.cal-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:520px){.cal-grid{grid-template-columns:1fr}}
+
+    .day{background:#fff;border:1px solid var(--c-line);border-radius:13px;overflow:hidden;display:flex;flex-direction:column;cursor:pointer;
+      box-shadow:0 1px 2px rgba(28,46,88,.05),0 10px 24px -18px rgba(28,46,88,.22);transition:box-shadow .2s ease,border-color .2s ease}
+    .day:hover{border-color:#cdd8ee;box-shadow:0 1px 2px rgba(28,46,88,.05),0 14px 28px -18px rgba(28,46,88,.32)}
+    .day:focus{outline:none}
+    .day:focus-visible{outline:3px solid #8fb0ee;outline-offset:2px}
+    .day.remote{background:linear-gradient(180deg,#f2f8fd,#fff)}
+    .day-h{display:flex;align-items:center;justify-content:space-between;padding:11px 13px;border-bottom:1px solid var(--c-line-soft)}
+    .day-d{display:flex;align-items:baseline;gap:6px}
+    .day-d b{font-size:17px;font-weight:800;color:var(--c-navy);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+    .day-d span{font-size:12px;font-weight:700;color:var(--c-muted2)}
+    .day-type{font-size:10.5px;font-weight:800;border-radius:6px;padding:3px 8px;flex:none}
+    .ty-set{background:#e9effb;color:var(--c-blue)}
+    .ty-rem{background:#eaf4fc;color:var(--c-sky)}
+    .ty-both{background:#eef1f8;color:var(--c-navy)}
+
+    .day-loc{padding:10px 13px;display:flex;flex-direction:column;gap:6px}
+    .day-loc a.l,.day-loc .l{display:flex;gap:6px;align-items:flex-start;font-size:12px;color:var(--c-ink);font-weight:600;line-height:1.35;text-decoration:none}
+    .day-loc a.l{border-bottom:1px dashed transparent}
+    .day-loc a.l:hover{color:var(--c-blue)}
+    .day-loc a.l:hover .lname{text-decoration:underline}
+    .day-loc a.l:focus{outline:none}
+    .day-loc a.l:focus-visible{outline:3px solid #8fb0ee;outline-offset:2px;border-radius:4px}
+    .day-loc .l svg{width:13px;height:13px;color:var(--c-blue);flex:none;margin-top:2px}
+    .day-loc.rem .l svg{color:var(--c-sky)}
+    .day-loc a.l .ext{width:11px;height:11px;color:var(--c-muted2);flex:none;margin-top:3px}
+
+    .day-more{margin-top:auto;display:flex;align-items:center;gap:6px;padding:10px 13px;border-top:1px solid var(--c-line-soft);
+      font-size:12px;font-weight:700;color:var(--c-muted);background:var(--c-surface)}
+    .day-more .mcount{background:#e9effb;color:var(--c-blue);border-radius:999px;padding:2px 8px;font-size:11px;font-weight:800}
+    .day.remote .day-more .mcount{background:#eaf4fc;color:var(--c-sky)}
+    .day-more .chev{margin-left:auto;transition:transform .25s ease;color:var(--c-muted2)}
+    .day-more .chev svg{width:16px;height:16px;display:block}
+    .day.is-open .day-more .chev{transform:rotate(180deg)}
+    .day.is-open .day-more .mtxt-open{display:inline}
+    .day.is-open .day-more .mtxt-closed{display:none}
+    .day-more .mtxt-open{display:none}
+
+    .day-body{max-height:0;overflow:hidden;transition:max-height .3s ease}
+    .day.is-open .day-body{max-height:700px}
+    @media (prefers-reduced-motion:reduce){.day-body{transition:none}.day-more .chev,.cal-toggle button{transition:none}}
+    .day-body-in{padding:12px 13px;display:flex;flex-wrap:wrap;gap:6px;border-top:1px solid var(--c-line-soft)}
+    .d-elem,.d-mid{display:none;flex-wrap:wrap;gap:6px;width:100%}
+    .cal.mode-elem .day-body .d-elem{display:flex}
+    .cal.mode-mid  .day-body .d-mid{display:flex}
+    .chip{font-size:11.5px;font-weight:700;border-radius:7px;padding:5px 9px;white-space:nowrap;line-height:1.1}
+    .lv-gicho{background:#eaf4fc;color:var(--c-sky)}
+    .lv-sim{background:#e9effb;color:var(--c-blue)}
+    .lv-jeon{background:#eef1f8;color:var(--c-navy)}
+    .lv-silgwa{background:#e6f6f2;color:var(--c-teal)}
+    .day-note{font-size:12px;color:var(--c-muted);font-weight:600;width:100%;line-height:1.5}
+  </style>
+
+  <div class="cal-inner">
+    <div class="cal-head">
+      <div>
+        <h2>연수 일정</h2>
+        <p>학교급을 선택하고 날짜 카드를 클릭하면 운영 과목이 펼쳐집니다. 장소명을 누르면 네이버 지도로 이동합니다.</p>
       </div>
-      <div class="sdlg-note">
-        <span>본 일정의 집합·원격 회차는 모두 7차시 커리큘럼으로 동일하게 운영됩니다.</span>
-        <a href="#curriculum" data-close>커리큘럼 보기 ›</a>
+      <div class="cal-toggle" role="tablist" aria-label="학교급 선택">
+        <button class="t-elem" type="button" role="tab" aria-selected="true" data-mode="elem">초등</button>
+        <button class="t-mid" type="button" role="tab" aria-selected="false" data-mode="mid">중등</button>
       </div>
-    </dialog>
-    <dialog id="d-asan" class="sdlg">
-      <div class="sdlg-head"><h3>아산 <span>연수 일정</span></h3><button class="sdlg-x" data-close aria-label="닫기">✕</button></div>
-      <div class="sch-body">
-        <div class="sch-col">
-          <h4><span class="k set">집합연수</span> <small>09:30~15:30</small></h4>
-          <ul><li>7. 29.(수)</li><li>8. 10.(월)</li></ul>
-        </div>
-        <div class="sch-col rmt">
-          <h4><span class="k remote">원격연수</span> <small>초·중등 공통</small></h4>
-          <ul><li>7. 31.(금) <span class="t">10:00~12:00</span></li><li>8. 13.(목) <span class="t">10:00~12:00</span></li></ul>
-        </div>
-      </div>
-      <div class="sdlg-note">
-        <span>본 일정의 집합·원격 회차는 모두 7차시 커리큘럼으로 동일하게 운영됩니다.</span>
-        <a href="#curriculum" data-close>커리큘럼 보기 ›</a>
-      </div>
-    </dialog>
-    <dialog id="d-gongju" class="sdlg">
-      <div class="sdlg-head"><h3>공주·부여·청양 <span>연수 일정</span></h3><button class="sdlg-x" data-close aria-label="닫기">✕</button></div>
-      <div class="sch-body">
-        <div class="sch-col">
-          <h4><span class="k set">집합연수</span> <small>09:30~15:30</small></h4>
-          <ul><li>7. 29.(수)</li><li>8. 10.(월)</li></ul>
-        </div>
-        <div class="sch-col rmt">
-          <h4><span class="k remote">원격연수</span> <small>초·중등 공통</small></h4>
-          <ul><li>7. 31.(금) <span class="t">10:00~12:00</span></li><li>8. 13.(목) <span class="t">10:00~12:00</span></li></ul>
-        </div>
-      </div>
-      <div class="sdlg-note">
-        <span>본 일정의 집합·원격 회차는 모두 7차시 커리큘럼으로 동일하게 운영됩니다.</span>
-        <a href="#curriculum" data-close>커리큘럼 보기 ›</a>
-      </div>
-    </dialog>
-    <dialog id="d-seosan" class="sdlg">
-      <div class="sdlg-head"><h3>서산·태안·당진 <span>연수 일정</span></h3><button class="sdlg-x" data-close aria-label="닫기">✕</button></div>
-      <div class="sch-body">
-        <div class="sch-col">
-          <h4><span class="k set">집합연수</span> <small>09:30~15:30</small></h4>
-          <ul><li>7. 28.(화)</li><li>8. 12.(수)</li></ul>
-        </div>
-        <div class="sch-col rmt">
-          <h4><span class="k remote">원격연수</span> <small>초·중등 공통</small></h4>
-          <ul><li>7. 30.(목) <span class="t">14:00~16:00</span></li><li>8. 14.(금) <span class="t">10:00~12:00</span></li></ul>
-        </div>
-      </div>
-      <div class="sdlg-note">
-        <span>본 일정의 집합·원격 회차는 모두 7차시 커리큘럼으로 동일하게 운영됩니다.</span>
-        <a href="#curriculum" data-close>커리큘럼 보기 ›</a>
-      </div>
-    </dialog>
-    <dialog id="d-nonsan" class="sdlg">
-      <div class="sdlg-head"><h3>논산·계룡·금산 <span>연수 일정</span></h3><button class="sdlg-x" data-close aria-label="닫기">✕</button></div>
-      <div class="sch-body">
-        <div class="sch-col">
-          <h4><span class="k set">집합연수</span> <small>09:30~15:30</small></h4>
-          <ul><li>7. 27.(월)</li><li>8. 11.(화)</li></ul>
-        </div>
-        <div class="sch-col rmt">
-          <h4><span class="k remote">원격연수</span> <small>초·중등 공통</small></h4>
-          <ul><li>7. 30.(목) <span class="t">14:00~16:00</span></li><li>8. 13.(목) <span class="t">14:00~16:00</span></li></ul>
-        </div>
-      </div>
-      <div class="sdlg-note">
-        <span>본 일정의 집합·원격 회차는 모두 7차시 커리큘럼으로 동일하게 운영됩니다.</span>
-        <a href="#curriculum" data-close>커리큘럼 보기 ›</a>
-      </div>
-    </dialog>
-    <dialog id="d-hongseong" class="sdlg">
-      <div class="sdlg-head"><h3>홍성·예산·보령·서천 <span>연수 일정</span></h3><button class="sdlg-x" data-close aria-label="닫기">✕</button></div>
-      <div class="sch-body">
-        <div class="sch-col">
-          <h4><span class="k set">집합연수</span> <small>09:30~15:30</small></h4>
-          <ul><li>7. 28.(화)</li><li>8. 12.(수)</li></ul>
-        </div>
-        <div class="sch-col rmt">
-          <h4><span class="k remote">원격연수</span> <small>초·중등 공통</small></h4>
-          <ul><li>7. 30.(목) <span class="t">14:00~16:00</span></li><li>8. 14.(금) <span class="t">10:00~12:00</span></li></ul>
-        </div>
-      </div>
-      <div class="sdlg-note">
-        <span>본 일정의 집합·원격 회차는 모두 7차시 커리큘럼으로 동일하게 운영됩니다.</span>
-        <a href="#curriculum" data-close>커리큘럼 보기 ›</a>
-      </div>
-    </dialog>
+    </div>
+
+    <div class="cal-legend">
+      <span><i style="background:#2f80c9"></i>기초</span>
+      <span><i style="background:#2b57c4"></i>심화</span>
+      <span><i style="background:#1c2e58"></i>전문가</span>
+      <span><i style="background:#2f9e8f"></i>실과(초등)</span>
+      <span><i style="background:#e9effb;border:1px solid #cdd8ee"></i>집합</span>
+      <span><i style="background:#eaf4fc;border:1px solid #cfe4f6"></i>원격</span>
+    </div>
+
+    <div id="cal-body"></div>
+  </div>
 
   <script>
     (function(){
-      document.querySelectorAll('.scard').forEach(function(b){
-        b.addEventListener('click',function(){
-          var d=document.getElementById(b.getAttribute('data-dlg'));
-          if(!d)return;
-          if(d.showModal){d.showModal();}else{d.setAttribute('open','');}
+      var root=document.getElementById('schedule');
+      if(!root) return;
+
+      var waves=[
+        { label:'1차', range:'2026. 7. 27(월) ~ 7. 31(금)', days:[
+          { date:'7/27', dow:'월', type:'집합', locs:['우정인재개발(천안)','건양대학교(논산)'],
+            elem:['기초-1과정','기초-2과정','기초-3과정','심화-1과정','심화-1과정'],
+            mid:['과학-기초','과학-심화','수학-기초','인문-기초','인문-심화','정보-기초','수학-심화','인문-기초'] },
+          { date:'7/28', dow:'화', type:'집합', locs:['혜전대학교(홍성)','한서대학교(서산)'],
+            elem:['기초-3과정'],
+            mid:['과학-기초','인문-기초','과학-심화'] },
+          { date:'7/29', dow:'수', type:'집합', locs:['캠코인재개발원(아산)','LX국토정보교육원(공주)'],
+            elem:['기초-3과정','실과-1과정','심화-1과정','기초-3과정'],
+            mid:['국어-기초','인문-기초','인문-심화','과학-기초','수학-심화','정보-심화'] },
+          { date:'7/30', dow:'목', type:'원격', remote:true, locs:[], elem:[], mid:[] },
+          { date:'7/31', dow:'금', type:'원격', remote:true, locs:[], elem:[], mid:[] }
+        ]},
+        { label:'2차', range:'2026. 8. 10(월) ~ 8. 14(금)', days:[
+          { date:'8/10', dow:'월', type:'집합', locs:['캠코인재개발원(아산)'],
+            elem:['기초-1과정'],
+            mid:['과학-심화','국어-심화','수학-심화','인문-전문가','정보-심화','인문-기초'] },
+          { date:'8/11', dow:'화', type:'집합', locs:['공주대학교 천안캠퍼스(천안)','건양대학교(논산)'],
+            elem:['기초-3과정','실과-1과정'],
+            mid:['국어-기초','국어-심화'] },
+          { date:'8/12', dow:'수', type:'집합', locs:['한서대학교(서산)','공주대학교 예산캠퍼스(예산)'],
+            elem:['기초-1과정','기초-2과정','실과-1과정','심화-1과정'],
+            mid:['국어-심화','수학-심화','인문-심화','국어-심화','수학-심화','인문-기초','인문-전문가'] },
+          { date:'8/13', dow:'목', type:'집합+원격', remote:true, locs:['공주대학교 천안캠퍼스(천안)'],
+            elem:['실과-3과정','심화-3과정'],
+            mid:['기술-심화','기술-전문가','수학-심화','수학-전문가'] },
+          { date:'8/14', dow:'금', type:'원격', remote:true, locs:[], elem:[], mid:[] }
+        ]}
+      ];
+
+      function naverUrl(loc){
+        var q=loc.replace(/[()]/g,' ').replace(/\s+/g,' ').trim();
+        return 'https://map.naver.com/p/search/'+encodeURIComponent(q);
+      }
+      function lvClass(s){
+        if(s.indexOf('전문가')>-1) return 'lv-jeon';
+        if(s.indexOf('심화')>-1)   return 'lv-sim';
+        if(s.indexOf('실과')>-1)   return 'lv-silgwa';
+        return 'lv-gicho';
+      }
+      function chips(list){ return list.map(function(s){ return '<span class="chip '+lvClass(s)+'">'+s+'</span>'; }).join(''); }
+
+      var pinSvg='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>';
+      var netSvg='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>';
+      var extSvg='<svg class="ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>';
+      var chevSvg='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>';
+
+      function dayCard(d){
+        var typeClass = d.type==='원격' ? 'ty-rem' : (d.type==='집합+원격' ? 'ty-both' : 'ty-set');
+        var isRemoteOnly = (d.type==='원격');
+        var html='<div class="day'+(isRemoteOnly?' remote':'')+'" role="button" tabindex="0" aria-expanded="false" data-e="'+d.elem.length+'" data-m="'+d.mid.length+'">';
+        html+='<div class="day-h"><span class="day-d"><b>'+d.date+'</b><span>'+d.dow+'</span></span>'
+             +'<span class="day-type '+typeClass+'">'+d.type+'</span></div>';
+
+        if(isRemoteOnly){
+          html+='<div class="day-loc rem"><span class="l">'+netSvg+'<span class="lname">온라인 실시간</span></span></div>';
+          html+='<div class="day-more"><span class="mtxt-closed">공통 과정 보기</span><span class="mtxt-open">접기</span><span class="chev">'+chevSvg+'</span></div>';
+          html+='<div class="day-body"><div class="day-body-in"><span class="day-note">원격연수 · 초·중등 공통<br>· 교육정책 이해<br>· AI·디지털 윤리</span></div></div>';
+        } else {
+          html+='<div class="day-loc">'
+             +d.locs.map(function(l){return '<a class="l" href="'+naverUrl(l)+'" target="_blank" rel="noopener">'+pinSvg+'<span class="lname">'+l+'</span>'+extSvg+'</a>';}).join('')
+             +(d.type==='집합+원격'?'<span class="l">'+netSvg+'<span class="lname">원격 병행(온라인 공통)</span></span>':'')
+             +'</div>';
+          html+='<div class="day-more"><span class="mtxt-closed">과목 보기</span><span class="mtxt-open">접기</span><span class="mcount">'+d.elem.length+'</span><span class="chev">'+chevSvg+'</span></div>';
+          html+='<div class="day-body"><div class="day-body-in">'
+             +'<div class="d-elem">'+(d.elem.length?chips(d.elem):'<span class="day-note">초등 과정 없음</span>')+'</div>'
+             +'<div class="d-mid">'+(d.mid.length?chips(d.mid):'<span class="day-note">중등 과목 없음</span>')+'</div>'
+             +'</div></div>';
+        }
+        html+='</div>';
+        return html;
+      }
+
+      var body='';
+      waves.forEach(function(w){
+        body+='<div class="cal-wave"><div class="cal-wave-h"><span class="pin">'+w.label+'</span>'+w.range+'</div>';
+        body+='<div class="cal-grid">'+w.days.map(dayCard).join('')+'</div></div>';
+      });
+      document.getElementById('cal-body').innerHTML=body;
+
+      function toggleCard(card){
+        var open=card.classList.toggle('is-open');
+        card.setAttribute('aria-expanded', open?'true':'false');
+      }
+      root.querySelectorAll('.day').forEach(function(card){
+        card.addEventListener('click',function(e){
+          if(e.target.closest('a')) return;
+          toggleCard(card);
+        });
+        card.addEventListener('keydown',function(e){
+          if(e.key==='Enter'||e.key===' '){ e.preventDefault(); toggleCard(card); }
         });
       });
-      document.querySelectorAll('.sdlg').forEach(function(d){
-        d.addEventListener('click',function(e){ if(e.target===d) d.close(); });
-        d.querySelectorAll('[data-close]').forEach(function(x){ x.addEventListener('click',function(){ d.close(); }); });
+
+      function updateCounts(mode){
+        root.querySelectorAll('.day').forEach(function(card){
+          var mc=card.querySelector('.mcount'); if(!mc) return;
+          mc.textContent = mode==='mid' ? card.getAttribute('data-m') : card.getAttribute('data-e');
+        });
+      }
+      var btns=root.querySelectorAll('.cal-toggle button');
+      btns.forEach(function(b){
+        b.addEventListener('click',function(){
+          var m=b.getAttribute('data-mode');
+          root.classList.remove('mode-elem','mode-mid');
+          root.classList.add('mode-'+m);
+          btns.forEach(function(x){x.setAttribute('aria-selected', x===b?'true':'false');});
+          updateCounts(m);
+        });
       });
+      updateCounts('elem');
     })();
   </script>
 </section>
