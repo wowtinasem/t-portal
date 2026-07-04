@@ -217,6 +217,19 @@
   .drive .gtxt strong{display:block;font-size:17px;color:var(--navy);font-weight:800;letter-spacing:-.02em;margin-bottom:5px}
   .drive .gtxt p{margin:0;font-size:13.5px;color:var(--muted);line-height:1.55}
   .drive .btn{flex:none}
+  /* 초등/중등 통합자료실 2열 */
+  .drive-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .drive-grid .drive{gap:16px;padding:22px 24px;text-decoration:none;cursor:pointer;
+    transition:transform .18s ease,box-shadow .2s ease,border-color .2s ease}
+  .drive-grid .drive:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:#c3d3ee}
+  .drive-grid .drive:focus-visible{outline:3px solid #8fb0ee;outline-offset:3px}
+  .drive-grid .gtxt{flex:1;min-width:0}
+  .drive-grid .lv-badge{display:inline-block;font-size:11.5px;font-weight:800;color:#fff;background:var(--blue);border-radius:6px;padding:2px 9px;margin-bottom:7px}
+  .drive-grid .lv-badge.mid{background:var(--navy)}
+  .drive-grid .gobtn{flex:none;display:inline-flex;align-items:center;gap:5px;font-size:13.5px;font-weight:700;color:var(--blue)}
+  .drive-grid .gobtn svg{width:16px;height:16px}
+  .drive-grid .drive:hover .gobtn{color:var(--blue-d)}
+  @media(max-width:760px){.drive-grid{grid-template-columns:1fr}}
 
   /* ---------- survey + notice ---------- */
   .sn{display:grid;grid-template-columns:1fr 1.25fr;gap:22px;align-items:start}
@@ -1278,60 +1291,29 @@
   </script>
 </section>
 
-<!-- ============ 자료실 ============ -->
+<!-- ============ 통합자료실 ============ -->
 <section class="section" id="room" style="padding-top:0">
   <div class="wrap">
-    <h2 class="sec-title reveal">자료실</h2>
-    <div class="grid g5 reveal">
-      <article class="ccard">
-        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h6l2 2h10v9a2 2 0 0 1-2 2H3z"/></svg></span>
-        <h3>강의자료</h3>
-        <p>강의 슬라이드 및 주요 자료</p>
-        <a class="btn line" href="#drive">바로가기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></a>
-      </article>
-      <article class="ccard">
-        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="m9.5 13 1.5 1.5 3-3"/></svg></span>
-        <h3>실습자료</h3>
-        <p>실습 활동지 및 예제 자료</p>
-        <a class="btn line" href="#drive">바로가기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></a>
-      </article>
-      <article class="ccard">
-        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6.5C10.5 5 8 4.5 4 4.5v13c4 0 6.5.5 8 2 1.5-1.5 4-2 8-2v-13c-4 0-6.5.5-8 2Z"/><path d="M12 6.5v13"/></svg></span>
-        <h3>참고자료</h3>
-        <p>관련 참고 자료 모음</p>
-        <a class="btn line" href="#drive">바로가기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></a>
-      </article>
-      <article class="ccard">
-        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m10 9 5 3-5 3z" fill="currentColor" stroke="none"/></svg></span>
-        <h3>영상자료</h3>
-        <p>강의 영상 및 참고 영상</p>
-        <a class="btn line" href="#drive">바로가기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></a>
-      </article>
-      <article class="ccard">
-        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h3"/></svg></span>
-        <h3>활동지</h3>
-        <p>수업 활동지 및 워크시트</p>
-        <a class="btn line" href="#drive">바로가기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></a>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- ============ GOOGLE DRIVE ============ -->
-<section class="section" id="drive" style="padding-top:0">
-  <div class="wrap">
-    <div class="drive reveal">
-      <svg class="gd" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path d="M16.5 6 31 30H17.8L4 6Z" fill="#2b57c4"/>
-        <path d="M31 30 24 42H10.6L16.5 30Z" fill="#5b86e8" transform="translate(-6.5 0)"/>
-        <path d="M17.5 6h13L44 30H31Z" fill="#9fbcf4"/>
-        <path d="M4 30 10.5 42h27L44 30Z" fill="#3c6fd6"/>
-      </svg>
-      <div class="gtxt">
-        <strong>연수자료 통합 자료실 (Google Drive)</strong>
-        <p>연수 종료 후에도 모든 자료를 지속적으로 다운로드하고 활용할 수 있습니다.</p>
-      </div>
-      <a class="btn primary lg" href="#drive">Google Drive 자료실 바로가기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
+    <h2 class="sec-title reveal">연수자료 통합자료실</h2>
+    <div class="drive-grid reveal">
+      <a class="drive" href="#" target="_blank" rel="noopener">
+        <svg class="gd" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M16.5 6 31 30H17.8L4 6Z" fill="#2b57c4"/><path d="M31 30 24 42H10.6L16.5 30Z" fill="#5b86e8" transform="translate(-6.5 0)"/><path d="M17.5 6h13L44 30H31Z" fill="#9fbcf4"/><path d="M4 30 10.5 42h27L44 30Z" fill="#3c6fd6"/></svg>
+        <div class="gtxt">
+          <span class="lv-badge">초등</span>
+          <strong>초등 연수자료 통합자료실</strong>
+          <p>강의·실습·참고 자료를 Google Drive에서 한 곳에 모아 다운로드하세요.</p>
+        </div>
+        <span class="gobtn">바로가기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></span>
+      </a>
+      <a class="drive" href="#" target="_blank" rel="noopener">
+        <svg class="gd" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M16.5 6 31 30H17.8L4 6Z" fill="#2b57c4"/><path d="M31 30 24 42H10.6L16.5 30Z" fill="#5b86e8" transform="translate(-6.5 0)"/><path d="M17.5 6h13L44 30H31Z" fill="#9fbcf4"/><path d="M4 30 10.5 42h27L44 30Z" fill="#3c6fd6"/></svg>
+        <div class="gtxt">
+          <span class="lv-badge mid">중등</span>
+          <strong>중등 연수자료 통합자료실</strong>
+          <p>강의·실습·참고 자료를 Google Drive에서 한 곳에 모아 다운로드하세요.</p>
+        </div>
+        <span class="gobtn">바로가기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></span>
+      </a>
     </div>
   </div>
 </section>
@@ -1484,7 +1466,7 @@
       if(/신청|등록|접수|모집|공지/.test(q))
         return {html:'신청·접수 등 자세한 사항은 공지/안내 또는 콜센터(070-8676-3276)로 확인해 주세요.<br><a href="#notice">공지사항 보기 ›</a>'};
       if(/자료|다운로드|강의자료|드라이브|자료실|ppt/.test(q))
-        return {html:'강의·실습 자료는 자료실(Google Drive)에서 받을 수 있어요.<br><a href="#drive">자료실 바로가기 ›</a>'};
+        return {html:'강의·실습 자료는 자료실(Google Drive)에서 받을 수 있어요.<br><a href="#room">자료실 바로가기 ›</a>'};
       if(d)
         return {html:'<b>'+d.n+'</b> 안내예요.<br>📍 '+d.v+' (📞 '+d.t+')<br>🟦 집합: '+d.s+'<br>🟧 원격: '+d.r+'<br><a href="#place">장소</a> · <a href="#schedule">일정</a>'};
       return {html:'죄송해요, 정확히 이해하지 못했어요. 😊 아래에서 선택하거나 다시 질문해 주세요.',chips:['연수 일정','연수 장소','커리큘럼','대상','콜센터']};
