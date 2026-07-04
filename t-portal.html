@@ -49,7 +49,10 @@
   a{color:inherit;text-decoration:none}
   img{max-width:100%;display:block}
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
-  .section{padding:60px 0}
+  .section{padding:56px 0}
+  /* 섹션 영역 구분: 교차 배경 밴드 + 상단 헤어라인 */
+  .section.band{background:var(--surface)}
+  .section.line{border-top:1px solid var(--line-soft)}
   :focus-visible{outline:3px solid #8fb0ee;outline-offset:3px;border-radius:6px}
 
   .sec-title{font-size:22px;font-weight:800;color:var(--navy);letter-spacing:-.025em;margin:0 0 22px;display:flex;align-items:baseline;justify-content:space-between;position:relative;padding-left:16px}
@@ -544,7 +547,7 @@
 </section>
 
 <!-- ============ 연수 일정 (캘린더) ============ -->
-<section class="section cal mode-elem" id="schedule" style="padding-top:0">
+<section class="section cal mode-elem" id="schedule">
   <style>
     .cal{
       --c-navy:#1c2e58;--c-blue:#2b57c4;--c-sky:#2f80c9;--c-teal:#2f9e8f;
@@ -814,7 +817,7 @@
 </section>
 
 <!-- ============ 커리큘럼 ============ -->
-<section class="section ct-curriculum" id="curriculum" style="padding-top:0">
+<section class="section ct-curriculum band" id="curriculum">
   <style>
     .ct-curriculum{
       --ct-blue:#2b57c4;--ct-blue-d:#1f47a8;--ct-navy:#1c2e58;--ct-sky:#2f80c9;
@@ -1011,7 +1014,7 @@
 </section>
 
 <!-- ============ AI 학습 도구 ============ -->
-<section class="section aitools" id="ai-tools" style="padding-top:0">
+<section class="section aitools" id="ai-tools">
   <style>
     .aitools{
       --at-navy:#1c2e58;--at-blue:#2b57c4;--at-ink:#1f2a44;
@@ -1213,7 +1216,7 @@
 </section>
 
 <!-- ============ 연수 장소 ============ -->
-<section class="section" id="place" style="padding-top:0">
+<section class="section band" id="place">
   <div class="wrap">
     <h2 class="sec-title reveal">연수 장소</h2>
     <p class="sched-lead reveal">지도의 <b>연수장소 정보 박스</b> 또는 아래 <b>장소 카드</b>를 클릭하면 해당 연수장소의 <b>네이버 지도</b>로 이동합니다. 카드와 지도는 같은 장소끼리 마우스를 올리면 함께 강조됩니다.</p>
@@ -1296,7 +1299,7 @@
 </section>
 
 <!-- ============ 통합자료실 ============ -->
-<section class="section" id="room" style="padding-top:0">
+<section class="section" id="room">
   <div class="wrap">
     <h2 class="sec-title reveal">연수자료 통합자료실</h2>
     <div class="drive-grid reveal">
@@ -1323,7 +1326,7 @@
 </section>
 
 <!-- ============ 만족도 + 공지사항 ============ -->
-<section class="section" style="padding-top:0">
+<section class="section band">
   <div class="wrap sn" id="notice">
     <div class="panel survey reveal">
       <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="12" height="16" rx="2"/><path d="M9 4V3h6v1"/><path d="m9.5 11 1.5 1.5 3-3"/><path d="M9 16h6"/></svg></span>
@@ -1344,7 +1347,7 @@
 </section>
 
 <!-- ============ 운영 사진 ============ -->
-<section class="section" id="gallery" style="padding-top:0">
+<section class="section" id="gallery">
   <div class="wrap">
     <h2 class="sec-title reveal">운영 사진 <a class="more" href="#gallery">더보기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></a></h2>
     <div class="gallery reveal">
