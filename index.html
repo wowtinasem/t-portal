@@ -933,6 +933,17 @@
     .ct-foot{margin-top:18px;font-size:12.5px;color:var(--ct-muted);line-height:1.7;
       background:#fff;border:1px solid var(--ct-line);border-radius:12px;padding:14px 18px}
     .ct-foot b{color:var(--ct-navy)}
+    /* 커리큘럼 카드 접기/펼치기 토글 */
+    .ct-top{cursor:pointer;user-select:none;justify-content:flex-start}
+    .ct-top .ct-tot{margin-left:auto}
+    .ct-top:focus{outline:none}
+    .ct-top:focus-visible{outline:3px solid #8fb0ee;outline-offset:-3px}
+    .ct-top .ct-chev{margin-left:14px;flex:none;color:#cdd9f4;transition:transform .25s ease}
+    .ct-top .ct-chev svg{width:20px;height:20px;display:block}
+    .ct-top[aria-expanded="true"] .ct-chev{transform:rotate(180deg)}
+    .ct-body{overflow:hidden;transition:max-height .35s ease;max-height:1600px}
+    .ct-card.collapsed .ct-body{max-height:0}
+    @media (prefers-reduced-motion:reduce){.ct-body{transition:none}.ct-top .ct-chev{transition:none}}
   </style>
 
   <div class="ct-inner">
@@ -956,10 +967,11 @@
 
       <!-- ===== 초등 ===== -->
       <div class="ct-card">
-        <div class="ct-top">
+        <div class="ct-top" role="button" tabindex="0" aria-expanded="true">
           <span class="ct-lv">초등<span class="ct-b">초등 교원</span></span>
-          <span class="ct-tot">전체 <b>7</b>차시</span>
+          <span class="ct-tot">전체 <b>7</b>차시</span><span class="ct-chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
         </div>
+        <div class="ct-body">
 
         <div class="ct-band ct-on">
           <div class="ct-band-h"><span class="ct-dot"></span>원격연수 · 온라인 실시간<span class="ct-time">2시간</span></div>
@@ -996,14 +1008,16 @@
             </div>
           </div>
         </div>
+        </div>
       </div>
 
       <!-- ===== 중등 ===== -->
       <div class="ct-card">
-        <div class="ct-top">
+        <div class="ct-top" role="button" tabindex="0" aria-expanded="true">
           <span class="ct-lv">중등<span class="ct-b">중등 교원</span></span>
-          <span class="ct-tot">전체 <b>7</b>차시</span>
+          <span class="ct-tot">전체 <b>7</b>차시</span><span class="ct-chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
         </div>
+        <div class="ct-body">
 
         <div class="ct-band ct-on">
           <div class="ct-band-h"><span class="ct-dot"></span>원격연수 · 온라인 실시간<span class="ct-time">2시간</span></div>
@@ -1043,6 +1057,7 @@
             </div>
           </div>
         </div>
+        </div>
       </div>
 
     </div>
@@ -1051,6 +1066,22 @@
       <b>안내</b> · 1~2차시(원격 공통)와 3차시(마주온 공통)는 초·중등 동일하며, <b>4~7차시는 신청한 선택 트랙/과목에 따라 내용이 달라집니다.</b> 집합연수는 1개반 최대 20명, 원격연수는 마주온 실시간으로 운영됩니다.
     </div>
   </div>
+
+  <script>
+    (function(){
+      var root=document.getElementById('curriculum');
+      if(!root) return;
+      root.querySelectorAll('.ct-card .ct-top').forEach(function(top){
+        function toggle(){
+          var card=top.closest('.ct-card');
+          var col=card.classList.toggle('collapsed');
+          top.setAttribute('aria-expanded', col?'false':'true');
+        }
+        top.addEventListener('click',toggle);
+        top.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); toggle(); } });
+      });
+    })();
+  </script>
 </section>
 
 <!-- ============ AI 학습 도구 ============ -->
