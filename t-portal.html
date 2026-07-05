@@ -1413,7 +1413,7 @@
   <div class="wrap">
     <h2 class="sec-title reveal">연수자료 통합자료실</h2>
     <div class="drive-grid reveal">
-      <a class="drive" id="room-elem" href="#" target="_blank" rel="noopener">
+      <a class="drive gated" id="room-elem" href="#" target="_blank" rel="noopener">
         <svg class="gd" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M16.5 6 31 30H17.8L4 6Z" fill="#2b57c4"/><path d="M31 30 24 42H10.6L16.5 30Z" fill="#5b86e8" transform="translate(-6.5 0)"/><path d="M17.5 6h13L44 30H31Z" fill="#9fbcf4"/><path d="M4 30 10.5 42h27L44 30Z" fill="#3c6fd6"/></svg>
         <div class="gtxt">
           <span class="lv-badge">초등</span>
@@ -1422,7 +1422,7 @@
         </div>
         <span class="gobtn">바로가기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></span>
       </a>
-      <a class="drive" id="room-mid" href="#" target="_blank" rel="noopener">
+      <a class="drive gated" id="room-mid" href="#" target="_blank" rel="noopener">
         <svg class="gd" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M16.5 6 31 30H17.8L4 6Z" fill="#2b57c4"/><path d="M31 30 24 42H10.6L16.5 30Z" fill="#5b86e8" transform="translate(-6.5 0)"/><path d="M17.5 6h13L44 30H31Z" fill="#9fbcf4"/><path d="M4 30 10.5 42h27L44 30Z" fill="#3c6fd6"/></svg>
         <div class="gtxt">
           <span class="lv-badge mid">중등</span>
@@ -1442,7 +1442,7 @@
       <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M12 3v13m0-13-4 4m4-4 4 4"/></svg></span>
       <h3>연수 산출물</h3>
       <p>연수 결과물(수업자료·활동 결과 등)을 구글폼으로 제출해 주세요.</p>
-      <a class="btn primary lg prod-btn" href="#" target="_blank" rel="noopener">
+      <a class="btn primary lg prod-btn gated" href="#" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M12 3v13m0-13-4 4m4-4 4 4"/></svg>
         연수 산출물 제출하기
       </a>
@@ -1713,6 +1713,29 @@
         return '<figure class="ph" style="margin:0"><img src="'+g.url+'" alt="'+TP.esc(g.cap||'운영 사진')+'" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block"></figure>';
       }).join('');
     }
+  })();
+</script>
+<!-- 접근 비밀번호 게이트: 자료실·산출물 링크 -->
+<script>
+  (function(){
+    var HASH=null, loaded=false;
+    fetch('data/settings.json?_='+Date.now(),{cache:'no-store'})
+      .then(function(r){return r.ok?r.json():null;})
+      .then(function(s){ HASH=s&&s.accessHash; loaded=true; })
+      .catch(function(){ loaded=true; });
+    function sha256hex(str){ return crypto.subtle.digest('SHA-256', new TextEncoder().encode(str)).then(function(buf){ return Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,'0');}).join(''); }); }
+    function go(a){ var url=a.getAttribute('href'); window.open(url, a.getAttribute('target')||'_self', 'noopener'); }
+    document.querySelectorAll('a.gated').forEach(function(a){
+      a.addEventListener('click',function(e){
+        e.preventDefault();
+        var url=a.getAttribute('href');
+        if(!url || url==='#'){ alert('링크가 아직 준비 중입니다. (관리자 설정 예정)'); return; }
+        var pw=prompt('비밀번호를 입력하세요.'); if(pw==null) return;
+        if(!loaded || !HASH){ go(a); return; }
+        sha256hex(pw).then(function(h){ if(h===HASH) go(a); else alert('비밀번호가 올바르지 않습니다.'); })
+          .catch(function(){ go(a); });
+      });
+    });
   })();
 </script>
 </body>

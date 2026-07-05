@@ -15,218 +15,299 @@
   *{box-sizing:border-box}
   body{margin:0;font-family:var(--ff);background:var(--surface);color:var(--ink);line-height:1.6;letter-spacing:-.01em;-webkit-font-smoothing:antialiased}
   a{color:var(--blue);text-decoration:none}
-  .wrap{max-width:860px;margin:0 auto;padding:0 20px}
+  .wrap{max-width:880px;margin:0 auto;padding:0 20px}
   header.bar{background:linear-gradient(120deg,#22417e,#16224a);color:#fff;padding:18px 0}
   header .row{display:flex;align-items:center;gap:12px}
   header .seal{width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,.14);display:grid;place-items:center;flex:none}
   header .seal img{width:26px;height:26px}
   header b{font-size:17px;font-weight:800}
   header small{display:block;font-size:12px;color:#bcd0f7}
-  header .row a.back{margin-left:auto;color:#cdd9f4;font-size:13px;font-weight:700}
-  main{padding:26px 0 60px}
+  header .row .sp{margin-left:auto;display:flex;gap:14px;align-items:center}
+  header .row a.back,header .row button.lo{color:#cdd9f4;font-size:13px;font-weight:700;background:none;border:0;cursor:pointer;font-family:inherit}
+  main{padding:24px 0 60px}
   .card{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 1px 2px rgba(28,46,88,.05),0 12px 30px -20px rgba(28,46,88,.2);padding:22px;margin-bottom:20px}
   .card h2{margin:0 0 4px;font-size:17px;font-weight:800;color:var(--navy);display:flex;align-items:center;gap:8px}
   .card h2::before{content:"";width:5px;height:18px;border-radius:999px;background:linear-gradient(#2b57c4,#5b86e8)}
   .card p.desc{margin:0 0 16px;font-size:13px;color:var(--muted)}
   label.fl{display:block;font-size:12.5px;font-weight:700;color:var(--navy);margin:12px 0 5px}
   input[type=text],input[type=password],input[type=date],textarea{width:100%;font-family:inherit;font-size:14px;color:var(--ink);
-    border:1px solid var(--line);border-radius:10px;padding:11px 13px;outline:none;transition:border-color .15s ease,box-shadow .15s ease;background:#fff}
+    border:1px solid var(--line);border-radius:10px;padding:11px 13px;outline:none;transition:border-color .15s,box-shadow .15s;background:#fff}
   input:focus,textarea:focus{border-color:#8fb0ee;box-shadow:0 0 0 3px rgba(43,87,196,.12)}
   .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;font-family:inherit;font-weight:700;font-size:14px;cursor:pointer;
-    border-radius:10px;padding:11px 18px;border:1px solid transparent;transition:background .15s ease,transform .12s ease,border-color .15s ease}
-  .btn:active{transform:scale(.98)}
+    border-radius:10px;padding:11px 18px;border:1px solid transparent;transition:background .15s,transform .12s,border-color .15s}
+  .btn:active{transform:scale(.98)} .btn[disabled]{opacity:.55;cursor:default}
   .btn.primary{background:var(--blue);color:#fff}.btn.primary:hover{background:var(--blue-d)}
   .btn.line{background:#fff;color:var(--blue);border-color:#cdd8ee}.btn.line:hover{background:var(--surface)}
   .btn.danger{background:#fff;color:var(--danger);border-color:#f0c9c9}.btn.danger:hover{background:#fdf2f2}
   .btn.sm{padding:7px 12px;font-size:12.5px;border-radius:8px}
   .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
   @media(max-width:600px){.row2{grid-template-columns:1fr}}
-  .actions{margin-top:16px;display:flex;gap:10px;flex-wrap:wrap}
-  .msg{font-size:12.5px;font-weight:700;margin-top:8px;min-height:16px}
-  .msg.ok{color:var(--ok)}.msg.err{color:var(--danger)}
+  .actions{margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .msg{font-size:12.5px;font-weight:700;min-height:16px}
+  .msg.ok{color:var(--ok)}.msg.err{color:var(--danger)}.msg.busy{color:var(--muted)}
   .list{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-direction:column;gap:8px}
   .list li{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 13px}
   .list li .t{flex:1;min-width:0}
   .list li .t strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .list li .t small{font-size:11.5px;color:var(--muted2)}
-  .list li img{width:64px;height:44px;object-fit:cover;border-radius:7px;border:1px solid var(--line);flex:none}
+  .list li img{width:64px;height:44px;object-fit:cover;border-radius:7px;border:1px solid var(--line);flex:none;background:#e8edf6}
   .empty{font-size:13px;color:var(--muted2);text-align:center;padding:16px}
-  /* 로그인 게이트 */
-  #gate{max-width:400px;margin:60px auto;padding:28px 26px;background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 20px 50px -24px rgba(28,46,88,.35);text-align:center}
+  .hint{background:#f0f5ff;border:1px solid #d6e2fb;border-radius:11px;padding:13px 15px;font-size:12.5px;color:#33518f;line-height:1.65;margin-bottom:16px}
+  .hint b{color:var(--blue-d)} .hint ol{margin:8px 0 0;padding-left:18px} .hint li{margin:3px 0}
+  code{background:#e7eefb;color:#1f47a8;border-radius:5px;padding:1px 6px;font-size:12px}
+  /* 게이트 */
+  #gate{max-width:460px;margin:44px auto;padding:28px 26px;background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 20px 50px -24px rgba(28,46,88,.35)}
   #gate .lock{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,#2b57c4,#5b86e8);display:grid;place-items:center;margin:0 auto 14px}
   #gate .lock svg{width:26px;height:26px;color:#fff}
-  #gate h1{margin:0 0 6px;font-size:19px;font-weight:800;color:var(--navy)}
-  #gate p{margin:0 0 18px;font-size:13px;color:var(--muted)}
+  #gate h1{margin:0 0 6px;font-size:19px;font-weight:800;color:var(--navy);text-align:center}
+  #gate p.sub{margin:0 0 16px;font-size:13px;color:var(--muted);text-align:center}
   #admin-body{display:none}
 </style>
 </head>
 <body>
 
-<!-- 로그인 게이트 -->
+<!-- 게이트: GitHub 토큰 입력 -->
 <div id="gate">
   <div class="lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div>
   <h1>관리자 로그인</h1>
-  <p>관리자 비밀번호를 입력하세요. (초기 비밀번호 0000)</p>
+  <p class="sub">공지·사진을 GitHub에 직접 발행합니다. GitHub 접근 토큰을 입력하세요.</p>
+  <div class="hint">
+    <b>토큰 만드는 법 (최초 1회)</b>
+    <ol>
+      <li>GitHub 로그인 → 우상단 프로필 → <b>Settings</b></li>
+      <li>맨 아래 <b>Developer settings</b> → <b>Personal access tokens</b> → <b>Fine-grained tokens</b> → <b>Generate new token</b></li>
+      <li>Repository access → <b>Only select repositories</b> → <code>wowtinasem/t-portal</code> 선택</li>
+      <li>Permissions → Repository permissions → <b>Contents</b> 를 <b>Read and write</b> 로</li>
+      <li>Generate token → 복사해서 아래에 붙여넣기</li>
+    </ol>
+    ※ 토큰은 이 브라우저 세션에만 저장되며 코드/GitHub에 올라가지 않습니다.
+  </div>
   <form id="gate-form" autocomplete="off">
-    <input type="password" id="gate-pw" placeholder="비밀번호" aria-label="관리자 비밀번호" />
-    <div class="msg err" id="gate-msg"></div>
-    <button class="btn primary" type="submit" style="width:100%;margin-top:10px">로그인</button>
+    <input type="password" id="gate-tok" placeholder="github_pat_... 토큰 붙여넣기" aria-label="GitHub 토큰" />
+    <div class="msg err" id="gate-msg" style="margin-top:8px"></div>
+    <button class="btn primary" type="submit" style="width:100%;margin-top:10px" id="gate-btn">연결하기</button>
   </form>
-  <p style="margin-top:16px"><a href="index.html">← 사이트로 돌아가기</a></p>
+  <p style="margin-top:16px;text-align:center"><a href="index.html">← 사이트로 돌아가기</a></p>
 </div>
 
 <div id="admin-body">
   <header class="bar">
     <div class="wrap row">
       <span class="seal"><img src="t-logo.png" alt="" /></span>
-      <span><b>관리자 페이지</b><small>2026 AI디지털교육 역량강화 직무연수</small></span>
-      <a class="back" href="index.html">사이트 보기 →</a>
+      <span><b>관리자 페이지</b><small>2026 AI디지털교육 역량강화 직무연수 · GitHub 발행</small></span>
+      <span class="sp"><a class="back" href="index.html" target="_blank">사이트 보기 →</a><button class="lo" id="logout">로그아웃</button></span>
     </div>
   </header>
 
   <main>
     <div class="wrap">
+      <div class="hint">발행하면 GitHub에 커밋되어 <b>약 1~2분 뒤 사이트에 자동 반영</b>됩니다. 모든 방문자에게 공개됩니다.</div>
 
-      <!-- 비밀번호 변경 -->
+      <!-- 접근 비밀번호 -->
       <div class="card">
-        <h2>관리자 비밀번호 변경</h2>
-        <p class="desc">관리자 페이지 접속 비밀번호를 변경합니다.</p>
-        <label class="fl">새 관리자 비밀번호</label>
-        <input type="password" id="pw-admin" placeholder="새 관리자 비밀번호" autocomplete="new-password" />
-        <div class="actions"><button class="btn primary" id="pw-save">비밀번호 저장</button><button class="btn line" type="button" id="logout">로그아웃</button></div>
-        <div class="msg" id="pw-msg"></div>
+        <h2>접근 비밀번호 (자료실·산출물)</h2>
+        <p class="desc">통합자료실 다운로드·연수 산출물 제출 버튼을 누를 때 요구하는 비밀번호입니다. (초기 0000, 관리자만 변경)</p>
+        <label class="fl">새 접근 비밀번호</label>
+        <input type="text" id="ap-pw" placeholder="새 접근 비밀번호" />
+        <div class="actions"><button class="btn primary" id="ap-save">비밀번호 변경 발행</button><span class="msg" id="ap-msg"></span></div>
       </div>
 
-      <!-- 공지사항 관리 -->
+      <!-- 공지사항 -->
       <div class="card">
         <h2>공지사항 관리</h2>
-        <p class="desc">사이트 하단 공지사항 목록에 표시됩니다. (최신순)</p>
+        <p class="desc">사이트 공지사항 목록에 표시됩니다. (최신순, 클릭 시 내용 팝업)</p>
         <div class="row2">
           <div><label class="fl">제목</label><input type="text" id="nt-title" placeholder="공지 제목" /></div>
           <div><label class="fl">날짜</label><input type="date" id="nt-date" /></div>
         </div>
-        <label class="fl">내용(선택)</label>
-        <textarea id="nt-body" rows="2" placeholder="상세 내용(선택)"></textarea>
-        <div class="actions"><button class="btn primary" id="nt-add">공지 추가</button></div>
-        <div class="msg" id="nt-msg"></div>
-        <ul class="list" id="nt-list"></ul>
+        <label class="fl">내용</label>
+        <textarea id="nt-body" rows="3" placeholder="공지 상세 내용"></textarea>
+        <div class="actions"><button class="btn primary" id="nt-add">공지 발행</button><span class="msg" id="nt-msg"></span></div>
+        <ul class="list" id="nt-list"><li class="empty">불러오는 중…</li></ul>
       </div>
 
-      <!-- 운영 사진 관리 -->
+      <!-- 운영 사진 -->
       <div class="card">
         <h2>운영 사진 업로드</h2>
-        <p class="desc">사이트 "운영 사진" 갤러리에 표시됩니다. (이미지 파일, 한 장당 2MB 이하 권장)</p>
+        <p class="desc">사이트 "운영 사진" 갤러리에 표시됩니다. (이미지, 한 장당 2MB 이하 권장)</p>
         <label class="fl">사진 파일</label>
         <input type="file" id="ph-file" accept="image/*" />
         <label class="fl">설명(선택)</label>
         <input type="text" id="ph-cap" placeholder="사진 설명(선택)" />
-        <div class="actions"><button class="btn primary" id="ph-add">사진 추가</button></div>
-        <div class="msg" id="ph-msg"></div>
-        <ul class="list" id="ph-list"></ul>
+        <div class="actions"><button class="btn primary" id="ph-add">사진 발행</button><span class="msg" id="ph-msg"></span></div>
+        <ul class="list" id="ph-list"><li class="empty">불러오는 중…</li></ul>
       </div>
-
     </div>
   </main>
 </div>
 
-<script src="tp-store.js"></script>
 <script>
-  (function () {
-    var gate = document.getElementById('gate'), body = document.getElementById('admin-body');
-    var SESSION = 'tp_admin_ok';
+(function(){
+  var REPO='wowtinasem/t-portal', BRANCH='main', API='https://api.github.com/repos/'+REPO+'/contents/';
+  var RAW='https://raw.githubusercontent.com/'+REPO+'/'+BRANCH+'/';
+  var SKEY='tp_gh_token';
+  var token='';
+  var gate=document.getElementById('gate'), body=document.getElementById('admin-body');
 
-    function showAdmin() {
-      gate.style.display = 'none'; body.style.display = 'block';
-      renderNotices(); renderPhotos();
-      document.getElementById('pw-admin').value = '';
-    }
-    // 로그인
-    document.getElementById('gate-form').addEventListener('submit', function (e) {
-      e.preventDefault();
-      var pw = document.getElementById('gate-pw').value;
-      var msg = document.getElementById('gate-msg');
-      if (pw === TP.settings().adminPw) { sessionStorage.setItem(SESSION, '1'); msg.textContent = ''; showAdmin(); }
-      else { msg.textContent = '비밀번호가 올바르지 않습니다.'; }
+  function H(){ return {Authorization:'Bearer '+token, Accept:'application/vnd.github+json', 'X-GitHub-Api-Version':'2022-11-28'}; }
+  function encU(s){ return btoa(unescape(encodeURIComponent(s))); }
+  function decU(b){ return decodeURIComponent(escape(atob(String(b).replace(/\s/g,'')))); }
+  function uid(){ return Math.random().toString(36).slice(2,8)+Date.now().toString(36); }
+  function today(){ var d=new Date(),p=function(n){return String(n).padStart(2,'0');}; return d.getFullYear()+'.'+p(d.getMonth()+1)+'.'+p(d.getDate()); }
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+  function fileToDataURL(f){ return new Promise(function(res,rej){ var r=new FileReader(); r.onload=function(){res(r.result);}; r.onerror=rej; r.readAsDataURL(f); }); }
+
+  function ghGet(path){
+    return fetch(API+path+'?ref='+BRANCH+'&_='+Date.now(),{headers:H(),cache:'no-store'}).then(function(r){
+      if(r.status===404) return {sha:null,text:null};
+      if(!r.ok) return r.text().then(function(t){throw new Error(r.status+' '+t);});
+      return r.json().then(function(d){ return {sha:d.sha, text:decU(d.content)}; });
     });
-    if (sessionStorage.getItem(SESSION) === '1') showAdmin();
-
-    document.getElementById('logout').addEventListener('click', function () { sessionStorage.removeItem(SESSION); location.reload(); });
-
-    // 비밀번호 저장
-    document.getElementById('pw-save').addEventListener('click', function () {
-      var a = document.getElementById('pw-admin').value.trim();
-      var msg = document.getElementById('pw-msg');
-      if (!a) { msg.className = 'msg err'; msg.textContent = '새 비밀번호를 입력하세요.'; return; }
-      var s = TP.settings(); s.adminPw = a; TP.saveSettings(s);
-      document.getElementById('pw-admin').value = '';
-      msg.className = 'msg ok'; msg.textContent = '관리자 비밀번호가 변경되었습니다.';
+  }
+  function ghPut(path,b64,sha,msg){
+    var b={message:msg,content:b64,branch:BRANCH}; if(sha) b.sha=sha;
+    return fetch(API+path,{method:'PUT',headers:H(),body:JSON.stringify(b)}).then(function(r){
+      if(!r.ok) return r.text().then(function(t){throw new Error(r.status+' '+t);});
+      return r.json();
     });
-
-    // 공지 추가/삭제
-    document.getElementById('nt-add').addEventListener('click', function () {
-      var t = document.getElementById('nt-title').value.trim();
-      var d = document.getElementById('nt-date').value;
-      var b = document.getElementById('nt-body').value.trim();
-      var msg = document.getElementById('nt-msg');
-      if (!t) { msg.className = 'msg err'; msg.textContent = '제목을 입력하세요.'; return; }
-      var date = d ? d.replace(/-/g, '.') : TP.today();
-      var list = TP.notices() || [];
-      list.unshift({ id: TP.uid(), title: t, date: date, body: b });
-      TP.saveNotices(list);
-      document.getElementById('nt-title').value = ''; document.getElementById('nt-date').value = ''; document.getElementById('nt-body').value = '';
-      msg.className = 'msg ok'; msg.textContent = '공지가 추가되었습니다.';
-      renderNotices();
+  }
+  function ghDel(path,sha,msg){
+    return fetch(API+path,{method:'DELETE',headers:H(),body:JSON.stringify({message:msg,sha:sha,branch:BRANCH})}).then(function(r){
+      if(!r.ok) return r.text().then(function(t){throw new Error(r.status+' '+t);});
+      return r.json();
     });
-    function renderNotices() {
-      var list = TP.notices() || [], el = document.getElementById('nt-list');
-      if (!list.length) { el.innerHTML = '<div class="empty">등록된 공지가 없습니다. (사이트에는 기본 공지가 표시됩니다)</div>'; return; }
-      el.innerHTML = list.map(function (n) {
-        return '<li><span class="t"><strong>' + TP.esc(n.title) + '</strong><small>' + TP.esc(n.date) + '</small></span>' +
-          '<button class="btn danger sm" data-del="' + n.id + '">삭제</button></li>';
-      }).join('');
-      el.querySelectorAll('[data-del]').forEach(function (b) {
-        b.addEventListener('click', function () {
-          if (!confirm('이 공지를 삭제할까요?')) return;
-          TP.saveNotices((TP.notices() || []).filter(function (x) { return x.id !== b.getAttribute('data-del'); }));
-          renderNotices();
-        });
+  }
+
+  /* ---------- 게이트 ---------- */
+  function showAdmin(){ gate.style.display='none'; body.style.display='block'; loadNotices(); loadGallery(); loadSettings(); }
+  function sha256hex(str){ return crypto.subtle.digest('SHA-256', new TextEncoder().encode(str)).then(function(buf){ return Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,'0');}).join(''); }); }
+  document.getElementById('gate-form').addEventListener('submit',function(e){
+    e.preventDefault();
+    var t=document.getElementById('gate-tok').value.trim();
+    var msg=document.getElementById('gate-msg'), btn=document.getElementById('gate-btn');
+    if(!t){ msg.textContent='토큰을 입력하세요.'; return; }
+    token=t; btn.disabled=true; msg.className='msg busy'; msg.textContent='확인 중…';
+    ghGet('data/notices.json').then(function(){
+      sessionStorage.setItem(SKEY,t); msg.textContent=''; showAdmin();
+    }).catch(function(err){
+      token=''; btn.disabled=false; msg.className='msg err';
+      msg.textContent='연결 실패: 토큰/권한을 확인하세요. ('+String(err.message).slice(0,60)+')';
+    });
+  });
+  var saved=sessionStorage.getItem(SKEY);
+  if(saved){ token=saved; showAdmin(); }
+  document.getElementById('logout').addEventListener('click',function(){ sessionStorage.removeItem(SKEY); location.reload(); });
+
+  /* ---------- 공지사항 ---------- */
+  var notices=[], noticesSha=null;
+  function loadNotices(){
+    ghGet('data/notices.json').then(function(f){
+      noticesSha=f.sha; notices=f.text?JSON.parse(f.text):[]; renderNotices();
+    }).catch(function(e){ document.getElementById('nt-list').innerHTML='<li class="empty">불러오기 실패: '+esc(e.message)+'</li>'; });
+  }
+  function saveNotices(msg){
+    return ghPut('data/notices.json', encU(JSON.stringify(notices,null,2)), noticesSha, msg).then(function(res){ noticesSha=res.content.sha; });
+  }
+  function renderNotices(){
+    var el=document.getElementById('nt-list');
+    if(!notices.length){ el.innerHTML='<li class="empty">등록된 공지가 없습니다.</li>'; return; }
+    el.innerHTML=notices.map(function(n){
+      return '<li><span class="t"><strong>'+esc(n.title)+'</strong><small>'+esc(n.date)+'</small></span><button class="btn danger sm" data-del="'+n.id+'">삭제</button></li>';
+    }).join('');
+    el.querySelectorAll('[data-del]').forEach(function(b){
+      b.addEventListener('click',function(){
+        if(!confirm('이 공지를 삭제할까요? (사이트에서 사라집니다)')) return;
+        var m=document.getElementById('nt-msg'); m.className='msg busy'; m.textContent='발행 중…';
+        notices=notices.filter(function(x){return x.id!==b.getAttribute('data-del');});
+        saveNotices('공지 삭제').then(function(){ m.className='msg ok'; m.textContent='삭제·발행됨'; renderNotices(); })
+          .catch(function(e){ m.className='msg err'; m.textContent='실패: '+esc(e.message); loadNotices(); });
       });
-    }
-
-    // 사진 추가/삭제
-    document.getElementById('ph-add').addEventListener('click', async function () {
-      var f = document.getElementById('ph-file').files[0];
-      var cap = document.getElementById('ph-cap').value.trim();
-      var msg = document.getElementById('ph-msg');
-      if (!f) { msg.className = 'msg err'; msg.textContent = '사진 파일을 선택하세요.'; return; }
-      if (!/^image\//.test(f.type)) { msg.className = 'msg err'; msg.textContent = '이미지 파일만 업로드할 수 있습니다.'; return; }
-      if (f.size > 3 * 1048576) { msg.className = 'msg err'; msg.textContent = '3MB 이하 이미지를 권장합니다. (로컬 저장 용량 제한)'; return; }
-      try {
-        var url = await TP.fileToDataURL(f);
-        var list = TP.gallery();
-        list.unshift({ id: TP.uid(), url: url, cap: cap, date: TP.today() });
-        TP.saveGallery(list);
-        document.getElementById('ph-file').value = ''; document.getElementById('ph-cap').value = '';
-        msg.className = 'msg ok'; msg.textContent = '사진이 추가되었습니다.';
-        renderPhotos();
-      } catch (e) { msg.className = 'msg err'; msg.textContent = '저장 실패(용량 초과일 수 있습니다).'; }
     });
-    function renderPhotos() {
-      var list = TP.gallery(), el = document.getElementById('ph-list');
-      if (!list.length) { el.innerHTML = '<div class="empty">등록된 사진이 없습니다. (사이트에는 기본 이미지가 표시됩니다)</div>'; return; }
-      el.innerHTML = list.map(function (g) {
-        return '<li><img src="' + g.url + '" alt="" /><span class="t"><strong>' + (g.cap ? TP.esc(g.cap) : '운영 사진') + '</strong><small>' + TP.esc(g.date) + '</small></span>' +
-          '<button class="btn danger sm" data-del="' + g.id + '">삭제</button></li>';
-      }).join('');
-      el.querySelectorAll('[data-del]').forEach(function (b) {
-        b.addEventListener('click', function () {
-          if (!confirm('이 사진을 삭제할까요?')) return;
-          TP.saveGallery(TP.gallery().filter(function (x) { return x.id !== b.getAttribute('data-del'); }));
-          renderPhotos();
-        });
+  }
+  document.getElementById('nt-add').addEventListener('click',function(){
+    var t=document.getElementById('nt-title').value.trim();
+    var d=document.getElementById('nt-date').value;
+    var bd=document.getElementById('nt-body').value.trim();
+    var m=document.getElementById('nt-msg');
+    if(!t){ m.className='msg err'; m.textContent='제목을 입력하세요.'; return; }
+    var date=d?d.replace(/-/g,'.'):today();
+    m.className='msg busy'; m.textContent='발행 중…';
+    notices.unshift({id:uid(),title:t,date:date,body:bd});
+    saveNotices('공지 추가: '+t).then(function(){
+      document.getElementById('nt-title').value=''; document.getElementById('nt-date').value=''; document.getElementById('nt-body').value='';
+      m.className='msg ok'; m.textContent='발행됨 (1~2분 뒤 사이트 반영)'; renderNotices();
+    }).catch(function(e){ m.className='msg err'; m.textContent='실패: '+esc(e.message); loadNotices(); });
+  });
+
+  /* ---------- 운영 사진 ---------- */
+  var gallery=[], gallerySha=null;
+  function loadGallery(){
+    ghGet('data/gallery.json').then(function(f){
+      gallerySha=f.sha; gallery=f.text?JSON.parse(f.text):[]; renderPhotos();
+    }).catch(function(e){ document.getElementById('ph-list').innerHTML='<li class="empty">불러오기 실패: '+esc(e.message)+'</li>'; });
+  }
+  function saveGallery(msg){
+    return ghPut('data/gallery.json', encU(JSON.stringify(gallery,null,2)), gallerySha, msg).then(function(res){ gallerySha=res.content.sha; });
+  }
+  function renderPhotos(){
+    var el=document.getElementById('ph-list');
+    if(!gallery.length){ el.innerHTML='<li class="empty">등록된 사진이 없습니다.</li>'; return; }
+    el.innerHTML=gallery.map(function(g){
+      return '<li><img src="'+RAW+'photos/'+esc(g.file)+'" alt="" loading="lazy" /><span class="t"><strong>'+(g.cap?esc(g.cap):'운영 사진')+'</strong><small>'+esc(g.date)+'</small></span><button class="btn danger sm" data-del="'+g.id+'">삭제</button></li>';
+    }).join('');
+    el.querySelectorAll('[data-del]').forEach(function(b){
+      b.addEventListener('click',function(){
+        if(!confirm('이 사진을 삭제할까요?')) return;
+        var id=b.getAttribute('data-del'), item=gallery.filter(function(x){return x.id===id;})[0];
+        var m=document.getElementById('ph-msg'); m.className='msg busy'; m.textContent='발행 중…';
+        gallery=gallery.filter(function(x){return x.id!==id;});
+        saveGallery('사진 삭제').then(function(){
+          m.className='msg ok'; m.textContent='삭제·발행됨'; renderPhotos();
+          if(item && item.file){ ghGet('photos/'+item.file).then(function(f){ if(f.sha) return ghDel('photos/'+item.file,f.sha,'사진 파일 삭제'); }).catch(function(){}); }
+        }).catch(function(e){ m.className='msg err'; m.textContent='실패: '+esc(e.message); loadGallery(); });
       });
-    }
-  })();
+    });
+  }
+  document.getElementById('ph-add').addEventListener('click',function(){
+    var f=document.getElementById('ph-file').files[0];
+    var cap=document.getElementById('ph-cap').value.trim();
+    var m=document.getElementById('ph-msg');
+    if(!f){ m.className='msg err'; m.textContent='사진 파일을 선택하세요.'; return; }
+    if(!/^image\//.test(f.type)){ m.className='msg err'; m.textContent='이미지 파일만 가능합니다.'; return; }
+    if(f.size>4*1048576){ m.className='msg err'; m.textContent='4MB 이하 이미지를 권장합니다.'; return; }
+    m.className='msg busy'; m.textContent='업로드·발행 중…';
+    fileToDataURL(f).then(function(url){
+      var b64=url.split(',')[1];
+      var ext=(f.name.split('.').pop()||'jpg').toLowerCase().replace(/[^a-z0-9]/g,'')||'jpg';
+      var fname=uid()+'.'+ext;
+      return ghPut('photos/'+fname, b64, null, '사진 추가: '+fname).then(function(){
+        gallery.unshift({id:uid(),file:fname,cap:cap,date:today()});
+        return saveGallery('갤러리 갱신');
+      });
+    }).then(function(){
+      document.getElementById('ph-file').value=''; document.getElementById('ph-cap').value='';
+      m.className='msg ok'; m.textContent='발행됨 (1~2분 뒤 사이트 반영)'; renderPhotos();
+    }).catch(function(e){ m.className='msg err'; m.textContent='실패: '+esc(e.message); loadGallery(); });
+  });
+
+  /* ---------- 접근 비밀번호 (자료실·산출물 게이트) ---------- */
+  var settings={}, settingsSha=null;
+  function loadSettings(){
+    ghGet('data/settings.json').then(function(f){ settingsSha=f.sha; settings=f.text?JSON.parse(f.text):{}; }).catch(function(){ settings={}; settingsSha=null; });
+  }
+  document.getElementById('ap-save').addEventListener('click',function(){
+    var pw=document.getElementById('ap-pw').value.trim(); var m=document.getElementById('ap-msg');
+    if(!pw){ m.className='msg err'; m.textContent='새 비밀번호를 입력하세요.'; return; }
+    m.className='msg busy'; m.textContent='발행 중…';
+    sha256hex(pw).then(function(h){
+      settings.accessHash=h;
+      return ghPut('data/settings.json', encU(JSON.stringify(settings,null,2)), settingsSha, '접근 비밀번호 변경');
+    }).then(function(res){
+      settingsSha=res.content.sha; document.getElementById('ap-pw').value='';
+      m.className='msg ok'; m.textContent='변경·발행됨 (1~2분 뒤 사이트 반영)';
+    }).catch(function(e){ m.className='msg err'; m.textContent='실패: '+esc(e.message); });
+  });
+})();
 </script>
 </body>
 </html>
