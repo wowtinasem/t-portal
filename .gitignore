@@ -9,3 +9,11 @@ Thumbs.db
 
 # Netlify
 .netlify/
+
+# 비밀값(환경변수) — 절대 커밋 금지
+.env
+.env.*
+*.local
+secrets.*
+serviceAccount*.json
+firebase-adminsdk*.json
