@@ -1620,8 +1620,59 @@
   </div>
 </dialog>
 
-<!-- 로컬 데이터(공지·운영사진·연수 산출물) 렌더링 & 업로드 -->
-<script src="tp-store.js"></script>
+<!-- 공지·운영사진: GitHub의 data/*.json 에서 로드 -->
+<script>
+  (function(){
+    function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+    var DEFAULT_NOTICES=[
+      {title:'연수 운영 안내',date:'2026.01.02',body:'2026 AI디지털교육 역량강화 직무연수 운영에 관한 안내입니다.
+자세한 사항은 콜센터(070-8676-3276) 또는 문자회신(010-2622-5600)으로 문의해 주세요.'},
+      {title:'연수 장소 및 주차 안내',date:'2026.01.02',body:'권역별 연수장소와 주차 안내는 "연수 장소" 섹션의 지도를 참고해 주세요.'},
+      {title:'연수 자료 업데이트 안내',date:'2026.01.01',body:'연수 자료는 통합자료실(초등/중등)에서 확인·다운로드할 수 있습니다.'},
+      {title:'연수 일정 변경 안내',date:'2025.12.30',body:'연수 일정은 "연수 일정" 캘린더에서 최신 정보를 확인해 주세요.'}
+    ];
+    // 공지사항
+    (function(){
+      var ul=document.getElementById('notice-list'); if(!ul) return;
+      var modal=document.getElementById('notice-modal');
+      function openNotice(n){
+        document.getElementById('nt-m-title').textContent=n.title||'공지';
+        document.getElementById('nt-m-date').textContent=n.date||'';
+        document.getElementById('nt-m-body').textContent=(n.body && String(n.body).trim())?n.body:'등록된 상세 내용이 없습니다.';
+        if(modal.showModal) modal.showModal(); else modal.setAttribute('open','');
+      }
+      function render(list){
+        ul.innerHTML=list.slice(0,6).map(function(n,i){
+          return '<li><a href="#" class="nt-open" data-i="'+i+'">'+esc(n.title)+'</a><span class="date">'+esc(n.date)+'</span></li>';
+        }).join('');
+        ul.querySelectorAll('.nt-open').forEach(function(a){
+          a.addEventListener('click',function(e){ e.preventDefault(); openNotice(list[+a.getAttribute('data-i')]); });
+        });
+      }
+      if(modal){
+        modal.addEventListener('click',function(e){ if(e.target===modal && modal.close) modal.close(); });
+        var x=document.getElementById('nt-m-x'); if(x) x.addEventListener('click',function(){ if(modal.close) modal.close(); });
+      }
+      fetch('data/notices.json?_='+Date.now(),{cache:'no-store'})
+        .then(function(r){ return r.ok?r.json():null; })
+        .then(function(list){ render((list&&list.length)?list:DEFAULT_NOTICES); })
+        .catch(function(){ render(DEFAULT_NOTICES); });
+    })();
+    // 운영 사진 (없으면 기본 이미지 유지)
+    (function(){
+      var grid=document.getElementById('gallery-grid'); if(!grid) return;
+      fetch('data/gallery.json?_='+Date.now(),{cache:'no-store'})
+        .then(function(r){ return r.ok?r.json():null; })
+        .then(function(list){
+          if(!list || !list.length) return;
+          grid.innerHTML=list.slice(0,8).map(function(g){
+            var src=g.file?('photos/'+g.file):(g.url||'');
+            return '<figure class="ph" style="margin:0"><img src="'+src+'" alt="'+esc(g.cap||'운영 사진')+'" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block"></figure>';
+          }).join('');
+        }).catch(function(){});
+    })();
+  })();
+</script>
 <script>
   (function(){
     if(!window.TP) return;
