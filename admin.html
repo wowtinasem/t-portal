@@ -188,15 +188,15 @@
     if(!t){ msg.textContent='토큰을 입력하세요.'; return; }
     token=t; btn.disabled=true; msg.className='msg busy'; msg.textContent='확인 중…';
     ghGet('data/notices.json').then(function(){
-      sessionStorage.setItem(SKEY,t); msg.textContent=''; showAdmin();
+      localStorage.setItem(SKEY,t); msg.textContent=''; showAdmin();
     }).catch(function(err){
       token=''; btn.disabled=false; msg.className='msg err';
       msg.textContent='연결 실패: 토큰/권한을 확인하세요. ('+String(err.message).slice(0,60)+')';
     });
   });
-  var saved=sessionStorage.getItem(SKEY);
+  var saved=localStorage.getItem(SKEY);
   if(saved){ token=saved; showAdmin(); }
-  document.getElementById('logout').addEventListener('click',function(){ sessionStorage.removeItem(SKEY); location.reload(); });
+  document.getElementById('logout').addEventListener('click',function(){ localStorage.removeItem(SKEY); location.reload(); });
 
   /* ---------- 공지사항 ---------- */
   var notices=[], noticesSha=null;
