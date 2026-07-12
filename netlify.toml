@@ -8,3 +8,20 @@
   from = "/t-portal"
   to = "/index.html"
   status = 301
+
+# HTML·데이터(JSON)는 항상 새로 받아오도록 캐시 금지
+# (관리자 페이지에서 공지/사진을 발행하면 즉시 반영되어야 함)
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/data/*"
+  [headers.values]
+    Cache-Control = "no-store"
