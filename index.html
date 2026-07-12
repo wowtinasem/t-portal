@@ -256,7 +256,7 @@
   .drive .gtxt p{margin:0;font-size:13.5px;color:var(--muted);line-height:1.55}
   .drive .btn{flex:none}
   /* 초등/중등 통합자료실 2열 */
-  .drive-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .drive-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:18px}
   .drive-grid .drive{gap:16px;padding:22px 24px;text-decoration:none;cursor:pointer;
     transition:transform .18s ease,box-shadow .2s ease,border-color .2s ease}
   .drive-grid .drive:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:#c3d3ee}
@@ -264,6 +264,7 @@
   .drive-grid .gtxt{flex:1;min-width:0}
   .drive-grid .lv-badge{display:inline-block;font-size:11.5px;font-weight:800;color:#fff;background:var(--blue);border-radius:6px;padding:2px 9px;margin-bottom:7px}
   .drive-grid .lv-badge.mid{background:var(--navy)}
+  .drive-grid .lv-badge.rem{background:linear-gradient(135deg,#ffa24a,#f4641c)}
   .drive-grid .gobtn{flex:none;display:inline-flex;align-items:center;gap:5px;font-size:13.5px;font-weight:700;color:var(--blue)}
   .drive-grid .gobtn svg{width:16px;height:16px}
   .drive-grid .drive:hover .gobtn{color:var(--blue-d)}
@@ -616,6 +617,10 @@
       <a class="btn primary lg" href="#room-mid">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14"/></svg>
         중등 강의자료 다운로드
+      </a>
+      <a class="btn primary lg" href="#room-remote">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14"/></svg>
+        원격연수 및 마주온 자료
       </a>
     </div>
   </div>
@@ -1428,6 +1433,15 @@
           <span class="lv-badge mid">중등</span>
           <strong>중등 연수자료 통합자료실</strong>
           <p>강의·실습·참고 자료를 Google Drive에서 한 곳에 모아 다운로드하세요.</p>
+        </div>
+        <span class="gobtn">바로가기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></span>
+      </a>
+      <a class="drive gated" id="room-remote" href="#" target="_blank" rel="noopener">
+        <svg class="gd" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M16.5 6 31 30H17.8L4 6Z" fill="#2b57c4"/><path d="M31 30 24 42H10.6L16.5 30Z" fill="#5b86e8" transform="translate(-6.5 0)"/><path d="M17.5 6h13L44 30H31Z" fill="#9fbcf4"/><path d="M4 30 10.5 42h27L44 30Z" fill="#3c6fd6"/></svg>
+        <div class="gtxt">
+          <span class="lv-badge rem">원격</span>
+          <strong>원격연수 및 마주온 자료</strong>
+          <p>원격(실시간) 연수와 마주온 플랫폼 관련 자료를 Google Drive에서 확인하세요.</p>
         </div>
         <span class="gobtn">바로가기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></span>
       </a>
