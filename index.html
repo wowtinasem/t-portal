@@ -256,18 +256,25 @@
   .drive .gtxt p{margin:0;font-size:13.5px;color:var(--muted);line-height:1.55}
   .drive .btn{flex:none}
   /* 초등/중등 통합자료실 2열 */
-  .drive-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:18px}
-  .drive-grid .drive{gap:16px;padding:22px 24px;text-decoration:none;cursor:pointer;
-    transition:transform .18s ease,box-shadow .2s ease,border-color .2s ease}
-  .drive-grid .drive:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:#c3d3ee}
+  .drive-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:18px;align-items:stretch}
+  .drive-grid .drive{flex-direction:column;align-items:flex-start;flex-wrap:nowrap;gap:10px;padding:22px 24px;height:100%;
+    text-decoration:none;cursor:pointer;transition:transform .18s ease,box-shadow .2s ease,border-color .2s ease,background .2s ease}
+  .drive-grid .drive .gd{display:none}
+  .drive-grid .drive:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:var(--navy);
+    background:linear-gradient(120deg,var(--navy),var(--blue))}
   .drive-grid .drive:focus-visible{outline:3px solid #8fb0ee;outline-offset:3px}
-  .drive-grid .gtxt{flex:1;min-width:0}
-  .drive-grid .lv-badge{display:inline-block;font-size:11.5px;font-weight:800;color:#fff;background:var(--blue);border-radius:6px;padding:2px 9px;margin-bottom:7px}
+  .drive-grid .gtxt{flex:none;width:100%;min-width:0}
+  .drive-grid .gtxt strong{font-size:16.5px;margin-bottom:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:color .2s ease}
+  .drive-grid .gtxt p{transition:color .2s ease}
+  .drive-grid .drive:hover .gtxt strong{color:#fff}
+  .drive-grid .drive:hover .gtxt p{color:#dfe8fb}
+  .drive-grid .lv-badge{display:inline-block;font-size:11.5px;font-weight:800;color:#fff;background:var(--blue);border-radius:6px;padding:2px 9px;margin-bottom:7px;transition:background .2s ease,color .2s ease}
   .drive-grid .lv-badge.mid{background:var(--navy)}
   .drive-grid .lv-badge.rem{background:linear-gradient(135deg,#ffa24a,#f4641c)}
-  .drive-grid .gobtn{flex:none;display:inline-flex;align-items:center;gap:5px;font-size:13.5px;font-weight:700;color:var(--blue)}
+  .drive-grid .drive:hover .lv-badge{background:#fff;color:var(--navy)}
+  .drive-grid .gobtn{flex:none;margin-top:auto;align-self:flex-end;display:inline-flex;align-items:center;gap:5px;font-size:13.5px;font-weight:700;color:var(--blue);transition:color .2s ease}
   .drive-grid .gobtn svg{width:16px;height:16px}
-  .drive-grid .drive:hover .gobtn{color:var(--blue-d)}
+  .drive-grid .drive:hover .gobtn{color:#fff}
   @media(max-width:760px){.drive-grid{grid-template-columns:1fr}}
 
   /* ---------- survey + notice ---------- */
