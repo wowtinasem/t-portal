@@ -741,6 +741,7 @@
     .lv-sim{background:#e9effb;color:var(--c-blue)}
     .lv-jeon{background:#eef1f8;color:var(--c-navy)}
     .lv-silgwa{background:#e6f6f2;color:var(--c-teal)}
+    .lv-time{background:#f3f5f9;color:var(--c-muted);border:1px solid #dfe5f0}
     .day-note{font-size:12px;color:var(--c-muted);font-weight:600;width:100%;line-height:1.5}
     /* 장소별 과목 그룹 */
     .loc-grp{width:100%;display:flex;flex-direction:column;gap:5px}
@@ -770,6 +771,7 @@
       <span><i style="background:#2f9e8f"></i>실과(초등)</span>
       <span><i style="background:#e9effb;border:1px solid #cdd8ee"></i>집합</span>
       <span><i style="background:#eaf4fc;border:1px solid #cfe4f6"></i>원격</span>
+      <span><i style="background:#eef1f8;border:1px solid #d5dced"></i>집합+원격</span>
     </div>
 
     <div id="cal-body"></div>
@@ -846,7 +848,7 @@
         if(isRemoteOnly){
           html+='<div class="day-loc rem"><span class="l">'+netSvg+'<span class="lname hl-rem">원격 연수</span></span></div>';
           html+='<div class="day-more"><span class="mtxt-closed">시간 보기</span><span class="mtxt-open">접기</span><span class="chev">'+chevSvg+'</span></div>';
-          html+='<div class="day-body"><div class="day-body-in"><span class="chip lv-gicho">10:00~12:00</span><span class="chip lv-gicho">14:00~16:00</span><span class="day-note">실시간 · 마주온플랫폼</span></div></div>';
+          html+='<div class="day-body"><div class="day-body-in"><span class="chip lv-time">10:00~12:00</span><span class="chip lv-time">14:00~16:00</span><span class="day-note">실시간 · 마주온플랫폼</span></div></div>';
         } else {
           html+='<div class="day-loc">'
              +locs.map(function(l){return '<a class="l" href="'+naverUrl(l.v+' '+l.r)+'" target="_blank" rel="noopener">'+pinSvg+'<span class="lname">'+l.v+'</span>'+extSvg+'</a>';}).join('')
