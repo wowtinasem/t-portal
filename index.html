@@ -808,8 +808,8 @@
             { v:'캠코인재개발원', r:'아산', elem:['기초-3과정','실과-1과정','심화-1과정'], mid:['국어-기초','인문-기초','인문-심화'] },
             { v:'LX국토정보교육원', r:'공주', elem:['기초-3과정'], mid:['과학-기초','수학-심화','정보-심화'] }
           ]},
-          { date:'7/30', dow:'목', type:'원격', locs:[] },
-          { date:'7/31', dow:'금', type:'원격', locs:[] }
+          { date:'7/30', dow:'목', type:'원격', times:['10:00~12:00','14:00~16:00'], locs:[] },
+          { date:'7/31', dow:'금', type:'원격', times:['10:00~12:00'], locs:[] }
         ]},
         { label:'2차', range:'2026. 8. 10(월) ~ 8. 14(금)', days:[
           { date:'8/10', dow:'월', type:'집합', locs:[
@@ -827,7 +827,7 @@
           { date:'8/13', dow:'목', type:'집합+원격', locs:[
             { v:'공주대학교 천안캠퍼스', r:'천안', elem:['실과-3과정','심화-3과정'], mid:['기술-심화','기술-전문가','수학-심화','수학-전문가'] }
           ]},
-          { date:'8/14', dow:'금', type:'원격', locs:[] }
+          { date:'8/14', dow:'금', type:'원격', times:['10:00~12:00'], locs:[] }
         ]}
       ];
 
@@ -860,7 +860,10 @@
         if(isRemoteOnly){
           html+='<div class="day-loc rem"><span class="l">'+netSvg+'<span class="lname hl-rem">원격 연수</span></span></div>';
           html+='<div class="day-more"><span class="mtxt-closed">시간 보기</span><span class="mtxt-open">접기</span><span class="chev">'+chevSvg+'</span></div>';
-          html+='<div class="day-body"><div class="day-body-in"><span class="chip lv-time">10:00~12:00</span><span class="chip lv-time">14:00~16:00</span><span class="day-note">실시간 · 마주온플랫폼</span></div></div>';
+          var ts=(d.times&&d.times.length)?d.times:['10:00~12:00','14:00~16:00'];
+          html+='<div class="day-body"><div class="day-body-in">'
+             +ts.map(function(t){ return '<span class="chip lv-time">'+t+'</span>'; }).join('')
+             +'<span class="day-note">실시간 · 마주온플랫폼</span></div></div>';
         } else {
           html+='<div class="day-loc">'
              +locs.map(function(l){
