@@ -126,7 +126,7 @@
   .hero-survey{margin-top:22px;display:inline-flex;align-items:stretch;gap:18px;max-width:100%;flex-wrap:wrap;
     background:linear-gradient(135deg,#fff4ea,#ffffff);border:1px solid #ffd9b8;border-radius:16px;
     padding:14px 18px 16px;box-shadow:0 12px 28px -14px rgba(244,100,28,.42)}
-  .hero-survey .hs-grp{display:flex;flex-direction:column;gap:11px;min-width:0}
+  .hero-survey .hs-grp{display:flex;flex-direction:column;gap:11px;min-width:236px;flex:1 1 236px}
   .hero-survey .hs-div{width:1px;align-self:stretch;background:linear-gradient(180deg,transparent,#f2d5bb,transparent);flex:none}
   .hero-survey .hs-label{font-size:13.5px;font-weight:700;color:#8a4b1e;display:flex;align-items:center;gap:8px;white-space:nowrap}
   .hero-survey .hs-label b{color:#e0530c;font-weight:800}
@@ -134,10 +134,9 @@
   .hero-survey .hs-grp.pre .hs-label{color:#26467f}
   .hero-survey .hs-grp.pre .hs-label b{color:var(--blue)}
   .hero-survey .hs-grp.pre .hs-dot{background:var(--blue);box-shadow:0 0 0 4px rgba(43,87,196,.18)}
-  .hero-survey .hs-btns{display:flex;gap:10px;flex-wrap:wrap}
-  .hero-survey .hs-grp.post .hs-btn{padding:12px 16px;font-size:14px}
-  .hs-btn{display:inline-flex;align-items:center;gap:7px;font-family:inherit;font-weight:800;font-size:14.5px;color:#fff;letter-spacing:-.01em;
-    background:linear-gradient(135deg,#ffa24a,#f4641c);background-size:140% 140%;border-radius:12px;padding:12px 22px;
+  .hero-survey .hs-btns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+  .hs-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;font-family:inherit;font-weight:800;font-size:13.5px;color:#fff;letter-spacing:-.01em;white-space:nowrap;
+    background:linear-gradient(135deg,#ffa24a,#f4641c);background-size:140% 140%;border-radius:12px;padding:11px 12px;
     box-shadow:0 12px 24px -10px rgba(244,100,28,.7);transition:transform .15s ease,box-shadow .2s ease,background-position .2s ease}
   .hs-btn:hover{transform:translateY(-2px);background-position:100% 0;box-shadow:0 16px 30px -10px rgba(244,100,28,.85)}
   .hs-btn:active{transform:scale(.98)}
@@ -146,7 +145,8 @@
     border-radius:999px;padding:2px 8px;margin-left:2px;flex:none}
   .hs-btn.pre{background:linear-gradient(135deg,#5b86e8,#2b57c4);box-shadow:0 12px 24px -10px rgba(43,87,196,.7)}
   .hs-btn.pre:hover{box-shadow:0 16px 30px -10px rgba(43,87,196,.85)}
-  @media(max-width:640px){.hero-survey{flex-direction:column;gap:14px}.hero-survey .hs-div{width:100%;height:1px;background:linear-gradient(90deg,transparent,#f2d5bb,transparent)}.hs-btn{flex:1 1 auto;justify-content:center}}
+  @media(max-width:640px){.hero-survey{flex-direction:column;gap:14px}.hero-survey .hs-grp{min-width:0}
+    .hero-survey .hs-div{width:100%;height:1px;background:linear-gradient(90deg,transparent,#f2d5bb,transparent)}}
   @media (prefers-reduced-motion:reduce){.hero-survey .hs-dot{animation:none}.hs-btn:hover{transform:none}}
   .hero-illu{justify-self:end;width:100%;max-width:560px}
   .monitor{position:relative}
@@ -592,7 +592,8 @@
           <div class="hs-grp pre">
             <span class="hs-label"><span class="hs-dot"></span>연수 <b>전</b> · 사전 설문</span>
             <div class="hs-btns">
-              <a class="hs-btn pre" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="12" height="16" rx="2"/><path d="M9 4V3h6v1"/><path d="M9 11h6M9 15h4"/></svg>연수 전 설문조사</a>
+              <a class="hs-btn pre" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="12" height="16" rx="2"/><path d="M9 4V3h6v1"/><path d="M9 11h6M9 15h4"/></svg>사전 설문<span class="hs-lv">초등</span></a>
+              <a class="hs-btn pre" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="12" height="16" rx="2"/><path d="M9 4V3h6v1"/><path d="M9 11h6M9 15h4"/></svg>사전 설문<span class="hs-lv">중등</span></a>
             </div>
           </div>
           <span class="hs-div" aria-hidden="true"></span>
@@ -601,7 +602,8 @@
             <div class="hs-btns">
               <a class="hs-btn" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="12" height="16" rx="2"/><path d="M9 4V3h6v1"/><path d="m9.5 11 1.5 1.5 3-3"/><path d="M9 16h6"/></svg>만족도 설문 1<span class="hs-lv">초등</span></a>
               <a class="hs-btn" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="12" height="16" rx="2"/><path d="M9 4V3h6v1"/><path d="m9.5 11 1.5 1.5 3-3"/><path d="M9 16h6"/></svg>만족도 설문 1<span class="hs-lv">중등</span></a>
-              <a class="hs-btn" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="12" height="16" rx="2"/><path d="M9 4V3h6v1"/><path d="m9.5 11 1.5 1.5 3-3"/><path d="M9 16h6"/></svg>만족도 설문 2</a>
+              <a class="hs-btn" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="12" height="16" rx="2"/><path d="M9 4V3h6v1"/><path d="m9.5 11 1.5 1.5 3-3"/><path d="M9 16h6"/></svg>만족도 설문 2<span class="hs-lv">초등</span></a>
+              <a class="hs-btn" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="12" height="16" rx="2"/><path d="M9 4V3h6v1"/><path d="m9.5 11 1.5 1.5 3-3"/><path d="M9 16h6"/></svg>만족도 설문 2<span class="hs-lv">중등</span></a>
             </div>
           </div>
         </div>
