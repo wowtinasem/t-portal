@@ -115,11 +115,12 @@
   .hero .top{display:grid;grid-template-columns:1.05fr 1fr;gap:30px;align-items:end;padding:54px 0 30px}
   .hero .top>div:first-child{display:flex;flex-direction:column;justify-content:flex-end}
   .hero-illu{display:flex;flex-direction:column;justify-content:flex-end}
-  .hero .y{font-size:24px;font-weight:800;color:#6b76a0;letter-spacing:.04em;margin:0 0 4px}
-  .hero h1{margin:0;line-height:1.12;letter-spacing:-.035em;font-weight:800;width:fit-content}
-  /* 두 줄의 오른쪽 끝(마진)이 맞도록 글자 수 차이만큼 크기를 보정 */
-  .hero h1 .l1{display:block;font-size:clamp(32px,4.75vw,50px);background:var(--brand-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
-  .hero h1 .l2{display:block;font-size:clamp(34.5px,5.15vw,54px);color:var(--navy)}
+  /* 제목 두 줄의 좌·우 끝을 정확히 맞춤 (각 줄을 flex space-between 으로 양끝 정렬) */
+  .hero h1{margin:0;line-height:1.14;letter-spacing:-.035em;font-weight:800;width:clamp(292px,32vw,380px);max-width:100%}
+  .hero h1 .l1,.hero h1 .l2{display:flex;justify-content:space-between;align-items:baseline;width:100%}
+  .hero h1 .l1>span,.hero h1 .l2>span{flex:none;white-space:nowrap}
+  .hero h1 .l1{font-size:clamp(34px,3.72vw,44px);background:var(--brand-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero h1 .l2{font-size:clamp(43px,4.72vw,56px);color:var(--navy)}
   /* 히어로 만족도 설문 패널 (챗봇 오렌지 톤, 강조) */
   .hero-survey{margin-top:24px;display:inline-flex;flex-direction:column;align-items:stretch;gap:11px;max-width:482px;
     background:linear-gradient(135deg,#fff4ea,#ffffff);border:1px solid #ffd9b8;border-radius:15px;
@@ -583,8 +584,10 @@
   <div class="wrap">
     <div class="top">
       <div>
-        <p class="y">2026</p>
-        <h1><span class="l1">AI 디지털 교육</span><span class="l2">역량강화 연수</span></h1>
+        <h1>
+          <span class="l1"><span>2026</span><span>AI</span><span>디지털</span><span>교육</span></span>
+          <span class="l2"><span>역량강화</span><span>연수</span></span>
+        </h1>
         <div class="hero-survey">
           <div class="hs-grp pre">
             <span class="hs-label"><span class="hs-dot"></span>연수 <b>전</b> · 사전 설문</span>
