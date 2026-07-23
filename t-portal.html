@@ -1282,8 +1282,21 @@
       background:#ffe9d6;border:1px solid #ffc79c;border-left:5px solid #f4641c;border-radius:9px;padding:11px 14px}
     .at-gwarn b{color:#b8480e;font-weight:800}
     .at-gwarn em{font-style:normal;font-weight:800;color:#fff;background:#e0530c;border-radius:6px;padding:2px 8px;margin-left:6px;white-space:nowrap}
+    .at-grow{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(250px,1fr);gap:16px;align-items:start}
+    @media(max-width:820px){.at-grow{grid-template-columns:1fr}}
+    .at-gtime{background:#fff;border:1px solid #ffd0a8;border-radius:11px;padding:13px 15px 14px}
+    .at-gtime-h{font-size:14px;font-weight:800;color:#b8480e;margin-bottom:6px;display:flex;align-items:center;gap:7px}
+    .at-gtime-h::before{content:"";width:8px;height:8px;border-radius:50%;background:#f4641c;flex:none}
+    .at-gtime-note{margin:0 0 10px;font-size:12.5px;color:var(--at-muted);font-weight:600;line-height:1.55}
+    .at-gtime-note b{color:#b8480e;font-weight:800}
+    .at-gtime-l{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px}
+    .at-gtime-l li{display:flex;align-items:baseline;gap:9px;font-size:13.5px;padding-bottom:7px;border-bottom:1px dashed #ffe0c6}
+    .at-gtime-l li:last-child{border-bottom:none;padding-bottom:0}
+    .at-gtime-l .d{flex:none;font-weight:800;color:var(--at-navy);min-width:66px}
+    .at-gtime-l .t{color:#8a4b1e;font-weight:700}
+    .at-gtime-l .t i{font-style:normal;color:#e0a878;margin:0 6px}
     .at-gfig{margin:0}
-    .at-gfig img{display:block;width:100%;max-width:720px;height:auto;border-radius:10px;border:1px solid #e3e9f5;box-shadow:0 12px 26px -18px rgba(28,46,88,.5)}
+    .at-gfig img{display:block;width:100%;height:auto;border-radius:10px;border:1px solid #e3e9f5;box-shadow:0 12px 26px -18px rgba(28,46,88,.5)}
     .at-gfig figcaption{margin-top:8px;font-size:13px;color:var(--at-muted);font-weight:600}
     .at-gfig figcaption b{color:#b8480e;font-weight:800}
     .at-ggo{margin-top:16px;padding-top:14px;border-top:1px dashed #ffc79c;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
@@ -1330,19 +1343,32 @@
                 <ol class="at-gsteps">
                   <li><span class="gnum">1</span><span>네이버에서 <b>네이버 웨일(Whale)</b>을 설치하세요.</span></li>
                   <li><span class="gnum">2</span><span>회의 ID : <b>2108142368</b> &nbsp;/&nbsp; 비밀번호 : <b>519924</b></span></li>
+                  <li><span class="gnum">3</span><span>출결체크는 <b>3회 화면 캡쳐</b>( 연수시작, 연수 중, 연수 끝 )로 확인합니다.</span></li>
                 </ol>
                 <p class="at-gwarn"><b>※ 참여자명 : 학교명 성명</b> (예 : OO초 홍길동) <em>필수!!</em></p>
-                <figure class="at-gfig">
-                  <img src="whalelogin.png" alt="웨일온 참여 화면 - 참여자명에 'OO초 홍길동' 형식으로 입력 후 참여 버튼 클릭" loading="lazy" onerror="this.closest('.at-gfig').style.display='none'">
-                  <figcaption>참여자명을 <b>학교명 + 성명</b>으로 입력한 뒤 <b>참여</b>를 누르세요.</figcaption>
-                </figure>
+                <div class="at-grow">
+                  <figure class="at-gfig">
+                    <img src="whalelogin.png" alt="웨일온 참여 화면 - 참여자명에 'OO초 홍길동' 형식으로 입력 후 참여 버튼 클릭" loading="lazy" onerror="this.closest('.at-gfig').style.display='none'">
+                    <figcaption>참여자명을 <b>학교명 + 성명</b>으로 입력한 뒤 <b>참여</b>를 누르세요.</figcaption>
+                  </figure>
+                  <div class="at-gtime">
+                    <div class="at-gtime-h">원격 연수 시간</div>
+                    <p class="at-gtime-note">연수 내용은 동일, <b>1회 선택 참여</b>, 연수링크는 모두 동일합니다.</p>
+                    <ul class="at-gtime-l">
+                      <li><span class="d">7/30(목)</span><span class="t">10:00~12:00<i>/</i>14:00~16:00</span></li>
+                      <li><span class="d">7/31(금)</span><span class="t">10:00~12:00</span></li>
+                      <li><span class="d">8/13(목)</span><span class="t">10:00~12:00<i>/</i>14:00~16:00</span></li>
+                      <li><span class="d">8/14(금)</span><span class="t">10:00~12:00</span></li>
+                    </ul>
+                  </div>
+                </div>
                 <div class="at-ggo">
                   <a class="at-gbtn" href="https://whaleon.us/o/CSpiIQ/b93b79b07d604784a0b4518f46884f1b" target="_blank" rel="noopener">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
                     마주온 원격 연수 바로가기
                     <svg class="go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
                   </a>
-                  <span class="at-ggo-note">준비가 끝나셨으면 위 버튼으로 접속하세요.</span>
+                  <span class="at-ggo-note">준비가 끝나셨으면 버튼을 클릭해 주세요.</span>
                 </div>
               </div>
             </div>
