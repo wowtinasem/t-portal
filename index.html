@@ -1266,6 +1266,27 @@
     .at-card.at-rcta strong{color:#b8480e}
     .at-card.at-rcta .at-ext{color:#f4641c}
     @media(min-width:901px){.at-cn .at-rcta{grid-column:3}.at-cn .at-guide{grid-column:4}}
+    /* 준비안내: 버튼 + 펼침 패널 */
+    .at-card.at-guide{font-family:inherit;text-align:left;cursor:pointer;width:100%}
+    .at-gchev{transition:transform .25s ease}
+    .at-card.at-guide[aria-expanded="true"] .at-gchev{transform:rotate(180deg)}
+    .at-gwrap{grid-column:1/-1;max-height:0;overflow:hidden;transition:max-height .35s ease}
+    .at-gwrap.is-open{max-height:1400px}
+    .at-gin{margin-top:12px;background:linear-gradient(180deg,#fff6ee,#fff);border:1px solid #ffd0a8;border-radius:12px;padding:16px 18px 18px}
+    .at-gsteps{list-style:none;margin:0 0 12px;padding:0;display:flex;flex-direction:column;gap:9px}
+    .at-gsteps li{display:flex;align-items:center;gap:10px;font-size:14.5px;color:var(--at-navy);font-weight:600}
+    .at-gsteps b{color:#b8480e;font-weight:800}
+    .at-gsteps .gnum{width:22px;height:22px;border-radius:50%;flex:none;display:grid;place-items:center;
+      background:#f4641c;color:#fff;font-size:12px;font-weight:800}
+    .at-gwarn{margin:0 0 14px;font-size:14.5px;color:#8a2f06;font-weight:700;line-height:1.6;
+      background:#ffe9d6;border:1px solid #ffc79c;border-left:5px solid #f4641c;border-radius:9px;padding:11px 14px}
+    .at-gwarn b{color:#b8480e;font-weight:800}
+    .at-gwarn em{font-style:normal;font-weight:800;color:#fff;background:#e0530c;border-radius:6px;padding:2px 8px;margin-left:6px;white-space:nowrap}
+    .at-gfig{margin:0}
+    .at-gfig img{display:block;width:100%;max-width:720px;height:auto;border-radius:10px;border:1px solid #e3e9f5;box-shadow:0 12px 26px -18px rgba(28,46,88,.5)}
+    .at-gfig figcaption{margin-top:8px;font-size:13px;color:var(--at-muted);font-weight:600}
+    .at-gfig figcaption b{color:#b8480e;font-weight:800}
+    @media (prefers-reduced-motion:reduce){.at-gwrap,.at-gchev{transition:none}}
 
     @media (prefers-reduced-motion:reduce){.at-bar:hover,.at-card:hover{transform:none}}
   </style>
@@ -1291,7 +1312,20 @@
           <div class="at-grid at-cn">
             <a class="at-card" href="https://ai.cne.go.kr" target="_blank" rel="noopener"><span class="at-badge" style="--c:#1c2e58">마</span><span class="at-tt"><strong>마주온 · 충남온배움터</strong><small>충남 미래교육 통합플랫폼(아이글·코드온 포함)</small></span><span class="at-ext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
             <a class="at-card at-rcta" href="https://whaleon.us/o/CSpiIQ/b93b79b07d604784a0b4518f46884f1b" target="_blank" rel="noopener"><span class="at-badge" style="--c:#f4641c"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></span><span class="at-tt"><strong>마주온 원격 연수 바로가기</strong><small>실시간 원격 연수 접속</small></span><span class="at-ext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
-            <a class="at-card at-rcta at-guide" href="#" target="_blank" rel="noopener"><span class="at-badge" style="--c:#e0530c"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.6 10.8c.5.4.8 1 .9 1.7h5.4c.1-.7.4-1.3.9-1.7A6 6 0 0 0 12 3Z"/></svg></span><span class="at-tt"><strong>마주온 원격 연수 준비안내</strong><small>접속 전 준비사항 확인</small></span><span class="at-ext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+            <button class="at-card at-rcta at-guide" type="button" id="guide-btn" aria-expanded="false" aria-controls="guide-panel"><span class="at-badge" style="--c:#e0530c"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.6 10.8c.5.4.8 1 .9 1.7h5.4c.1-.7.4-1.3.9-1.7A6 6 0 0 0 12 3Z"/></svg></span><span class="at-tt"><strong>마주온 원격 연수 준비안내</strong><small>접속 전 준비사항 확인</small></span><span class="at-ext at-gchev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span></button>
+            <div class="at-gwrap" id="guide-panel" role="region" aria-labelledby="guide-btn">
+              <div class="at-gin">
+                <ol class="at-gsteps">
+                  <li><span class="gnum">1</span><span>네이버에서 <b>네이버 웨일(Whale)</b>을 설치하세요.</span></li>
+                  <li><span class="gnum">2</span><span>회의 ID : <b>2108142368</b> &nbsp;/&nbsp; 비밀번호 : <b>519924</b></span></li>
+                </ol>
+                <p class="at-gwarn"><b>※ 참여자명 : 학교명 성명</b> (예 : OO초 홍길동) <em>필수!!</em></p>
+                <figure class="at-gfig">
+                  <img src="whaleon-guide.png" alt="웨일온 참여 화면 - 참여자명에 'OO초 홍길동' 형식으로 입력 후 참여 버튼 클릭" loading="lazy" onerror="this.closest('.at-gfig').style.display='none'">
+                  <figcaption>참여자명을 <b>학교명 + 성명</b>으로 입력한 뒤 <b>참여</b>를 누르세요.</figcaption>
+                </figure>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -1389,6 +1423,14 @@
         var open=root.classList.toggle('is-open');
         bar.setAttribute('aria-expanded', open?'true':'false');
       });
+      // 마주온 원격 연수 준비안내 펼침
+      var gb=document.getElementById('guide-btn'), gp=document.getElementById('guide-panel');
+      if(gb&&gp){
+        gb.addEventListener('click',function(){
+          var open=gp.classList.toggle('is-open');
+          gb.setAttribute('aria-expanded', open?'true':'false');
+        });
+      }
     })();
   </script>
 </section>
