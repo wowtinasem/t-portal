@@ -1286,6 +1286,18 @@
     .at-gfig img{display:block;width:100%;max-width:720px;height:auto;border-radius:10px;border:1px solid #e3e9f5;box-shadow:0 12px 26px -18px rgba(28,46,88,.5)}
     .at-gfig figcaption{margin-top:8px;font-size:13px;color:var(--at-muted);font-weight:600}
     .at-gfig figcaption b{color:#b8480e;font-weight:800}
+    .at-ggo{margin-top:16px;padding-top:14px;border-top:1px dashed #ffc79c;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+    .at-gbtn{display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:15px;color:#fff;text-decoration:none;letter-spacing:-.01em;
+      background:linear-gradient(135deg,#ffa24a,#f4641c);background-size:140% 140%;border-radius:12px;padding:13px 22px;
+      box-shadow:0 12px 24px -10px rgba(244,100,28,.7);transition:transform .15s ease,box-shadow .2s ease,background-position .2s ease}
+    .at-gbtn:hover{transform:translateY(-2px);background-position:100% 0;box-shadow:0 16px 30px -10px rgba(244,100,28,.85)}
+    .at-gbtn:active{transform:scale(.98)}
+    .at-gbtn:focus{outline:none}
+    .at-gbtn:focus-visible{outline:3px solid #ffc999;outline-offset:3px}
+    .at-gbtn svg{width:17px;height:17px;flex:none}
+    .at-gbtn .go{width:16px;height:16px}
+    .at-ggo-note{font-size:13px;color:var(--at-muted);font-weight:600}
+    @media (prefers-reduced-motion:reduce){.at-gbtn:hover{transform:none}}
     @media (prefers-reduced-motion:reduce){.at-gwrap,.at-gchev{transition:none}}
 
     @media (prefers-reduced-motion:reduce){.at-bar:hover,.at-card:hover{transform:none}}
@@ -1324,6 +1336,14 @@
                   <img src="whalelogin.png" alt="웨일온 참여 화면 - 참여자명에 'OO초 홍길동' 형식으로 입력 후 참여 버튼 클릭" loading="lazy" onerror="this.closest('.at-gfig').style.display='none'">
                   <figcaption>참여자명을 <b>학교명 + 성명</b>으로 입력한 뒤 <b>참여</b>를 누르세요.</figcaption>
                 </figure>
+                <div class="at-ggo">
+                  <a class="at-gbtn" href="https://whaleon.us/o/CSpiIQ/b93b79b07d604784a0b4518f46884f1b" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+                    마주온 원격 연수 바로가기
+                    <svg class="go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+                  </a>
+                  <span class="at-ggo-note">준비가 끝나셨으면 위 버튼으로 접속하세요.</span>
+                </div>
               </div>
             </div>
           </div>
