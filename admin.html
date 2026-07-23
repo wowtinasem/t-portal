@@ -122,7 +122,7 @@
         </div>
         <label class="fl">내용</label>
         <textarea id="nt-body" rows="3" placeholder="공지 상세 내용"></textarea>
-        <div class="actions"><button class="btn primary" id="nt-add">공지 발행</button><span class="msg" id="nt-msg"></span></div>
+        <div class="actions"><button class="btn primary" id="nt-add">공지 발행</button><button class="btn sm" id="nt-cancel" style="display:none">수정 취소</button><span class="msg" id="nt-msg"></span></div>
         <ul class="list" id="nt-list"><li class="empty">불러오는 중…</li></ul>
       </div>
 
@@ -212,18 +212,53 @@
     var el=document.getElementById('nt-list');
     if(!notices.length){ el.innerHTML='<li class="empty">등록된 공지가 없습니다.</li>'; return; }
     el.innerHTML=notices.map(function(n){
-      return '<li><span class="t"><strong>'+esc(n.title)+'</strong><small>'+esc(n.date)+'</small></span><button class="btn danger sm" data-del="'+n.id+'">삭제</button></li>';
+      return '<li><span class="t"><strong>'+esc(n.title)+'</strong><small>'+esc(n.date)+'</small></span>'
+        +'<button class="btn sm" data-edit="'+n.id+'">수정</button>'
+        +'<button class="btn danger sm" data-del="'+n.id+'">삭제</button></li>';
     }).join('');
+    el.querySelectorAll('[data-edit]').forEach(function(b){
+      b.addEventListener('click',function(){ startEdit(b.getAttribute('data-edit')); });
+    });
     el.querySelectorAll('[data-del]').forEach(function(b){
       b.addEventListener('click',function(){
         if(!confirm('이 공지를 삭제할까요? (사이트에서 사라집니다)')) return;
         var m=document.getElementById('nt-msg'); m.className='msg busy'; m.textContent='발행 중…';
-        notices=notices.filter(function(x){return x.id!==b.getAttribute('data-del');});
+        var delId=b.getAttribute('data-del');
+        if(editingId===delId) resetNoticeForm();
+        notices=notices.filter(function(x){return x.id!==delId;});
         saveNotices('공지 삭제').then(function(){ m.className='msg ok'; m.textContent='삭제·발행됨'; renderNotices(); })
           .catch(function(e){ m.className='msg err'; m.textContent='실패: '+esc(e.message); loadNotices(); });
       });
     });
   }
+
+  /* 공지 수정 */
+  var editingId=null;
+  function startEdit(id){
+    var n=null;
+    notices.forEach(function(x){ if(x.id===id) n=x; });
+    if(!n) return;
+    editingId=id;
+    document.getElementById('nt-title').value=n.title||'';
+    document.getElementById('nt-date').value=(n.date||'').replace(/\./g,'-');
+    document.getElementById('nt-body').value=n.body||'';
+    document.getElementById('nt-add').textContent='수정 발행';
+    document.getElementById('nt-cancel').style.display='';
+    var m=document.getElementById('nt-msg'); m.className='msg'; m.textContent='"'+n.title+'" 수정 중';
+    document.getElementById('nt-title').focus();
+    document.getElementById('nt-title').scrollIntoView({block:'center'});
+  }
+  function resetNoticeForm(){
+    editingId=null;
+    document.getElementById('nt-title').value=''; document.getElementById('nt-date').value=''; document.getElementById('nt-body').value='';
+    document.getElementById('nt-add').textContent='공지 발행';
+    document.getElementById('nt-cancel').style.display='none';
+  }
+  document.getElementById('nt-cancel').addEventListener('click',function(){
+    resetNoticeForm();
+    var m=document.getElementById('nt-msg'); m.className='msg'; m.textContent='수정을 취소했습니다.';
+  });
+
   document.getElementById('nt-add').addEventListener('click',function(){
     var t=document.getElementById('nt-title').value.trim();
     var d=document.getElementById('nt-date').value;
@@ -232,9 +267,19 @@
     if(!t){ m.className='msg err'; m.textContent='제목을 입력하세요.'; return; }
     var date=d?d.replace(/-/g,'.'):today();
     m.className='msg busy'; m.textContent='발행 중…';
+    if(editingId){
+      var found=false;
+      notices.forEach(function(x){ if(x.id===editingId){ x.title=t; x.date=date; x.body=bd; found=true; } });
+      if(!found){ m.className='msg err'; m.textContent='수정할 공지를 찾지 못했습니다.'; resetNoticeForm(); loadNotices(); return; }
+      saveNotices('공지 수정: '+t).then(function(){
+        resetNoticeForm();
+        m.className='msg ok'; m.textContent='수정·발행됨 (1~2분 뒤 사이트 반영)'; renderNotices();
+      }).catch(function(e){ m.className='msg err'; m.textContent='실패: '+esc(e.message); loadNotices(); });
+      return;
+    }
     notices.unshift({id:uid(),title:t,date:date,body:bd});
     saveNotices('공지 추가: '+t).then(function(){
-      document.getElementById('nt-title').value=''; document.getElementById('nt-date').value=''; document.getElementById('nt-body').value='';
+      resetNoticeForm();
       m.className='msg ok'; m.textContent='발행됨 (1~2분 뒤 사이트 반영)'; renderNotices();
     }).catch(function(e){ m.className='msg err'; m.textContent='실패: '+esc(e.message); loadNotices(); });
   });
