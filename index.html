@@ -1258,6 +1258,14 @@
     .at-promo .at-promo-go svg{width:11px;height:11px;display:block}
     /* 마주온은 좌측 메인, 로봇아이는 우측 정렬 */
     @media(min-width:901px){.at-cn .robo{grid-column:4}}
+    /* 마주온 원격 연수 바로가기 (강조 CTA) */
+    .at-card.at-rcta{background:linear-gradient(135deg,#fff4ea,#fff);border-color:#ffd0a8}
+    .at-card.at-rcta:hover{border-color:#f9a76a;box-shadow:0 10px 22px -14px rgba(244,100,28,.5)}
+    .at-card.at-rcta .at-badge{color:#fff}
+    .at-card.at-rcta .at-badge svg{width:19px;height:19px}
+    .at-card.at-rcta strong{color:#b8480e}
+    .at-card.at-rcta .at-ext{color:#f4641c}
+    @media(min-width:901px){.at-cn .at-rcta{grid-column:4}}
 
     @media (prefers-reduced-motion:reduce){.at-bar:hover,.at-card:hover{transform:none}}
   </style>
@@ -1282,6 +1290,7 @@
           <div class="at-glabel"><i style="background:#1c2e58"></i>충남 교육 플랫폼</div>
           <div class="at-grid at-cn">
             <a class="at-card" href="https://ai.cne.go.kr" target="_blank" rel="noopener"><span class="at-badge" style="--c:#1c2e58">마</span><span class="at-tt"><strong>마주온 · 충남온배움터</strong><small>충남 미래교육 통합플랫폼(아이글·코드온 포함)</small></span><span class="at-ext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+            <a class="at-card at-rcta" href="https://ai.cne.go.kr" target="_blank" rel="noopener"><span class="at-badge" style="--c:#f4641c"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></span><span class="at-tt"><strong>마주온 원격 연수 바로가기</strong><small>실시간 원격 연수 접속</small></span><span class="at-ext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
           </div>
         </div>
 
