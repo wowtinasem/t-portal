@@ -535,6 +535,15 @@
   .cmsg.user{align-self:flex-end;background:linear-gradient(135deg,#f4641c,#ffa24a);color:#fff;border-top-right-radius:4px}
   .cmsg a{color:#1f5fa8;font-weight:700}
   .cmsg.user a{color:#fff;text-decoration:underline}
+  .cmsg.bot{max-width:92%}
+  .cbot-kb{margin:6px 0 4px}
+  .cbot-kb>div{margin:2px 0}
+  .cbot-li{position:relative}
+  .cbot-tw{overflow-x:auto;margin:6px 0;border:1px solid var(--line);border-radius:8px}
+  .cbot-tb{border-collapse:collapse;width:100%;font-size:12px;white-space:nowrap}
+  .cbot-tb th,.cbot-tb td{padding:5px 8px;border-bottom:1px solid var(--line-soft);text-align:left}
+  .cbot-tb th{background:var(--surface);font-weight:800;color:var(--navy)}
+  .cbot-tb tr:last-child td{border-bottom:none}
   .cchips{display:flex;flex-wrap:wrap;gap:6px;align-self:flex-start}
   .cchip{font-family:inherit;font-size:12.5px;font-weight:700;color:#e8590c;background:#fff;border:1px solid #ffd6b0;border-radius:999px;padding:6px 12px;cursor:pointer;transition:background .15s ease}
   .cchip:hover{background:#fff3e9}
@@ -1701,52 +1710,128 @@
     if(!btn||!panel||!log) return;
     var nudge=btn.querySelector('.nudge');
 
-    // 홈페이지 정보 기반 지식
-    var R={
-      cheonan:{n:'천안',v:'공주대학교 천안캠퍼스',t:'041-521-9112',s:'7.27(월) · 8.11(화) · 8.13(목)',r:'7.30(목) 10:00~12:00 · 8.13(목) 14:00~16:00 · 8.14(금) 10:00~12:00',k:['천안']},
-      asan:{n:'아산',v:'캠코인재개발원',t:'041-530-9035',s:'7.29(수) · 8.10(월)',r:'7.31(금) 10:00~12:00 · 8.13(목) 10:00~12:00',k:['아산']},
-      gongju:{n:'공주·부여·청양',v:'LX국토정보교육원',t:'041-401-0200',s:'7.29(수) · 8.10(월)',r:'7.31(금) 10:00~12:00 · 8.13(목) 10:00~12:00',k:['공주','부여','청양']},
-      seosan:{n:'서산·태안·당진',v:'한서대학교',t:'041-660-1144',s:'7.28(화) · 8.12(수)',r:'7.30(목) 14:00~16:00 · 8.14(금) 10:00~12:00',k:['서산','태안','당진']},
-      nonsan:{n:'논산·계룡·금산',v:'현대해상금산하이비전센터',t:'041-750-7011',s:'7.27(월) · 8.11(화)',r:'7.30(목) 14:00~16:00 · 8.13(목) 14:00~16:00',k:['논산','계룡','금산']},
-      hongseong:{n:'홍성·예산·보령·서천',v:'혜전대학교',t:'041-630-5114',s:'7.28(화) · 8.12(수)',r:'7.30(목) 14:00~16:00 · 8.14(금) 10:00~12:00',k:['홍성','예산','보령','서천']}
-    };
-    function esc(s){return s.replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
-    function findReg(q){for(var key in R){for(var i=0;i<R[key].k.length;i++){if(q.indexOf(R[key].k[i])>-1)return key;}}return null;}
-    function menu(){return {html:'안녕하세요! 😊 <b>2026 AI디지털교육 연수</b> 안내 도우미예요.<br>무엇을 도와드릴까요? 아래에서 고르거나 자유롭게 질문해 주세요.',chips:['연수 일정','연수 장소','커리큘럼','참가 안내','콜센터']};}
-    function reply(raw){
-      var q=raw.replace(/\s+/g,'');
-      var reg=findReg(q), d=reg?R[reg]:null;
-      if(/안녕|하이|반가|hello|hi|메뉴|도움말|뭐가능|무엇을도/.test(q)) return menu();
-      if(/장소|어디|위치|주소|오시는|오는길|찾아가/.test(q)){
-        if(d) return {html:'<b>'+d.n+'</b> 연수장소는 <b>'+d.v+'</b>입니다.<br>📞 '+d.t+'<br><a href="#place">지도에서 보기 ›</a>'};
-        var li=Object.keys(R).map(function(k){return '· <b>'+R[k].n+'</b> — '+R[k].v;}).join('<br>');
-        return {html:'권역별 연수장소입니다.<br>'+li+'<br><a href="#place">지도·카드에서 보기 ›</a>',chips:['천안 장소','서산 장소','논산 장소']};
+    function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+
+    /* ── 지식베이스: data/knowledge.md 를 읽어 "## 제목" 단위로 분리 ──
+       내용 수정은 knowledge.md 만 고치면 됩니다(코드 수정 불필요). */
+    var KB=[], kbReady=false, kbFail=false, pending=[];
+    var SECTION_LINK={'일정':'#schedule','기간':'#schedule','날짜별':'#schedule','장소':'#place',
+      '커리큘럼':'#curriculum','차시':'#curriculum','자료':'#room','자료실':'#room',
+      '산출물':'#notice','설문':'#top','공지':'#notice','도구':'#ai-tools','원격':'#ai-tools','출결':'#ai-tools'};
+
+    function norm(s){ return String(s||'').toLowerCase().replace(/[\s·,.()\[\]{}!?~\/\-—:"']/g,''); }
+
+    function mdToHtml(md){
+      var out=[], rows=[];
+      function flushTable(){
+        if(!rows.length) return;
+        var body=rows.filter(function(r){ return !/^[\s|:\-]+$/.test(r); });
+        var html=body.map(function(r,i){
+          var cells=r.replace(/^\||\|$/g,'').split('|').map(function(c){ return inline(c.trim()); });
+          var tag=i===0?'th':'td';
+          return '<tr>'+cells.map(function(c){ return '<'+tag+'>'+c+'</'+tag+'>'; }).join('')+'</tr>';
+        }).join('');
+        out.push('<div class="cbot-tw"><table class="cbot-tb">'+html+'</table></div>');
+        rows=[];
       }
-      if(/일정|날짜|언제|며칠|기간|몇일/.test(q)){
-        if(d) return {html:'<b>'+d.n+'</b> 일정이에요.<br>🟦 <b>집합</b>(09:30~15:30): '+d.s+'<br>🟧 <b>원격(온라인)</b>: '+d.r+'<br><a href="#schedule">상세 일정 보기 ›</a>'};
-        return {html:'전체 연수 기간은<br>· 1차 <b>2026.07.27~07.31</b><br>· 2차 <b>2026.08.10~08.14</b><br>· 추가 <b>9월(금·토)</b>예요.<br>권역별 상세 일정은 카드에서 확인하세요.<br><a href="#schedule">연수 일정 보기 ›</a>',chips:['천안 일정','아산 일정','공주 일정']};
+      function inline(t){
+        t=esc(t);
+        t=t.replace(/\*\*([^*]+)\*\*/g,'<b>$1</b>');
+        t=t.replace(/(https?:\/\/[^\s<)]+)/g,'<a href="$1" target="_blank" rel="noopener">바로가기 ›</a>');
+        return t;
       }
-      if(/커리큘럼|차시|과목|내용|트랙|배우|교육과정|뭘배/.test(q))
-        return {html:'전체 <b>7차시</b>로 운영돼요.<br>· 원격(공통) 2차시 — 교육정책 이해, AI·디지털 윤리<br>· 집합(공통) 1차시 — 마주온 활용 역량<br>· 집합(선택) 4차시 — 초등(기초·심화·실과) / 중등(국어·수학·과학·기술·정보·인문)<br><a href="#curriculum">커리큘럼 보기 ›</a>'};
-      if(/대상|누구|누가|자격|참여대상/.test(q))
-        return {html:'연수 대상은 <b>충청남도 초·중등 교원</b>이에요. 모든 과정이 초·중등 교원 공통으로 운영됩니다.'};
-      if(/시간|몇시|이수|운영시간/.test(q))
-        return {html:'집합연수는 <b>09:30~15:30</b>, 원격연수는 권역별 지정 시간(예: 10:00~12:00 / 14:00~16:00, 추가연수 18:00~20:00)으로 운영돼요.<br><a href="#schedule">상세 시간 보기 ›</a>'};
-      if(/전화|문의|연락|콜센터|상담|번호/.test(q))
-        return {html:'📞 <b>콜센터 070-8676-3276</b><br>📱 010-2622-5600 (문자회신)<br>운영시간 평일 09:00~18:00 입니다.<br><a href="tel:07086763276">전화 걸기 ›</a>'};
-      if(/참가|출결|설문|안내문|유의|준비물/.test(q))
-        return {html:'참가·출결·설문 관련 안내는 공지사항 또는 콜센터로 확인해 주세요.<br><a href="#notice">공지사항 보기 ›</a>'};
-      if(/신청|등록|접수|모집|공지/.test(q))
-        return {html:'신청·접수 등 자세한 사항은 공지/안내 또는 콜센터(070-8676-3276)로 확인해 주세요.<br><a href="#notice">공지사항 보기 ›</a>'};
-      if(/자료|다운로드|강의자료|드라이브|자료실|ppt/.test(q))
-        return {html:'강의·실습 자료는 자료실(Google Drive)에서 받을 수 있어요.<br><a href="#room">자료실 바로가기 ›</a>'};
-      if(d)
-        return {html:'<b>'+d.n+'</b> 안내예요.<br>📍 '+d.v+' (📞 '+d.t+')<br>🟦 집합: '+d.s+'<br>🟧 원격: '+d.r+'<br><a href="#place">장소</a> · <a href="#schedule">일정</a>'};
-      return {html:'죄송해요, 정확히 이해하지 못했어요. 😊 아래에서 선택하거나 다시 질문해 주세요.',chips:['연수 일정','연수 장소','커리큘럼','대상','콜센터']};
+      md.split('\n').forEach(function(line){
+        var t=line.replace(/\s+$/,'');
+        if(/^\s*\|/.test(t)){ rows.push(t.trim()); return; }
+        flushTable();
+        if(!t.trim()) return;
+        var m=t.match(/^(\s*)[-*]\s+(.*)$/);
+        if(m){ out.push('<div class="cbot-li" style="padding-left:'+(m[1].length?14:0)+'px">· '+inline(m[2])+'</div>'); return; }
+        m=t.match(/^(\s*)(\d+[.~]\S*)\s+(.*)$/);
+        if(m){ out.push('<div class="cbot-li" style="padding-left:'+(m[1].length?14:0)+'px"><b>'+esc(m[2])+'</b> '+inline(m[3])+'</div>'); return; }
+        out.push('<div>'+inline(t.trim())+'</div>');
+      });
+      flushTable();
+      return out.join('');
     }
+
+    function parseKB(text){
+      var list=[];
+      text.split(/^##\s+/m).slice(1).forEach(function(chunk){
+        var lines=chunk.split('\n');
+        var title=lines.shift().trim();
+        var keys=[];
+        if(/^키워드\s*:/.test(lines[0]||'')){
+          keys=lines.shift().replace(/^키워드\s*:/,'').split(',').map(function(s){return norm(s);}).filter(Boolean);
+        }
+        var body=lines.join('\n').replace(/^\s+|\s+$/g,'');
+        if(!body) return;
+        list.push({title:title, keys:keys, nt:norm(title), nb:norm(body), body:body});
+      });
+      return list;
+    }
+
+    function score(q,s){
+      var n=0;
+      s.keys.forEach(function(k){ if(k && q.indexOf(k)>-1) n+=Math.max(6,Math.min(k.length,6)*3); });
+      if(q.indexOf(s.nt)>-1 || s.nt.indexOf(q)>-1) n+=20;
+      // 질문의 2글자 이상 조각이 본문에 있으면 가산
+      for(var i=0;i<q.length-1;i++){
+        var g=q.substr(i,2);
+        if(s.nb.indexOf(g)>-1) n+=1;
+      }
+      return n;
+    }
+
+    function linkFor(title){
+      for(var k in SECTION_LINK){ if(title.indexOf(k)>-1) return SECTION_LINK[k]; }
+      return null;
+    }
+
+    function menu(){
+      return {html:'안녕하세요! 😊 <b>2026 AI디지털교육 역량강화 연수</b> 안내 도우미예요.<br>무엇을 도와드릴까요? 아래에서 고르거나 자유롭게 질문해 주세요.',
+        chips:['연수 일정','연수 장소','원격 연수 시간','원격 접속 방법','커리큘럼','자료실','콜센터']};
+    }
+    var FALLBACK_CHIPS=['연수 일정','연수 장소','원격 연수 시간','원격 접속 방법','커리큘럼','콜센터'];
+
+    function reply(raw){
+      var q=norm(raw);
+      if(/안녕|하이|반가|hello|hi|메뉴|도움말|뭐가능|무엇을도/.test(q)) return menu();
+      if(!kbReady){
+        return {html: kbFail
+          ? '안내 자료를 불러오지 못했어요. 😢 콜센터 <b>070-8676-3276</b>로 문의해 주세요.'
+          : '안내 자료를 불러오는 중이에요. 잠시 후 다시 질문해 주세요. 🙏'};
+      }
+      var best=null, bestScore=0;
+      KB.forEach(function(s){ var v=score(q,s); if(v>bestScore){ bestScore=v; best=s; } });
+      if(!best || bestScore<6){
+        return {html:'죄송해요, 정확히 이해하지 못했어요. 😊 아래에서 선택하거나 다르게 질문해 주세요.<br>급하시면 콜센터 <b>070-8676-3276</b>로 문의해 주세요.', chips:FALLBACK_CHIPS};
+      }
+      var href=linkFor(best.title);
+      var html='<b>'+esc(best.title)+'</b><div class="cbot-kb">'+mdToHtml(best.body)+'</div>'
+        +(href?'<a href="'+href+'">홈페이지에서 보기 ›</a>':'');
+      // 관련 항목 추천
+      var others=KB.map(function(s){ return {s:s,v:score(q,s)}; })
+        .filter(function(x){ return x.s!==best && x.v>=6; })
+        .sort(function(a,b){ return b.v-a.v; }).slice(0,3)
+        .map(function(x){ return x.s.title; });
+      return {html:html, chips:others.length?others:null};
+    }
+
+    fetch('data/knowledge.md?_='+Date.now(),{cache:'no-store'})
+      .then(function(r){ if(!r.ok) throw 0; return r.text(); })
+      .then(function(t){ KB=parseKB(t); kbReady=KB.length>0; kbFail=!kbReady; flushPending(); })
+      .catch(function(){ kbFail=true; flushPending(); });
+    function flushPending(){ var p=pending; pending=[]; p.forEach(function(fn){ fn(); }); }
     function add(html,who){var el=document.createElement('div');el.className='cmsg '+who;el.innerHTML=html;log.appendChild(el);log.scrollTop=log.scrollHeight;}
     function addChips(chips){if(!chips||!chips.length)return;var row=document.createElement('div');row.className='cchips';chips.forEach(function(t){var b=document.createElement('button');b.type='button';b.className='cchip';b.textContent=t;b.addEventListener('click',function(){send(t);});row.appendChild(b);});log.appendChild(row);log.scrollTop=log.scrollHeight;}
-    function send(text){text=(text||'').replace(/^\s+|\s+$/g,'');if(!text)return;add(esc(text),'user');input.value='';var r=reply(text);window.setTimeout(function(){add(r.html,'bot');addChips(r.chips);},280);}
+    function answer(text){var r=reply(text);add(r.html,'bot');addChips(r.chips);}
+    function send(text){
+      text=(text||'').replace(/^\s+|\s+$/g,''); if(!text) return;
+      add(esc(text),'user'); input.value='';
+      if(!kbReady && !kbFail){ pending.push(function(){ answer(text); }); return; }   // 자료 로딩 중이면 로딩 후 답변
+      window.setTimeout(function(){ answer(text); },280);
+    }
     function intro(){if(log.childElementCount===0){var m=menu();add(m.html,'bot');addChips(m.chips);}}
 
     function open(){panel.classList.add('open');btn.setAttribute('aria-expanded','true');if(nudge)nudge.style.display='none';if(greet)greet.classList.add('hide');intro();window.setTimeout(function(){input.focus();},250);}
