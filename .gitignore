@@ -9,6 +9,7 @@ Thumbs.db
 
 # Netlify
 .netlify/
+node_modules/
 
 # 비밀값(환경변수) — 절대 커밋 금지
 .env

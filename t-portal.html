@@ -540,6 +540,8 @@
   .cmsg.user a{color:#fff;text-decoration:underline}
   .cmsg.bot{max-width:92%}
   .cbot-kb{margin:6px 0 4px}
+  .cbot-typing{color:var(--c-muted,#6b7280);opacity:.85;animation:cbotpulse 1.1s ease-in-out infinite}
+  @keyframes cbotpulse{0%,100%{opacity:.45}50%{opacity:.95}}
   .cbot-kb>div{margin:2px 0}
   .cbot-li{position:relative}
   .cbot-tw{overflow-x:auto;margin:6px 0;border:1px solid var(--line);border-radius:8px}
@@ -1802,7 +1804,8 @@
       var best=null, bestScore=0;
       KB.forEach(function(s){ var v=score(q,s); if(v>bestScore){ bestScore=v; best=s; } });
       if(!best || bestScore<6){
-        return {html:'죄송해요, 정확히 이해하지 못했어요. 😊 아래에서 선택하거나 다르게 질문해 주세요.<br>급하시면 콜센터 <b>070-8676-3276</b>로 문의해 주세요.', chips:FALLBACK_CHIPS};
+        // 키워드 매칭 실패 → AI 도우미(서버리스 함수)에게 위임
+        return {fallback:true};
       }
       var href=linkFor(best.title);
       var html='<b>'+esc(best.title)+'</b><div class="cbot-kb">'+mdToHtml(best.body)+'</div>'
@@ -1822,7 +1825,23 @@
     function flushPending(){ var p=pending; pending=[]; p.forEach(function(fn){ fn(); }); }
     function add(html,who){var el=document.createElement('div');el.className='cmsg '+who;el.innerHTML=html;log.appendChild(el);log.scrollTop=log.scrollHeight;}
     function addChips(chips){if(!chips||!chips.length)return;var row=document.createElement('div');row.className='cchips';chips.forEach(function(t){var b=document.createElement('button');b.type='button';b.className='cchip';b.textContent=t;b.addEventListener('click',function(){send(t);});row.appendChild(b);});log.appendChild(row);log.scrollTop=log.scrollHeight;}
-    function answer(text){var r=reply(text);add(r.html,'bot');addChips(r.chips);}
+    function answer(text){var r=reply(text);if(r.fallback){askApi(text);return;}add(r.html,'bot');addChips(r.chips);}
+    function askApi(text){
+      var el=document.createElement('div');el.className='cmsg bot';
+      el.innerHTML='<span class="cbot-typing">답변을 준비하고 있어요…</span>';
+      log.appendChild(el);log.scrollTop=log.scrollHeight;
+      fetch('/.netlify/functions/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({question:text})})
+        .then(function(r){return r.ok?r.json():Promise.reject();})
+        .then(function(d){
+          if(!d||!d.answer) throw 0;
+          el.innerHTML='<div class="cbot-kb">'+mdToHtml(d.answer)+'</div>';
+          log.scrollTop=log.scrollHeight;addChips(FALLBACK_CHIPS);
+        })
+        .catch(function(){
+          el.innerHTML='죄송해요, 정확히 이해하지 못했어요. 😊 아래에서 선택하거나 다르게 질문해 주세요.<br>급하시면 콜센터 <b>070-8676-3276</b>로 문의해 주세요.';
+          log.scrollTop=log.scrollHeight;addChips(FALLBACK_CHIPS);
+        });
+    }
     function send(text){
       text=(text||'').replace(/^\s+|\s+$/g,''); if(!text) return;
       add(esc(text),'user'); input.value='';
