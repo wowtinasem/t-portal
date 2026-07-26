@@ -4,7 +4,7 @@
 [build]
   publish = "."
 
-# 챗봇 폴백용 서버리스 함수 (비밀 API 키는 Netlify 환경변수에서만 읽음)
+# 챗봇 폴백용 서버리스 함수 (비밀 API 키 GEMINI_API_KEY는 Netlify 환경변수에서만 읽음)
 [functions]
   directory = "netlify/functions"
   node_bundler = "esbuild"

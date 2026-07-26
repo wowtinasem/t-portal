@@ -1,9 +1,9 @@
-// 챗봇 하이브리드 폴백 함수
+// 챗봇 하이브리드 폴백 함수 (Google Gemini)
 // 사이트의 키워드 매칭(무료·즉시)이 실패했을 때만 브라우저가 이 함수를 호출한다.
-// 비밀 API 키는 Netlify 환경변수(ANTHROPIC_API_KEY)에서만 읽는다.
+// 비밀 API 키는 Netlify 환경변수(GEMINI_API_KEY)에서만 읽는다.
 // 저장소가 public이므로 키를 코드/HTML에 절대 넣지 않는다.
 
-var MODEL = 'claude-haiku-4-5';
+var MODEL = 'gemini-2.5-flash';
 
 function json(status, obj){
   return {
@@ -18,7 +18,7 @@ exports.handler = async function(event){
     return { statusCode: 405, body: 'Method Not Allowed' };
   }
 
-  var key = process.env.ANTHROPIC_API_KEY;
+  var key = process.env.GEMINI_API_KEY;
   if(!key){
     // 환경변수 미설정 시에도 사이트가 깨지지 않도록 안내로 대체
     return json(200, { answer: '지금은 답변 도우미가 준비 중이에요. 콜센터 070-8676-3276으로 문의해 주세요.' });
@@ -50,28 +50,27 @@ exports.handler = async function(event){
   ].join('\n');
 
   try {
-    var resp = await fetch('https://api.anthropic.com/v1/messages', {
+    var url = 'https://generativelanguage.googleapis.com/v1beta/models/'
+      + MODEL + ':generateContent?key=' + encodeURIComponent(key);
+    var resp = await fetch(url, {
       method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-        'x-api-key': key,
-        'anthropic-version': '2023-06-01'
-      },
+      headers: { 'content-type': 'application/json' },
       body: JSON.stringify({
-        model: MODEL,
-        max_tokens: 640,
-        system: system,
-        messages: [{ role: 'user', content: question }]
+        system_instruction: { parts: [{ text: system }] },
+        contents: [{ role: 'user', parts: [{ text: question }] }],
+        generationConfig: {
+          maxOutputTokens: 640,
+          temperature: 0.4,
+          thinkingConfig: { thinkingBudget: 0 }  // 단순 안내용 — 추론 토큰 비활성화(빠르고 저렴)
+        }
       })
     });
     if(!resp.ok){
       return json(200, { answer: '죄송해요, 지금은 답변을 준비하기 어려워요. 콜센터 070-8676-3276으로 문의해 주세요.' });
     }
     var data = await resp.json();
-    var text = (data.content || [])
-      .filter(function(b){ return b.type === 'text'; })
-      .map(function(b){ return b.text; })
-      .join('\n').trim();
+    var parts = (((data.candidates || [])[0] || {}).content || {}).parts || [];
+    var text = parts.map(function(p){ return p.text || ''; }).join('').trim();
     return json(200, { answer: text || '자세한 내용은 콜센터 070-8676-3276으로 문의해 주세요.' });
   } catch(e){
     return json(200, { answer: '죄송해요, 지금은 답변을 준비하기 어려워요. 콜센터 070-8676-3276으로 문의해 주세요.' });
