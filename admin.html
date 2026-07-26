@@ -129,10 +129,10 @@
       <!-- 운영 사진 -->
       <div class="card">
         <h2>운영 사진 업로드</h2>
-        <p class="desc">사이트 "운영 사진" 갤러리에 표시됩니다. (이미지, 한 장당 2MB 이하 권장)</p>
-        <label class="fl">사진 파일</label>
-        <input type="file" id="ph-file" accept="image/*" />
-        <label class="fl">설명(선택)</label>
+        <p class="desc">사이트 "운영 사진" 갤러리에 표시됩니다. <b>여러 장을 한꺼번에</b> 선택할 수 있어요. (이미지, 한 장당 2MB 이하 권장)</p>
+        <label class="fl">사진 파일 (여러 장 선택 가능)</label>
+        <input type="file" id="ph-file" accept="image/*" multiple />
+        <label class="fl">설명(선택) · 선택한 모든 사진에 공통 적용</label>
         <input type="text" id="ph-cap" placeholder="사진 설명(선택)" />
         <div class="actions"><button class="btn primary" id="ph-add">사진 발행</button><span class="msg" id="ph-msg"></span></div>
         <ul class="list" id="ph-list"><li class="empty">불러오는 중…</li></ul>
@@ -314,25 +314,42 @@
     });
   }
   document.getElementById('ph-add').addEventListener('click',function(){
-    var f=document.getElementById('ph-file').files[0];
+    var files=Array.prototype.slice.call(document.getElementById('ph-file').files);
     var cap=document.getElementById('ph-cap').value.trim();
     var m=document.getElementById('ph-msg');
-    if(!f){ m.className='msg err'; m.textContent='사진 파일을 선택하세요.'; return; }
-    if(!/^image\//.test(f.type)){ m.className='msg err'; m.textContent='이미지 파일만 가능합니다.'; return; }
-    if(f.size>4*1048576){ m.className='msg err'; m.textContent='4MB 이하 이미지를 권장합니다.'; return; }
-    m.className='msg busy'; m.textContent='업로드·발행 중…';
-    fileToDataURL(f).then(function(url){
-      var b64=url.split(',')[1];
-      var ext=(f.name.split('.').pop()||'jpg').toLowerCase().replace(/[^a-z0-9]/g,'')||'jpg';
-      var fname=uid()+'.'+ext;
-      return ghPut('photos/'+fname, b64, null, '사진 추가: '+fname).then(function(){
-        gallery.unshift({id:uid(),file:fname,cap:cap,date:today()});
-        return saveGallery('갤러리 갱신');
+    if(!files.length){ m.className='msg err'; m.textContent='사진 파일을 선택하세요.'; return; }
+    var notImg=files.filter(function(f){ return !/^image\//.test(f.type); });
+    if(notImg.length){ m.className='msg err'; m.textContent='이미지 파일만 가능합니다. ('+notImg[0].name+')'; return; }
+    var tooBig=files.filter(function(f){ return f.size>4*1048576; });
+    if(tooBig.length){ m.className='msg err'; m.textContent=tooBig.length+'장이 4MB를 초과합니다. 용량을 줄여 주세요.'; return; }
+    m.className='msg busy'; m.textContent='업로드 준비 중… (0/'+files.length+')';
+    var newEntries=[], done=0;
+    files.reduce(function(chain,f){
+      return chain.then(function(){
+        return fileToDataURL(f).then(function(url){
+          var b64=url.split(',')[1];
+          var ext=(f.name.split('.').pop()||'jpg').toLowerCase().replace(/[^a-z0-9]/g,'')||'jpg';
+          var fname=uid()+'.'+ext;
+          return ghPut('photos/'+fname, b64, null, '사진 추가: '+fname).then(function(){
+            newEntries.push({id:uid(),file:fname,cap:cap,date:today()});
+            done++; m.textContent='업로드 중… ('+done+'/'+files.length+')';
+          });
+        });
       });
+    }, Promise.resolve()).then(function(){
+      gallery=newEntries.concat(gallery);
+      return saveGallery('사진 '+newEntries.length+'장 추가');
     }).then(function(){
       document.getElementById('ph-file').value=''; document.getElementById('ph-cap').value='';
-      m.className='msg ok'; m.textContent='발행됨 (1~2분 뒤 사이트 반영)'; renderPhotos();
-    }).catch(function(e){ m.className='msg err'; m.textContent='실패: '+esc(e.message); loadGallery(); });
+      m.className='msg ok'; m.textContent=newEntries.length+'장 발행됨 (1~2분 뒤 사이트 반영)'; renderPhotos();
+    }).catch(function(e){
+      // 일부라도 올라간 사진은 갤러리에 반영
+      if(newEntries.length){
+        gallery=newEntries.concat(gallery);
+        saveGallery('사진 '+newEntries.length+'장 추가(부분 완료)').then(function(){ renderPhotos(); }).catch(function(){});
+      }
+      m.className='msg err'; m.textContent='일부 실패: '+esc(e.message)+' — '+done+'/'+files.length+'장 완료';
+    });
   });
 
   /* ---------- 접근 비밀번호 (자료실·산출물 게이트) ---------- */
