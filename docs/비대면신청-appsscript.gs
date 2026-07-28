@@ -22,11 +22,12 @@ function doPost(e) {
     var ss = SpreadsheetApp.getActiveSpreadsheet();
     var sheet = ss.getSheetByName('신청') || ss.insertSheet('신청');
     if (sheet.getLastRow() === 0) {
-      sheet.appendRow(['신청시각', '성명', '전화번호', '희망 연수 일시']);
+      sheet.appendRow(['신청시각', '학교명', '성명', '전화번호', '희망 연수 일시']);
     }
     var p = e.parameter || {};
     sheet.appendRow([
       new Date(),
+      p.school || '',
       p.name || '',
       p.phone || '',
       p.slot || ''

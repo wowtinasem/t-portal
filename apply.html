@@ -85,6 +85,11 @@
     <div class="card">
       <form id="form" novalidate>
         <div class="field">
+          <label for="school">학교명<span class="req">*</span></label>
+          <input type="text" id="school" name="school" autocomplete="organization" placeholder="OO초등학교" required />
+        </div>
+
+        <div class="field">
           <label for="name">성명<span class="req">*</span></label>
           <input type="text" id="name" name="name" autocomplete="name" placeholder="홍길동" required />
         </div>
@@ -137,7 +142,7 @@
   <dialog id="privacy">
     <div class="dlg">
       <h3>개인정보 수집·이용 안내</h3>
-      <p><b>수집 항목</b> : 성명, 전화번호, 희망 연수 일시</p>
+      <p><b>수집 항목</b> : 학교명, 성명, 전화번호, 희망 연수 일시</p>
       <p><b>수집 목적</b> : 비대면(원격) 연수 신청 접수 및 안내</p>
       <p><b>보유 기간</b> : 연수 종료 후 파기</p>
       <p>동의를 거부할 수 있으나, 미동의 시 신청이 제한됩니다.</p>
@@ -160,12 +165,14 @@
   form.addEventListener('submit',function(e){
     e.preventDefault();
     err.textContent='';
+    var school=document.getElementById('school').value.trim();
     var name=document.getElementById('name').value.trim();
     var phone=document.getElementById('phone').value.trim();
     var slot=(form.querySelector('input[name=slot]:checked')||{}).value||'';
     var agree=document.getElementById('agree').checked;
     var hp=form.querySelector('input[name=website]').value;
 
+    if(!school){ err.textContent='학교명을 입력해 주세요.'; return; }
     if(!name){ err.textContent='성명을 입력해 주세요.'; return; }
     if(!/[0-9]{3}[- ]?[0-9]{3,4}[- ]?[0-9]{4}/.test(phone)){ err.textContent='전화번호를 정확히 입력해 주세요.'; return; }
     if(!slot){ err.textContent='희망 연수 일시를 선택해 주세요.'; return; }
@@ -174,17 +181,18 @@
 
     submit.disabled=true; submit.textContent='신청 중…';
 
-    var body=new URLSearchParams({name:name,phone:phone,slot:slot});
+    var body=new URLSearchParams({school:school,name:name,phone:phone,slot:slot});
     fetch(ENDPOINT,{method:'POST',mode:'no-cors',body:body})
-      .then(function(){ showDone(name,phone,slot); })
+      .then(function(){ showDone(school,name,phone,slot); })
       .catch(function(){
         submit.disabled=false; submit.textContent='신청하기';
         err.textContent='전송에 실패했어요. 잠시 후 다시 시도하거나 콜센터로 문의해 주세요.';
       });
   });
 
-  function showDone(name,phone,slot){
+  function showDone(school,name,phone,slot){
     document.getElementById('receipt').innerHTML=
+      '<div><b>학교</b> · '+esc(school)+'</div>'+
       '<div><b>성명</b> · '+esc(name)+'</div>'+
       '<div><b>전화</b> · '+esc(phone)+'</div>'+
       '<div><b>일시</b> · '+esc(slot)+'</div>';
