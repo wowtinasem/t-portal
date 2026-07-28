@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="robots" content="noindex" />
+<title>비대면(원격) 연수 신청 · 2026 AI 디지털 교육 역량강화 연수</title>
+<style>
+  :root{
+    --navy:#16224a; --navy2:#22417e; --orange:#f4641c; --orange2:#ffa24a;
+    --line:#e6e9f2; --muted:#6b7280; --ink:#1f2433; --bg:#f3f5fb;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;
+    line-height:1.55;-webkit-text-size-adjust:100%}
+  .wrap{max-width:480px;margin:0 auto;padding:22px 16px 60px}
+  .top{text-align:center;margin:8px 0 18px}
+  .top .badge{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.02em;
+    color:#fff;background:linear-gradient(135deg,var(--orange2),var(--orange));
+    padding:5px 12px;border-radius:999px;margin-bottom:12px}
+  .top h1{margin:0;font-size:21px;font-weight:800;color:var(--navy);letter-spacing:-.02em;line-height:1.3}
+  .top p{margin:8px 0 0;font-size:13px;color:var(--muted)}
+  .card{background:#fff;border:1px solid var(--line);border-radius:16px;
+    padding:20px 18px;box-shadow:0 18px 40px -24px rgba(28,46,88,.35)}
+  .field{margin-bottom:16px}
+  .field > label{display:block;font-size:13px;font-weight:800;color:var(--navy);margin-bottom:7px}
+  .field .req{color:var(--orange);margin-left:2px}
+  input[type=text],input[type=tel]{width:100%;font-size:15px;padding:12px 13px;
+    border:1.5px solid var(--line);border-radius:10px;background:#fbfcfe;color:var(--ink);outline:none}
+  input[type=text]:focus,input[type=tel]:focus{border-color:var(--navy2);background:#fff}
+  .slots{display:flex;flex-direction:column;gap:8px}
+  .slot{position:relative;display:flex;align-items:center;gap:11px;
+    border:1.5px solid var(--line);border-radius:11px;padding:12px 13px;cursor:pointer;
+    background:#fbfcfe;transition:border-color .15s,background .15s}
+  .slot input{position:absolute;opacity:0;width:0;height:0}
+  .slot .dot{flex:0 0 auto;width:19px;height:19px;border-radius:50%;
+    border:2px solid #c7cfe0;transition:.15s}
+  .slot .txt{font-size:14px;font-weight:700;color:var(--ink)}
+  .slot .txt small{display:block;font-size:11.5px;font-weight:600;color:var(--muted);margin-top:1px}
+  .slot:has(input:checked){border-color:var(--navy2);background:#eef3ff}
+  .slot:has(input:checked) .dot{border-color:var(--navy2);background:radial-gradient(circle,#fff 0 30%,var(--navy2) 40% 100%)}
+  .note{font-size:12px;color:var(--muted);background:#f6f8fc;border:1px solid var(--line);
+    border-radius:10px;padding:10px 12px;margin-bottom:16px;line-height:1.6}
+  .agree{display:flex;align-items:flex-start;gap:9px;font-size:12.5px;color:var(--ink);margin-bottom:18px;cursor:pointer}
+  .agree input{margin-top:2px;width:17px;height:17px;flex:0 0 auto;accent-color:var(--navy2)}
+  .agree a{color:var(--navy2);text-decoration:underline;cursor:pointer}
+  .submit{width:100%;font-size:16px;font-weight:800;color:#fff;border:0;border-radius:12px;
+    padding:15px;cursor:pointer;background:linear-gradient(135deg,var(--navy2),var(--navy));
+    box-shadow:0 14px 26px -14px rgba(22,34,74,.75);transition:transform .12s,opacity .2s}
+  .submit:hover{transform:translateY(-1px)}
+  .submit:disabled{opacity:.6;cursor:default;transform:none}
+  .err{color:#d33;font-size:12.5px;margin-top:8px;min-height:1em;text-align:center}
+  .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+  /* 완료 화면 */
+  .done{display:none;text-align:center;padding:14px 6px}
+  .done .ic{width:64px;height:64px;margin:6px auto 14px;border-radius:50%;
+    background:linear-gradient(135deg,#41c07c,#2e9e5b);display:flex;align-items:center;justify-content:center}
+  .done .ic svg{width:34px;height:34px;stroke:#fff;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .done h2{margin:0 0 6px;font-size:19px;color:var(--navy);font-weight:800}
+  .done p{margin:0;font-size:13.5px;color:var(--muted)}
+  .done .rc{margin-top:16px;background:#f6f8fc;border:1px solid var(--line);border-radius:11px;
+    padding:13px;font-size:13px;text-align:left}
+  .done .rc b{color:var(--navy)}
+  .foot{text-align:center;font-size:11.5px;color:#9aa2b4;margin-top:20px;line-height:1.6}
+  /* 개인정보 안내 다이얼로그 */
+  dialog{border:0;border-radius:14px;padding:0;max-width:340px;width:calc(100% - 40px);
+    box-shadow:0 30px 70px -30px rgba(0,0,0,.5)}
+  dialog::backdrop{background:rgba(15,20,40,.5)}
+  .dlg{padding:18px 18px 16px}
+  .dlg h3{margin:0 0 10px;font-size:15px;color:var(--navy)}
+  .dlg p{margin:0 0 8px;font-size:12.5px;color:var(--ink);line-height:1.65}
+  .dlg .x{margin-top:10px;width:100%;padding:11px;border:0;border-radius:9px;font-weight:700;
+    background:var(--navy);color:#fff;cursor:pointer}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <span class="badge">2026 AI 디지털 교육 역량강화 연수</span>
+      <h1>비대면(원격) 연수 신청</h1>
+      <p>희망하시는 일시 <b>1회</b>를 선택해 신청해 주세요.</p>
+    </div>
+
+    <div class="card">
+      <form id="form" novalidate>
+        <div class="field">
+          <label for="name">성명<span class="req">*</span></label>
+          <input type="text" id="name" name="name" autocomplete="name" placeholder="홍길동" required />
+        </div>
+
+        <div class="field">
+          <label for="phone">전화번호<span class="req">*</span></label>
+          <input type="tel" id="phone" name="phone" autocomplete="tel" inputmode="numeric"
+                 placeholder="010-1234-5678" required />
+        </div>
+
+        <div class="field">
+          <label>희망 연수 일시<span class="req">*</span> <span style="font-weight:600;color:var(--muted);font-size:11.5px">(1개 선택)</span></label>
+          <div class="slots" id="slots">
+            <label class="slot"><input type="radio" name="slot" value="7/30(목) 오전 10:00~12:00" required><span class="dot"></span><span class="txt">7/30(목) 오전<small>10:00 ~ 12:00</small></span></label>
+            <label class="slot"><input type="radio" name="slot" value="7/30(목) 오후 14:00~16:00"><span class="dot"></span><span class="txt">7/30(목) 오후<small>14:00 ~ 16:00</small></span></label>
+            <label class="slot"><input type="radio" name="slot" value="7/31(금) 오전 10:00~12:00"><span class="dot"></span><span class="txt">7/31(금) 오전<small>10:00 ~ 12:00</small></span></label>
+            <label class="slot"><input type="radio" name="slot" value="8/13(목) 오전 10:00~12:00"><span class="dot"></span><span class="txt">8/13(목) 오전<small>10:00 ~ 12:00</small></span></label>
+            <label class="slot"><input type="radio" name="slot" value="8/13(목) 오후 14:00~16:00"><span class="dot"></span><span class="txt">8/13(목) 오후<small>14:00 ~ 16:00</small></span></label>
+            <label class="slot"><input type="radio" name="slot" value="8/14(금) 오전 10:00~12:00"><span class="dot"></span><span class="txt">8/14(금) 오전<small>10:00 ~ 12:00</small></span></label>
+          </div>
+        </div>
+
+        <div class="note">연수 내용은 모든 회차가 동일하며, <b>1회만 선택·참여</b>하시면 됩니다. 접속 링크는 모두 같습니다.</div>
+
+        <label class="agree">
+          <input type="checkbox" id="agree" required>
+          <span>개인정보 수집·이용에 동의합니다. <a id="privacy-link">자세히</a></span>
+        </label>
+
+        <!-- 스팸 방지(사람에겐 보이지 않음) -->
+        <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+        <button type="submit" class="submit" id="submit">신청하기</button>
+        <div class="err" id="err"></div>
+      </form>
+
+      <div class="done" id="done">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></div>
+        <h2>신청이 완료되었습니다</h2>
+        <p>신청해 주셔서 감사합니다.</p>
+        <div class="rc" id="receipt"></div>
+      </div>
+    </div>
+
+    <div class="foot">
+      문의 · 콜센터 070-8676-3276<br>주최 충청남도교육청교육과정평가정보원 · 운영 (주)드림정보
+    </div>
+  </div>
+
+  <dialog id="privacy">
+    <div class="dlg">
+      <h3>개인정보 수집·이용 안내</h3>
+      <p><b>수집 항목</b> : 성명, 전화번호, 희망 연수 일시</p>
+      <p><b>수집 목적</b> : 비대면(원격) 연수 신청 접수 및 안내</p>
+      <p><b>보유 기간</b> : 연수 종료 후 파기</p>
+      <p>동의를 거부할 수 있으나, 미동의 시 신청이 제한됩니다.</p>
+      <button class="x" id="privacy-x">확인</button>
+    </div>
+  </dialog>
+
+<script>
+(function(){
+  // ▼▼ 구글 Apps Script 웹앱 URL을 여기에 넣으세요 ▼▼
+  var ENDPOINT = 'PASTE_APPS_SCRIPT_URL';
+  // ▲▲ 배포 후 받은 주소(https://script.google.com/macros/s/..../exec) ▲▲
+
+  var form=document.getElementById('form'), done=document.getElementById('done'),
+      err=document.getElementById('err'), submit=document.getElementById('submit');
+
+  document.getElementById('privacy-link').addEventListener('click',function(){document.getElementById('privacy').showModal();});
+  document.getElementById('privacy-x').addEventListener('click',function(){document.getElementById('privacy').close();});
+
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    err.textContent='';
+    var name=document.getElementById('name').value.trim();
+    var phone=document.getElementById('phone').value.trim();
+    var slot=(form.querySelector('input[name=slot]:checked')||{}).value||'';
+    var agree=document.getElementById('agree').checked;
+    var hp=form.querySelector('input[name=website]').value;
+
+    if(!name){ err.textContent='성명을 입력해 주세요.'; return; }
+    if(!/[0-9]{3}[- ]?[0-9]{3,4}[- ]?[0-9]{4}/.test(phone)){ err.textContent='전화번호를 정확히 입력해 주세요.'; return; }
+    if(!slot){ err.textContent='희망 연수 일시를 선택해 주세요.'; return; }
+    if(!agree){ err.textContent='개인정보 수집·이용에 동의해 주세요.'; return; }
+    if(hp){ return; } // 봇 차단
+
+    submit.disabled=true; submit.textContent='신청 중…';
+
+    var body=new URLSearchParams({name:name,phone:phone,slot:slot});
+    fetch(ENDPOINT,{method:'POST',mode:'no-cors',body:body})
+      .then(function(){ showDone(name,phone,slot); })
+      .catch(function(){
+        submit.disabled=false; submit.textContent='신청하기';
+        err.textContent='전송에 실패했어요. 잠시 후 다시 시도하거나 콜센터로 문의해 주세요.';
+      });
+  });
+
+  function showDone(name,phone,slot){
+    document.getElementById('receipt').innerHTML=
+      '<div><b>성명</b> · '+esc(name)+'</div>'+
+      '<div><b>전화</b> · '+esc(phone)+'</div>'+
+      '<div><b>일시</b> · '+esc(slot)+'</div>';
+    form.style.display='none'; done.style.display='block';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  function esc(s){return String(s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+})();
+</script>
+</body>
+</html>
