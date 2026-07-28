@@ -152,9 +152,8 @@
 
 <script>
 (function(){
-  // ▼▼ 구글 Apps Script 웹앱 URL을 여기에 넣으세요 ▼▼
-  var ENDPOINT = 'PASTE_APPS_SCRIPT_URL';
-  // ▲▲ 배포 후 받은 주소(https://script.google.com/macros/s/..../exec) ▲▲
+  // 구글 Apps Script 웹앱 URL (신청 데이터 → 구글시트로 수집)
+  var ENDPOINT = 'https://script.google.com/macros/s/AKfycbxL6Ua4nbvU2zKuC7h7EfOk_z4F5sLlYK8iCh2Ho02VEMycFOy654wGOWEMj6MZFu9q5g/exec';
 
   var form=document.getElementById('form'), done=document.getElementById('done'),
       err=document.getElementById('err'), submit=document.getElementById('submit');
