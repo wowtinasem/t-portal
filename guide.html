@@ -66,11 +66,12 @@
   .time .sub{margin:0 0 11px;font-size:12px;color:var(--muted)}
   .time .sub b{color:var(--orange)}
   .time ul{list-style:none;margin:0;padding:0}
-  .time li{display:flex;justify-content:space-between;align-items:center;gap:10px;
+  .time li{display:flex;align-items:center;gap:10px;
     padding:9px 12px;border-radius:9px;background:#fff;border:1px solid #e6ebf6;margin-bottom:7px}
-  .time li .d{font-size:13.5px;font-weight:800;color:var(--navy)}
-  .time li .t{font-size:13px;font-weight:700;color:var(--navy2)}
-  .time li .t i{color:#c3ccdf;font-style:normal;margin:0 6px}
+  .time li .d{flex:0 0 90px;font-size:13.5px;font-weight:800;color:var(--navy)}
+  .time li .t{display:flex;align-items:center;font-size:13px;font-weight:700;color:var(--navy2)}
+  .time li .t .s1{flex:0 0 104px}
+  .time li .t .s2 i{color:#c3ccdf;font-style:normal;margin:0 6px}
   .go{display:flex;align-items:center;justify-content:center;gap:9px;margin-top:14px;
     font-size:15.5px;font-weight:800;color:#fff;text-decoration:none;
     background:linear-gradient(135deg,var(--orange2),var(--orange));
@@ -105,10 +106,10 @@
         <h2>원격 연수 시간</h2>
         <p class="sub">연수 내용은 동일 · <b>1회 선택 참여</b> · 연수 링크는 모두 동일합니다.</p>
         <ul>
-          <li><span class="d">7/30 (목)</span><span class="t">10:00~12:00<i>/</i>14:00~16:00</span></li>
-          <li><span class="d">7/31 (금)</span><span class="t">10:00~12:00</span></li>
-          <li><span class="d">8/13 (목)</span><span class="t">10:00~12:00<i>/</i>14:00~16:00</span></li>
-          <li><span class="d">8/14 (금)</span><span class="t">10:00~12:00</span></li>
+          <li><span class="d">7/30 (목)</span><span class="t"><span class="s1">10:00~12:00</span><span class="s2"><i>/</i>14:00~16:00</span></span></li>
+          <li><span class="d">7/31 (금)</span><span class="t"><span class="s1">10:00~12:00</span></span></li>
+          <li><span class="d">8/13 (목)</span><span class="t"><span class="s1">10:00~12:00</span><span class="s2"><i>/</i>14:00~16:00</span></span></li>
+          <li><span class="d">8/14 (금)</span><span class="t"><span class="s1">10:00~12:00</span></span></li>
         </ul>
         <a class="go" href="https://whaleon.us/o/CSpiIQ/b93b79b07d604784a0b4518f46884f1b" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
