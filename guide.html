@@ -40,6 +40,13 @@
     padding:22px 18px;box-shadow:0 20px 44px -22px rgba(28,46,88,.45);overflow:hidden}
   .card::before{content:"";position:absolute;left:0;top:0;right:0;height:6px;
     background:linear-gradient(90deg,var(--navy2),var(--orange))}
+  .pcnote{display:flex;align-items:center;gap:10px;margin-bottom:16px;
+    background:linear-gradient(135deg,#22417e,#16224a);color:#fff;
+    border-radius:11px;padding:12px 14px;box-shadow:0 12px 24px -14px rgba(22,34,74,.6)}
+  .pcnote svg{flex:0 0 auto;width:24px;height:24px;stroke:#ffd9b8;fill:none;
+    stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .pcnote span{font-size:13.5px;font-weight:700;line-height:1.5}
+  .pcnote b{color:#ffd9b8}
   /* 단계 */
   ol.steps{list-style:none;margin:0 0 4px;padding:0;counter-reset:s}
   ol.steps li{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px dashed #e7ebf5}
@@ -89,6 +96,10 @@
     </div>
 
     <div class="card">
+      <div class="pcnote">
+        <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        <span>연수는 <b>PC(데스크톱·노트북)</b> 환경에서 수강해 주세요.</span>
+      </div>
       <ol class="steps">
         <li><span class="n">1</span><span class="tx">네이버에서 <b>네이버 웨일(Whale)</b> 브라우저를 다운로드하여 설치해 주세요.</span></li>
         <li><span class="n">2</span><span class="tx">연수는 웨일온(마주온)에서 진행됩니다.<br><span class="idbox">회의 ID <b>2108142368</b> &nbsp;·&nbsp; 비밀번호 <b>519924</b></span></span></li>
