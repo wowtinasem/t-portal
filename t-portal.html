@@ -856,7 +856,7 @@
           ]},
           { date:'8/12', dow:'수', type:'집합', locs:[
             { v:'한서대학교', r:'서산', elem:['기초-1과정'], mid:['국어-심화','수학-심화','인문-심화'] },
-            { v:'충남SW교육체험센터', r:'홍성', elem:['기초-2과정','실과-1과정','심화-1과정'], mid:['국어-심화','수학-심화','인문-기초','인문-전문가'] }
+            { v:'충남SW교육체험센터', r:'홍성', nq:'충남 홍성군 홍성읍 충서로1575번길 10', elem:['기초-2과정','실과-1과정','심화-1과정'], mid:['국어-심화','수학-심화','인문-기초','인문-전문가'] }
           ]},
           { date:'8/13', dow:'목', type:'집합+원격', locs:[
             { v:'공주대학교 천안캠퍼스', r:'천안', elem:['실과-3과정','심화-3과정'], mid:['기술-심화','기술-전문가','수학-심화','수학-전문가'] }
@@ -902,7 +902,7 @@
           html+='<div class="day-loc">'
              +locs.map(function(l){
                  if(l.tbd) return '<span class="l tbd">'+pinSvg+'<span class="lname">'+l.v+'</span><em class="tbd-tag">추후 공지</em></span>';
-                 return '<a class="l" href="'+naverUrl(l.v+' '+l.r)+'" target="_blank" rel="noopener">'+pinSvg+'<span class="lname">'+l.v+'</span>'+extSvg+'</a>';
+                 return '<a class="l" href="'+naverUrl(l.nq||(l.v+' '+l.r))+'" target="_blank" rel="noopener">'+pinSvg+'<span class="lname">'+l.v+'</span>'+extSvg+'</a>';
                }).join('')
              +(d.type==='집합+원격'?'<span class="l">'+netSvg+'<span class="lname hl-rem">원격 연수</span></span>':'')
              +'</div>';
@@ -1500,7 +1500,7 @@
       <a class="spot" data-region="kamco" style="left:72.3%;top:47.1%;width:21.9%;height:10.3%" href="https://map.naver.com/p/search/%EC%BA%A0%EC%BD%94%EC%9D%B8%EC%9E%AC%EA%B0%9C%EB%B0%9C%EC%9B%90" target="_blank" rel="noopener" title="캠코인재개발원 · 아산권역" aria-label="캠코인재개발원 네이버 지도 열기"></a>
       <a class="spot" data-region="lx" style="left:72.3%;top:60.1%;width:21.9%;height:10.3%" href="https://map.naver.com/p/search/LX%EA%B5%AD%ED%86%A0%EC%A0%95%EB%B3%B4%EA%B5%90%EC%9C%A1%EC%9B%90" target="_blank" rel="noopener" title="LX국토정보교육원 · 공주·부여·청양권역" aria-label="LX국토정보교육원 네이버 지도 열기"></a>
       <a class="spot" data-region="hanseo" style="left:5.1%;top:30.6%;width:22.2%;height:10.8%" href="https://map.naver.com/p/search/%ED%95%9C%EC%84%9C%EB%8C%80%ED%95%99%EA%B5%90" target="_blank" rel="noopener" title="한서대학교 · 서산·태안·당진권역" aria-label="한서대학교 네이버 지도 열기"></a>
-      <a class="spot" data-region="yesan" style="left:5.1%;top:44.6%;width:22.2%;height:10.3%" href="https://map.naver.com/p/search/%EC%B6%A9%EB%82%A8%EC%86%8C%ED%94%84%ED%8A%B8%EC%9B%A8%EC%96%B4%EA%B5%90%EC%9C%A1%EC%B2%B4%ED%97%98%EC%84%BC%ED%84%B0" target="_blank" rel="noopener" title="충남SW교육체험센터 · 홍성·보령·예산·서천권역" aria-label="충남소프트웨어교육체험센터 네이버 지도 열기"></a>
+      <a class="spot" data-region="yesan" style="left:5.1%;top:44.6%;width:22.2%;height:10.3%" href="https://map.naver.com/p/search/%EC%B6%A9%EB%82%A8%20%ED%99%8D%EC%84%B1%EA%B5%B0%20%ED%99%8D%EC%84%B1%EC%9D%8D%20%EC%B6%A9%EC%84%9C%EB%A1%9C1575%EB%B2%88%EA%B8%B8%2010" target="_blank" rel="noopener" title="충남SW교육체험센터 · 홍성·보령·예산·서천권역" aria-label="충남소프트웨어교육체험센터 네이버 지도 열기"></a>
       <a class="spot" data-region="hyejeon" style="left:5.1%;top:58.1%;width:22.2%;height:10.3%" href="https://map.naver.com/p/search/%ED%98%9C%EC%A0%84%EB%8C%80%ED%95%99%EA%B5%90" target="_blank" rel="noopener" title="혜전대학교 · 홍성·보령·예산·서천권역" aria-label="혜전대학교 네이버 지도 열기"></a>
       <a class="spot" data-region="geonyang" style="left:5.1%;top:71.1%;width:22.2%;height:10.3%" href="https://map.naver.com/p/search/%EA%B1%B4%EC%96%91%EB%8C%80%ED%95%99%EA%B5%90" target="_blank" rel="noopener" title="건양대학교 · 논산계룡·금산권역" aria-label="건양대학교 네이버 지도 열기"></a>
     </div>
@@ -1536,7 +1536,7 @@
         <div class="vmeta">서산시 해미면 대곡리 1045</div>
         <span class="vgo">네이버 지도에서 보기 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
       </a>
-      <a class="venue" data-region="yesan" href="https://map.naver.com/p/search/%EC%B6%A9%EB%82%A8%EC%86%8C%ED%94%84%ED%8A%B8%EC%9B%A8%EC%96%B4%EA%B5%90%EC%9C%A1%EC%B2%B4%ED%97%98%EC%84%BC%ED%84%B0" target="_blank" rel="noopener">
+      <a class="venue" data-region="yesan" href="https://map.naver.com/p/search/%EC%B6%A9%EB%82%A8%20%ED%99%8D%EC%84%B1%EA%B5%B0%20%ED%99%8D%EC%84%B1%EC%9D%8D%20%EC%B6%A9%EC%84%9C%EB%A1%9C1575%EB%B2%88%EA%B8%B8%2010" target="_blank" rel="noopener">
         <div class="vr">홍성·보령·예산·서천권역 · 8.12(수)</div>
         <div class="vn">충남SW교육체험센터<span class="vb">홍성여고 뒤</span></div>
         <div class="vmeta">홍성군 홍성읍 충서로1575번길 10</div>
