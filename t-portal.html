@@ -756,6 +756,14 @@
     .ty-set{background:#e9effb;color:var(--c-blue)}
     .ty-rem{background:#eaf4fc;color:var(--c-sky)}
     .ty-both{background:#eef1f8;color:var(--c-navy)}
+    .ty-extra{background:#f4641c;color:#fff}
+    /* 추가 연수(9월) — 주황색 구분 */
+    .cal-wave.wave-extra .cal-wave-h{color:#c1440a}
+    .cal-wave.wave-extra .cal-wave-h .pin{background:linear-gradient(135deg,#ffa24a,#f4641c)}
+    .day-extra{--day-ac:#f4641c;background:linear-gradient(180deg,#fff7f0,#fff);cursor:default}
+    .day-extra .extra-body{flex:1;display:flex;align-items:center;justify-content:center;padding:16px 13px 18px}
+    .day-extra .extra-t{font-size:15.5px;font-weight:800;color:#c1440a;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+    .day-extra:hover .extra-t{color:#fff}
 
     .day-loc{padding:10px 13px;display:flex;flex-direction:column;gap:6px;min-height:58px}
     .day-loc a.l,.day-loc .l{display:flex;gap:6px;align-items:flex-start;font-size:12px;color:var(--c-ink);font-weight:600;line-height:1.35;text-decoration:none}
@@ -839,6 +847,11 @@
       if(!root) return;
 
       var waves=[
+        { label:'추가 연수', range:'2026. 9. 12(토) · 9. 19(토)', extra:true, days:[
+          { date:'9/12', dow:'토', wlabel:'1차', time:'09:30~12:30' },
+          { date:'9/12', dow:'토', wlabel:'2차', time:'13:30~16:30' },
+          { date:'9/19', dow:'토', wlabel:'3차', time:'09:30~12:30' }
+        ]},
         { label:'1차', range:'2026. 7. 27(월) ~ 7. 31(금)', days:[
           { date:'7/27', dow:'월', type:'집합', locs:[
             { v:'우정인재개발원', r:'천안', elem:['기초-1과정','기초-2과정','기초-3과정','심화-1과정'], mid:['과학-기초','과학-심화','수학-기초','인문-기초','인문-심화','정보-기초'] },
@@ -930,10 +943,18 @@
         return html;
       }
 
+      function extraCard(d){
+        return '<div class="day day-extra">'
+          +'<div class="day-h"><span class="day-d"><b>'+d.date+'</b><span>'+d.dow+'</span></span>'
+          +'<span class="day-type ty-extra">'+d.wlabel+'</span></div>'
+          +'<div class="extra-body"><span class="extra-t">'+d.time+'</span></div>'
+          +'</div>';
+      }
+
       var body='';
       waves.forEach(function(w){
-        body+='<div class="cal-wave"><div class="cal-wave-h"><span class="pin">'+w.label+'</span>'+w.range+'</div>';
-        body+='<div class="cal-grid">'+w.days.map(dayCard).join('')+'</div></div>';
+        body+='<div class="cal-wave'+(w.extra?' wave-extra':'')+'"><div class="cal-wave-h"><span class="pin">'+w.label+'</span>'+w.range+'</div>';
+        body+='<div class="cal-grid">'+w.days.map(w.extra?extraCard:dayCard).join('')+'</div></div>';
       });
       document.getElementById('cal-body').innerHTML=body;
 
@@ -1080,8 +1101,8 @@
     <div class="ct-cols">
 
       <!-- ===== 초등 ===== -->
-      <div class="ct-card">
-        <div class="ct-top" role="button" tabindex="0" aria-expanded="true">
+      <div class="ct-card collapsed">
+        <div class="ct-top" role="button" tabindex="0" aria-expanded="false">
           <span class="ct-lv">초등<span class="ct-b">초등 교원</span></span>
           <span class="ct-tot">전체 <b>7</b>차시</span><span class="ct-chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
         </div>
@@ -1126,8 +1147,8 @@
       </div>
 
       <!-- ===== 중등 ===== -->
-      <div class="ct-card">
-        <div class="ct-top" role="button" tabindex="0" aria-expanded="true">
+      <div class="ct-card collapsed">
+        <div class="ct-top" role="button" tabindex="0" aria-expanded="false">
           <span class="ct-lv">중등<span class="ct-b">중등 교원</span></span>
           <span class="ct-tot">전체 <b>7</b>차시</span><span class="ct-chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
         </div>
