@@ -761,9 +761,14 @@
     .cal-wave.wave-extra .cal-wave-h{color:#c1440a}
     .cal-wave.wave-extra .cal-wave-h .pin{background:linear-gradient(135deg,#ffa24a,#f4641c)}
     .day-extra{--day-ac:#f4641c;background:linear-gradient(180deg,#fff7f0,#fff);cursor:default}
-    .day-extra .extra-body{flex:1;display:flex;align-items:center;justify-content:center;padding:16px 13px 18px}
+    .day-extra .extra-body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;padding:15px 13px 17px}
     .day-extra .extra-t{font-size:15.5px;font-weight:800;color:#c1440a;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+    .day-extra .extra-loc{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;font-weight:700;color:#8a3b00;text-decoration:none}
+    .day-extra .extra-loc svg{width:13px;height:13px;color:#f4641c;flex:none}
+    .day-extra .extra-loc .ext{width:11px;height:11px}
+    .day-extra .extra-loc:hover .lname{text-decoration:underline}
     .day-extra:hover .extra-t{color:#fff}
+    .day-extra:hover .extra-loc,.day-extra:hover .extra-loc svg{color:#fff}
 
     .day-loc{padding:10px 13px;display:flex;flex-direction:column;gap:6px;min-height:58px}
     .day-loc a.l,.day-loc .l{display:flex;gap:6px;align-items:flex-start;font-size:12px;color:var(--c-ink);font-weight:600;line-height:1.35;text-decoration:none}
@@ -848,9 +853,9 @@
 
       var waves=[
         { label:'추가 연수', range:'2026. 9. 12(토) · 9. 19(토)', extra:true, days:[
-          { date:'9/12', dow:'토', wlabel:'1차', time:'09:30~12:30' },
-          { date:'9/12', dow:'토', wlabel:'2차', time:'13:30~16:30' },
-          { date:'9/19', dow:'토', wlabel:'3차', time:'09:30~12:30' }
+          { date:'9/12', dow:'토', wlabel:'1차', time:'09:30~12:30', v:'캠코인재개발원', r:'아산' },
+          { date:'9/12', dow:'토', wlabel:'2차', time:'13:30~16:30', v:'캠코인재개발원', r:'아산' },
+          { date:'9/19', dow:'토', wlabel:'3차', time:'09:30~12:30', v:'캠코인재개발원', r:'아산' }
         ]},
         { label:'1차', range:'2026. 7. 27(월) ~ 7. 31(금)', days:[
           { date:'7/27', dow:'월', type:'집합', locs:[
@@ -944,10 +949,11 @@
       }
 
       function extraCard(d){
+        var loc = d.v ? '<a class="l extra-loc" href="'+naverUrl(d.nq||(d.v+' '+d.r))+'" target="_blank" rel="noopener">'+pinSvg+'<span class="lname">'+d.v+'</span>'+extSvg+'</a>' : '';
         return '<div class="day day-extra">'
           +'<div class="day-h"><span class="day-d"><b>'+d.date+'</b><span>'+d.dow+'</span></span>'
           +'<span class="day-type ty-extra">'+d.wlabel+'</span></div>'
-          +'<div class="extra-body"><span class="extra-t">'+d.time+'</span></div>'
+          +'<div class="extra-body"><span class="extra-t">'+d.time+'</span>'+loc+'</div>'
           +'</div>';
       }
 
